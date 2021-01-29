@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SHOP_DECOMPILED.Migrations
 {
-    public partial class FINAL : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,8 @@ namespace SHOP_DECOMPILED.Migrations
                     Item_name = table.Column<string>(nullable: false),
                     Item_price = table.Column<float>(nullable: false),
                     Quantity = table.Column<float>(nullable: false),
-                    DateTime = table.Column<string>(nullable: false)
+                    DateTime = table.Column<string>(nullable: false),
+                    Cost_price = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,6 +67,9 @@ namespace SHOP_DECOMPILED.Migrations
                     Item_id = table.Column<int>(nullable: false),
                     quantity_sold = table.Column<float>(nullable: false),
                     Total_cash_made = table.Column<float>(nullable: false),
+                    Cost_cash = table.Column<float>(nullable: false),
+                    Total_Cost_cash = table.Column<float>(nullable: false),
+                    Profit = table.Column<float>(nullable: false),
                     DateTime = table.Column<string>(nullable: false)
                 },
                 constraints: table =>

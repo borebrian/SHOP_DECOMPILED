@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SHOP_DECOMPILED.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210129084856_cost_price1")]
-    partial class cost_price1
+    [Migration("20210129151833_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
