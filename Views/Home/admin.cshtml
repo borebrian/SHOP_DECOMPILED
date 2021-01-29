@@ -263,7 +263,7 @@
                                                 <td class="border_none" style="border-top: none">@item.Cost_price</td>
                                                 <td class="border_none" style="border-top:none">@item.Item_price/=</td>
                                                 <td class="border_none" style="border:none"><span class="badge badge-dark">@item.Quantity</span></td>
-                                                <td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>
+                                                <td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>
 
                                             </tr>
                                         }
@@ -479,7 +479,7 @@
                                         <strong>
                                             Success!
                                         </strong>
-                                        <p>@TempData["message"]</p>
+                                        <p></p>
                                     </div>
                                 </th>
                             </tr>
@@ -507,14 +507,19 @@
                             {
                                 @foreach (var item in @ViewBag.JoinList12)
                                 {
-                                    <tr>
-                                        <td class="border_none" style="border-top: none">@item.DateTime</td>
-                                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                    <tr>
+                        <td class="border_none" style="border-top: none">@item.DateTime</td>
+                        <td class="border_none" style="border-top: none">@item.Item_name</td>
 
-                                        <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
-                                        <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                                        <td class="sub_totals_mod2" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
-                                    </tr>
+                        <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                        <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                        <td class="sub_totals_mod2" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                        @{
+                            float profit = item.Total_cash_made- item.Total_Cost_cash;
+                        }
+                        <td class="sub_totals_cost_price" id="total_per_brand_sold_0_f" style="border:none"><span class="badge badge-success">@profit</span></td>
+
+                    </tr>
 
                                 }
 
@@ -526,15 +531,18 @@
                             @*<div class="alert alert-danger">IKO</div>*@
                             @foreach (var item in @ViewBag.JoinList_general_third)
                             {
-                                <tr>
-                                    <td class="border_none" style="border-top: none">@item.DateTime</td>
-                                    <td class="border_none" style="border-top: none">@item.Item_name</td>
+                    <tr>
+                        <td class="border_none" style="border-top: none">@item.DateTime</td>
+                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                        <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                        <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                        <td class="sub_totals_mod2" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                        @{
+                            float profit2 = item.Total_cash_madeitem-item.Total_Cost_cash ;
+                        }
+                        <td  id="total_per_brand_sold_0_f1" style="border:none"><span class="badge badge-success sub_totals_cost_price_f" >@profit2</span></td>
 
-                                    <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
-                                    <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                                    <td class="sub_totals_mod2" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
-
-                                </tr>
+                    </tr>
 
                             }
                         }
@@ -545,10 +553,15 @@
                         @if (@ViewBag.JoinList_general_third != null)
                         {
 
-                            <tr>
-                                <td colspan="4" class="text-left" style="border:none;"><b>TOTAL</b></td>
-                                <td style="border:none;" class="border_none text-right">Ksh.<b id="total12">@TempData["total"]</b></td>
-                            </tr>
+                    <tr>
+                        <td class="text-left" style="border:none;"><b>TOTAL CASH MADE</b></td>
+                        <td style="border:none;" class="border_none text-right">Ksh.</td>
+                        </tr>
+                        <tr>
+                        <td class="text-left" style="border:none;"><b>PROFIT</b></td>
+
+                        <td style="border:none;" class="border_none text-right">Ksh.<b id="total12_F"></b></td>
+                    </tr>
 
                         }
                     </table>
@@ -620,9 +633,9 @@
                                     <td class="brand_totals" style="border-top:none">@item.Item_price</td>
                                     <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
                                     @{
-                                        float profit = item.Total_Cost_cash - item.Total_cash_made;
+                                        float profit = item.Total_cash_made-item.Total_Cost_cash ;
                                     }
-                                    <td class="sub_totals_cost_price" id="total_per_brand_sold_0" style="border:none">@profit</td>
+                                    <td class="sub_totals_cost_price" id="total_per_brand_sold_0" style="border:none"><span class="badge badge-success">@profit</span></td>
 
                                 </tr>
 
@@ -631,9 +644,11 @@
                         }
                     <tr>
                         <td class="text-left" style="border:none;"><b>TOTAL CASH:</b></td>
-                        <td style="border:none;" class="border_none text-left">Ksh.<b id="total"></b></td>
+                        <td style="border:none;" class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total"></b></span></td>
+                        </tr>
+<tr>
                         <td class="text-left" style="border:none;"><b>PROFIT:</b></td>
-                        <td style="border:none;" class="border_none text-left">Ksh.<b id="total_profit"></b></td>
+                        <td style="border:none;" class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_profit"></b></span></td>
 
 
                     </tr>
@@ -852,7 +867,40 @@
 </div>
 
 
-<div class="modal fade custome_modal_radius" id="product_infor">
+<div class="modal fade custome_modal_radius" id="edit_stock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  ">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; <p id="name_infor2"></p>
+            </div>            
+            <div class="modal-body  p-2  ">
+                <form asp-action="modify_stock">
+                    <div class="input-group mb-3">
+
+                       
+                    </div> <div class="input-group mb-3">
+
+
+
+                        <input hidden class="form-control" min="0" name="mod_id" id="mod_id" type="number">
+                        <input class="form-control"  step="any" placeholder="Enter new cost price"  name="mod_stock_" id="mod_stock_" type="number">
+
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-primary">Modify</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="modal fade custome_modal_radius" id="product_infor">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -924,7 +972,7 @@
         padding: 2px;
         margin: 0px;
 ">
-                                                    <p id="quantity_infor" class="price"></p>
+                                                    <p id="quantity_infor" class="price"></p><a class="btn btn-light w3-card" data-dismiss="modal" data-target="#edit_stock" data-toggle="modal"><i class="glyphicon glyphicon-hand-up"></i>&nbsp;Edit Stock</a>
                                                 </td>
                                             </tr>
 
@@ -998,6 +1046,12 @@
                                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                     </a>
                                 </div>
+                            </div> <div class="input-group mb-3">
+
+                               
+                              
+                                <input class="form-control" min="0" placeholder="Enter new cost price" value="0"  name="cost_price_restock" id="cost_price"  type="number">
+                                
                             </div>
                             <table class="table">
                                 <tr>
@@ -1296,6 +1350,8 @@ $(document).ready(function () {
 	//alert("hdhhdh");
 });
         calc_total();
+        calc_total_cost_price();
+        calc_total_cost_price_f();
 
 	$("#calculate_total").click(function () {
 		var date = $("#serach_sales").val();
@@ -1364,13 +1420,17 @@ $(document).ready(function () {
 
 
 
-	function find_details(id, name, price, quantity, date) {
+	function find_details(id, name, price, quantity, date,cost_price) {
 		$("#name_infor").text(name);
+		$("#name_infor2").text(name);
+        $("#mod_id").val(id);
+        $("#mod_stock_").val(cost_price);
 		$("#price_infor").text(price);
 		$("#current_price").text(price);
 		$("#quantity_infor").text(quantity);
 		$("#date_infor").text(date);
 		$("#id_for_restock").val(id);
+        $("#cost_price_restock").val(cost_price);
 		$("#change_price_id").val(id);
 		$("#delete_id").val(id);
 		$("#current_stock").text(quantity);

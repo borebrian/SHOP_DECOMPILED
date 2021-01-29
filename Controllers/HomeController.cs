@@ -245,13 +245,33 @@ namespace SHOP.Controllers
 
         }
 
-        public IActionResult restock(int id, int ammount)
+        public IActionResult modify_stock(int mod_id, float mod_stock_)
+        {
+            var rest = _context.Shop_items.FirstOrDefault(x => x.id == mod_id);
+
+            
+            rest.Quantity = mod_stock_;
+            
+            //db.Entry(payment).State = EntityState.Modified;
+            _context.Entry(rest).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            TempData["popup"] = "1";
+            //TempData["popup"] = "2";
+            //TempData["popup"] = "Successfully working!";
+            TempData["message"] = "You have modified stock to " + mod_stock_;
+
+            return Redirect("~/home/admin");
+
+        }
+        public IActionResult restock(int id, int ammount,float cost_price_restock)
         {
 
             var rest = _context.Shop_items.FirstOrDefault(x => x.id == id);
             float initialStock = rest.Quantity;
             var new_stock = initialStock + ammount;
             rest.Quantity = new_stock;
+            rest.Cost_price = cost_price_restock;
             //db.Entry(payment).State = EntityState.Modified;
             _context.Entry(rest).State = EntityState.Modified;
             _context.SaveChanges();
@@ -742,7 +762,7 @@ namespace SHOP.Controllers
             return Redirect("~/home/admin");
 
         }
-        public IActionResult add_item(String Item_name, float Item_price, int Quantity, String date)
+        public IActionResult add_item(String Item_name,float cost_price, float Item_price, int Quantity, String date)
         {
             var check_if_item_exists = _context.Shop_items.SingleOrDefault(x => x.Item_name == Item_name);
             if (check_if_item_exists == null)
@@ -752,8 +772,9 @@ namespace SHOP.Controllers
                     Item_name = Item_name,
                     Item_price = Item_price,
                     Quantity = Quantity,
-                    DateTime = date
-
+                    DateTime = date,
+                    Cost_price=cost_price
+                    
 
                 };
 

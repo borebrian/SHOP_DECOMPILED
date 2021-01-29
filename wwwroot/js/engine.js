@@ -325,13 +325,26 @@ function calc_total() {
 	$('#total1').text(sum);
 	
 }
-function calc_total() {
+function calc_total_cost_price() {
 	var sum = 0;
 	$(".sub_totals_cost_price").each(function () {
 		sum += parseFloat($(this).text());
 	});
 	
 	$('#total_profit').text(sum);
+	
+}
+
+function calc_total_cost_price_f() {
+
+var sum = 0;
+
+$(".sub_totals_cost_price_f").each(function () {
+
+		sum += parseFloat($(this).text());
+	});
+	
+	$('#total12_F').text(sum);
 	
 }
 

@@ -417,7 +417,7 @@
                         <td class="border_none" style="border-top: none">@item.Item_name</td>
                         <td class="border_none" style="border-top:none">@item.Item_price/=</td>
                         <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
-                        <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Cost_price','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><img src="~/icons/tap.png" class="sell" /></button></td>
+                        <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><img src="~/icons/tap.png" class="sell" /></button></td>
 
                     </tr>
                         }
@@ -544,7 +544,8 @@
                                         <i class="fa fa-minus-circle" aria-hidden="true"></i>
                                     </a>
                                 </div>
-                                <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><input hidden autocomplete="on" id="price_for_quantity_selector" type="number">
+                                <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><br />
+                                <input hidden  autocomplete="on" id="price_for_quantity_selector" type="number">
                                 <input class="form-control" min="0.5" name="ammount" id="quantity_selector" value="1" type="number">
                                 <div class="input-group-append text-light w3-card">
                                     <a style="
@@ -1162,7 +1163,7 @@ $("#attendants_pdf").click(function () {
 	//	$('#total').text(sum);
 	//}
 
-	function find_details(id,cost_price, name, price, quantity, date) {
+            function find_details(id, name, price, quantity, date, cost_price,) {
         $("#item_selected").text(name);
         $("#id_for_restock").text(id);
         $("#price_for_quantity_selector").val(price);
@@ -1270,8 +1271,9 @@ $("#attendants_pdf").click(function () {
             var id = $("#id_finish").val();
             var qntity = parseFloat(qntity_before);
             var price = parseFloat(price_before);
-            var calculated = qntity * price;
+                var calculated = qntity * price;
 
+                //alert(calculated);
                 $.ajax({
                     type: "POST",
                     url: "/Home/sell_Item",
