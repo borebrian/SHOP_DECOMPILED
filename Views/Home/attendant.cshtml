@@ -1,0 +1,1422 @@
+﻿
+<div class="row">
+
+    <div class="col-lg-12">
+
+
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="bg-white p-2 w3-card">
+                        <div class="card-body text-left">
+                            <div class="row">
+                                @*<div class="col-lg-4 col-4 border-right-account">
+                                        <p><img class="icons" src="~/icons/account.png" alt="card image"></p>
+                                    </div>*@
+
+                                <div class="col-lg-12 col-12 ">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                @ViewBag.shop_name
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @*<span class="badge badge-secondary">*@
+                                                <b>
+
+                                                    @ViewBag.name
+                                                </b>
+                                                @*</span>*@
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @*<span class="badge badge-secondary">*@
+                                                Attendant
+                                                @*</span>*@
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+
+                                    @*<a href="" class="btn btn-light btn-sm">More details &nbsp;<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a>*@
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+
+
+        <div class="image-flip ">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card p-0 side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+                                <div class="col-lg-6 col-6">
+                                    <p><img class="icons" src="~/icons/item.png" alt="card image"></p>
+                                </div>
+
+                                <div class="col-lg-6 col-6">
+                                    <h1 class="card-title"> @ViewBag.count_all</h1>
+
+                                </div>
+                            </div>
+
+
+
+
+                            <p class="card-text">@ViewBag.faqs&nbsp; <button data-toggle="modal" data-target="#items_information" class="btn  bg-white w3-card ">All items </button></p>
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4">
+
+
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+                                <div class="col-lg-6 col-6">
+                                    <p><img class="icons" src="~/icons/sold.png" alt="card image"></p>
+                                </div>
+
+                                <div class="col-lg-6 col-6">
+                                    <h1 class="card-title">@ViewBag.count_below</h1>
+                                    @*<a href="" class="btn btn-light btn-sm">More details &nbsp;<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a>*@
+
+                                </div>
+                            </div>
+
+
+
+
+                            <p class="card-text">@ViewBag.faqs&nbsp; <button class="btn w3-card bg-white card-title-custome " data-toggle="modal" data-target="#to_restock_modal">To restock &nbsp;</button></p>
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+    <div class="col-lg-4">
+
+
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+                                <div class="col-lg-6 col-6">
+                                    <p><img class="icons" src="~/icons/sold_today.png" alt="card image"></p>
+                                </div>
+
+                                <div class="col-lg-6 col-6">
+                                    <h1 class="card-title">@ViewBag.sold</h1>
+
+                                </div>
+                            </div>
+
+
+
+
+                            <p class="card-text">&nbsp; <button class="btn  bg-white  w3-card" data-toggle="modal" data-target="#sold_items_modal">Sold Today</button></p>
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid  bg-white  background_bottom fixed-bottom custome_footer text-center p-bw3-card pt-2  w3-card sell_1">
+    <table class="table">
+        <tr>
+
+            <td class="border-0">
+
+                <button class="btn btn-light text-dark w3-card mb-3 font_custome" data-toggle="modal" data-target="#items_information"><img src="~/images/information.png" class="sell" />&nbsp;&nbsp;&nbsp;ITEMS INFOR</button>
+            </td>
+            <td class="border-0">
+                <button class="btn btn-light text-dark w3-card  mb-3 font_custome" data-toggle="modal" data-target="#sell_itemsf"><img src="~/images/sell.png" class="sell" />&nbsp;&nbsp;&nbsp;SELL ITEM</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+
+@*//ALL ITEMS*@
+<div class="modal fade custome_modal_radius" id="items_information">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>ALL ITEMS INFORMATION</b>
+            </div>
+            <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+
+                                <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                    <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                    <input id="search_allbrands" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                           aria-label="Search">
+                                    &nbsp;
+                                    @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@ <button class="btn btn-primary btn-sm" id="all_brands"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 p-2">
+                    <table class="table font_flex" id="allbrands">
+                        <tr>
+                            <th class="border_none" style="border:none">Icon</th>
+                            <th class="border_none" style="border:none">Item name</th>
+                            <th class="border_none" style="border:none">Price</th>
+                            <th class="border_none" style="border:none">Qunty</th>
+                        </tr>
+                        @if (@ViewBag.allBrands_0 != null)
+                        {
+                        @foreach (var item in ViewBag.allBrands_0)
+                            {
+                        <tr>
+                            <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
+                            <td class="border_none" style="border-top: none">@item.Item_name</td>
+                            <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                            @if (@item.Quantity == 0)
+                                    {
+                            <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
+                                    }
+                                    else
+                                    {
+                            <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
+                                    }
+
+                            @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@
+
+                        </tr>
+                            }
+                        }
+                        else
+                        {
+
+                        <tr>
+                            <td colspan="4">
+                                <div class="alert alert-danger">
+                                    <p>No item has been added yet</p>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+
+
+                    </table>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@*//SOLD ITEMS*@
+<div class="modal fade custome_modal_radius" id="sold_items_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>SOLD ITEMS TODAY</b>
+
+            </div>
+            <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+
+                                <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                    <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                    <input id="search_sold_items" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                           aria-label="Search">
+                                    &nbsp;
+                                    <button class="btn btn-primary btn-sm" id="sold_items_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr />
+
+
+                    </div>
+
+                </div>
+                <div class="row mt-1 p-2">
+                    <table class="table font_flex" id="sold_items">
+                        <tr>
+                            <th class="border_none" style="border:none">Date</th>
+                            <th class="border_none" style="border:none">Brand</th>
+                            <th class="border_none" style="border:none">Sold</th>
+                            <th class="border_none" style="border:none">Price</th>
+                            <th class="border_none" style="border:none">Total</th>
+
+                        </tr>
+                        @if (@ViewBag.JoinList != null)
+                        {
+                        @foreach (var item in @ViewBag.JoinList)
+                            {
+                        <tr>
+                            <td class="border_none" style="border-top: none">@item.DateTime</td>
+                            <td class="border_none" style="border-top: none">@item.Item_name</td>
+
+                            <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                            <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                            <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+
+                        </tr>
+
+                            }
+
+                        }
+                        <tr>
+                            <td colspan="4" class="text-left" style="border:none;"><b>TOTAL</b></td>
+                            <td style="border:none;" class="border_none text-left">Ksh.<b id="total"></b></td>
+                        </tr>
+                    </table>
+
+
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@*//SELECT ITEM*@
+<div class="modal fade custome_modal_radius" id="sell_itemsf">
+    <div class="modal-dialog" style="z-index:1020">
+        <div class="modal-content" style="z-index:1020">
+
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>SELLECT ITEM TO SELL</b>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+
+
+
+                <table class="table" style="z-index:1020">
+                    <tr>
+                        <td class="border-0">
+
+                            <input id="sell_item_customer" class="form-control form-control-sm search_input mb-2 w-100" type="text" placeholder="Search"
+                                   aria-label="Search">
+
+
+
+
+                        </td>
+
+                    </tr>
+                </table>
+                Please select item to sell
+                <table class="table font_flex" id="allbrands_1">
+                    <tr>
+                        @*<th class="border_none" style="border:none">Icon</th>*@
+                        <th class="border_none" style="border:none">Item name</th>
+                        <th class="border_none" style="border:none">Price</th>
+                        <th class="border_none" style="border:none">Qunty</th>
+                    </tr>
+                    @if (@ViewBag.allBrands != null)
+                    {
+                    @foreach (var item in ViewBag.allBrands)
+                        {
+                    <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Cost_price','@item.Item_price','@item.Quantity','@item.DateTime')">
+                        @*  <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>*@
+                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                        <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                        <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
+                        <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Cost_price','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><img src="~/icons/tap.png" class="sell" /></button></td>
+
+                    </tr>
+                        }
+                    }
+                    else
+                    {
+
+                    <tr>
+                        <td colspan="4">
+                            <div class="alert alert-danger">
+                                <p>No item has been added yet</p>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+
+
+                </table>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*//CALCULATE CASH*@
+
+<div class="modal fade custome_modal_radius" id="calculate_modal">
+    <div class="modal-dialog" style="z-index:1020">
+        <div class="modal-content" style="z-index:1020">
+
+            <!-- Modal Header -->
+            <div class="modal-header  p-2 grey_custome">
+                <img src="~/icons/finance.png" class="sell" />&nbsp; <h3 class="pr-2" id="item_selected_finance"></h3>
+
+            </div>
+
+
+
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <table class="table" style="z-index:1020">
+                    <tr class="w3-card allbrands_1">
+                        <td class="border-0">Item price:</td>
+                        <td class="border-0"><p id="item_price"></p></td>
+                    </tr>
+                    <tr class="w3-card allbrands_1">
+                        <td class="border-0">Items sold:</td>
+                        <td class="border-0"><p id="items_sold_finance"></p></td>
+                    </tr>
+                    <tr class="w3-card allbrands_1">
+                        <td class="border-0">Total Cash:</td>
+                        <td class="border-0"><p id="total_cash_paid_out"></p></td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 text-center" colspan="2">
+                            @*<form asp-action="post_finish">*@
+                            <input name="id_finish" id="id_finish" hidden />
+                            <input name="quantity_sold" id="quantity_sold" hidden />
+                            <input name="submit_price" id="submit_price" hidden />
+                            <input name="Total_cash_made" id="Total_cash_made" hidden />
+                            <input name="DateTime" id="DateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" hidden />
+                            <button class="btn w3-card-lg" id="next">Next &nbsp;&nbsp;<img src="~/icons/next.png" class="sell_lg" /></button>
+                            @*</form>*@
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*//SELECTED ITEM*@
+
+<div class="modal fade custome_modal_radius" id="selected_item">
+    <div class="modal-dialog" style="z-index:1020">
+        <div class="modal-content" style="z-index:1020">
+
+            <!-- Modal Header -->
+            <div class="modal-header  p-2 grey_custome">
+                <img src="~/images/sell.png" class="sell" />&nbsp; <p id="item_selected"></p>
+
+            </div>
+
+
+
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <table class="table" style="z-index:1020">
+                    @*<tr>
+                            <td>
+                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>&nbsp; Item selected:
+                            </td>
+                            <td>
+                                <p id="item_selected"></p>
+                            </td>
+                        </tr>*@
+                    <tr>
+                        <td class="grey_custome border-0">
+                            <i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Current Quantity:
+                        </td>
+                        <td class="border-0">
+                            <p id="current_quantity"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="border-0 text-center">
+                            <p class="grey_custome">Please enter quantity sold</p>
+                            @*<form asp-action="restock">*@
+                            <div class="input-group mb-3 w3-card">
+
+                                <div class="input-group-prepend text-light">
+                                    <a class="btn btn-primary" style="
+" onclick="dincrementInput('quantity_selector')">
+                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><input hidden autocomplete="on" id="price_for_quantity_selector" type="number">
+                                <input class="form-control" min="0.5" name="ammount" id="quantity_selector" value="1" type="number">
+                                <div class="input-group-append text-light w3-card">
+                                    <a style="
+" class="btn btn-primary" onclick="incrementInput('quantity_selector')">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <tr>
+                                    <td class="text-center border-0">
+                                        <button onclick="openModal('','')" class="btn reduced_radius reduced_radius w3-card"><img src="~/icons/back.png" class="sell_lg" />&nbsp;&nbsp;&nbsp;Back</button>
+                                    </td>
+                                    <td class="text-center border-0">
+                                        <button id="submit_quantity" class="btn reduced_radius reduced_radius w3-card">Next&nbsp;&nbsp;&nbsp;<img src="~/icons/next.png" class="sell_lg" /></button>
+
+                                </tr>
+                            </table>
+                            @*</form>*@
+
+                        </td>
+
+                    </tr>
+                </table>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Button to Open the Modal -->
+<!-- The Modal -->
+<div class="modal" id="done" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content w3-card">
+
+            <table class="table">
+                <tr>
+                    <td rowspan="2">
+                        <img src="/gif/done.gif" class="done" />
+                    </td>
+                    <td>
+                        <p>Item sold successfully.Customer receipt has been downloaded to your local machine!.</p>
+                        <a asp-action="attendant" asp-controller="home" class="btn w3-card">Ok</a>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-header ">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="receipt_mod">
+    <div class="modal-dialog">
+        <div class="modal-content w3-card">
+
+            <!-- Modal Header -->
+            <div class="modal-body ">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="container " id="receipt">
+
+                            <div class="container bg-white w3-card p-2 pt-3">
+                                <div class="row">
+                                    <div class="col-md-12 col-md-offset-3 body-main">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png" /> </div>
+                                                <div class="col-md-8 text-right">
+                                                    <h6 style="color: #F81D2D;"><strong>@ViewBag.shop_name</strong></h6>
+                                                    <p>@ViewBag.phone</p>
+                                                    <p>@ViewBag.Random</p>
+                                                    <p>ifor@fuela.com</p>
+                                                </div>
+                                            </div> <br />
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <h2>INVOICE</h2>
+                                                    <h5>@ViewBag.Random</h5>
+                                                </div>
+                                            </div> <br />
+                                            <div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <h6>Description</h6>
+                                                            </th>
+                                                            <th>
+                                                                <h6>Amount</h6>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="col-md-9">Samsung Galaxy 8 64 GB</td>
+                                                            <td class="col-md-3"><i class="fas fa-rupee-sign" area-hidden="true"></i> 50,000 </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="text-right">
+                                                                <p> <strong>Shipment and Taxes:</strong> </p>
+                                                                <p> <strong>Total Amount: </strong> </p>
+                                                                <p> <strong>Discount: </strong> </p>
+                                                                <p> <strong>Payable Amount: </strong> </p>
+                                                            </td>
+                                                            <td>
+                                                                <p> <strong> 0.00 </strong> </p>
+                                                                <p> <strong>0.00</strong> </p>
+                                                                <p> <strong> 0.00 </strong> </p>
+                                                                <p id="receipt_total"> 0.00 </p>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="color: #F81D2D;">
+                                                            <td class="text-right">
+                                                                <h4><strong>Total:</strong></h4>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                Ksh. <h5 id="receipt_total1"></h5>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div class="col-md-12">
+                                                    <p><small>Date :</small> @DateTime.Now.ToString("dd-MMM-yyyy")</p> <br />
+                                                    <p><small>Served by:&nbsp;&nbsp;@ViewBag.name</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+                
+                <div class="modal" id="confirm_sale">
+    <div class="modal-dialog">
+        <div class="modal-content w3-card">
+
+            <!-- Modal Header -->
+            <div class="modal-header ">
+
+
+
+                <table class="table table-sm border-0">
+                    <tr>
+                        <td colspan="2" class="border-0">
+                            <p>Please confirm sales before submitting</p>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            <img src="/gif/cofirm.gif" class="confirm_gif" />
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="border-0">Item:</td>
+                                    <td class="border-0"><p id="item_name_confirm"></p></td>
+                                </tr>
+                                <tr>
+                                    <td class="border-0">To be sold:</td>
+                                    <td class="border-0"><p id="item_sold_confirm"></p></td>
+                                </tr>
+                                <tr>
+                                    <td class="border-0">Cost Price:</td>
+                                    <td class="border-0"><p id="cost_price_confirm"></p></td>
+                                </tr>
+                                <tr>
+                                    <td class="border-0">Price:</td>
+                                    <td class="border-0"><p id="price_confirm"></p></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="border-0">Sub-Total:</td>
+                                    <td class="border-0"><p id="sub_total_confirm"></p></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 text-left">
+                            <button class="btn w3-card" id="finish_submit">Finish</button>
+                        </td>
+                        <td class="border-0 text-right">
+                            <button class="btn w3-card" onclick="goBack()">Back</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+   
+    @section increment{
+        <script type="text/javascript">
+       //<script type="text/javascript">
+
+$("#to_pdf").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#serach_sales").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#to_pf_table',
+
+	});
+	doc.save('SALES_MADE');
+
+});
+$("#all_brands").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#serach_sales").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#allbrands',
+
+	});
+	doc.save('LIST_OF_ALL_ITEMS');
+
+});
+$("#sold_items_pdf").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#serach_sales").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#sold_items',
+
+	});
+	doc.save('SOLD_ITEMS');
+
+});
+
+$("#restock_pdf").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#serach_sales").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#restock_item',
+	});
+	doc.save('ITEM_RESTOCK_HISTORY');
+
+});
+$("#attendants_pdf").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#serach_sales").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#attendants_table',
+	});
+	doc.save('LIST_OF_ATTENDANTS');
+
+});
+
+        $('#f_screen').click(function () {
+            if ($.fullscreen.isFullScreen()) {
+                $('#fullscreen .requestfullscreen').hide();
+                $('#fullscreen .exitfullscreen').show();
+            } else {
+                $('#fullscreen .requestfullscreen').show();
+                $('#fullscreen .exitfullscreen').hide();
+            }
+            $('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
+        });
+        $(document).ready(function () {
+            //if (!document.fullscreenElement) {
+            //    document.documentElement.requestFullscreen();
+            //}
+	$('#collapse').hide();
+            var msg = '@TempData["popup"]'
+            calc_total();
+	if (msg == "1") {
+		$("danger").show();
+		$("success").hide();
+		//$('#btnSubmit').before('<div>Success!</div>').delay(3000).fadeOut();
+		$('#positive_results').modal('show');
+		setTimeout(function () {
+			$('#positive_results').modal('hide');
+		}, 3000);
+
+	}
+	else if (msg == "2") {
+		$("danger").show();
+		$("success").hide();
+
+		//$('#positive_results').modal('show');
+
+		$('#negative_results').modal('show');
+		setTimeout(function () {
+			$('#negative_results').modal('hide');
+		}, 3000);
+	}
+	else {
+
+	}
+	//alert("hdhhdh");
+});
+        $("#calculate_total").click(function () {
+        });
+	$("#calculate_total").click(function () {
+		var date = $("#serach_sales").val();
+
+		$.ajax({
+			type: "POST",
+			url: "/Home/AjaxMethod",
+
+			data: {
+				"name": date
+			},
+			success: function (response) {
+				$("#sub_totals").text(response.total);
+                //$("#left").text(response.Balance);
+                $('#done').modal('hide');
+                $('#done').modal('show');
+
+				//if (tok < 15) {
+				//    $('#tok').css('background-color', '#7B241C');
+				//    $('#back').css('background-color', '#7B241C');
+				//    if (
+				//        tok < 0.05) {
+
+				//        //if (tok == 0) {
+				//        //if (tok < 0.1) {
+
+
+				//        $('#mymodalWarning').modal('show');
+
+				//    }
+				//    //}
+				//    //else {
+				//    //0724038362
+				//    //}
+
+
+				//    //if (tol < 0.02) {
+				//    //}
+
+				//    //$('#tok').effect('shake', { times: 3 }, 100);
+				//}
+
+				//else {
+				//    $('#tok').css('background-color', '#148F77');
+				//    $('#back').css('background-color', '#148F77');
+				//    //$('#tok').effect('shake', { times: 3 }, 100);
+				//    //$("#tok").effect("shake", { times: 4 }, 1000);
+
+
+				//}
+				//alert("Tus tus");
+
+			},
+			failure: function (response) {
+				$("#total_2").text("Error happened while calculating total cash");
+
+
+			},
+			error: function (response) {
+				$("#token").text(response.responseText);
+				//$('#mymodalWarning').modal('show');
+
+			}
+		});
+
+
+
+	});
+	$("#item_name").keyup(function () {
+		$(this).val($(this).val().toUpperCase());
+
+		$("#already_holder").removeAttr("hidden");
+
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("item_name");
+		//input = id;search_sold_items sold_items
+		filter = input.value.toUpperCase();
+		table = document.getElementById("already_added");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+
+				} else {
+					tr[i].style.display = "none";
+					//$("#already_holder").hide();
+				}
+			}
+		}
+		//var value = this.value.toLowerCase().trim();
+		//$("#already_holder").removeAttr("hidden");
+
+		//$("#already_added tr").each(function (index) {
+		//    if (!index) return;
+		//    $(this).find("td").each(function () {
+		//        var id = $(this).text().toLowerCase().trim();
+		//        var not_found = (id.indexOf(value) == -1);
+		//        $(this).closest('tr').toggle(!not_found);
+
+		//        return not_found;
+		//    });
+		//alert("hhjghgjh");
+		//});
+    });
+        $("#sell_item_customer").keyup(function () {
+		$(this).val($(this).val().toUpperCase());
+
+		//$("#already_holder").removeAttr("hidden");
+
+		var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("sell_item_customer");
+		//input = id;search_sold_items sold_items
+		filter = input.value.toUpperCase();
+		table = document.getElementById("allbrands_1");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+
+				} else {
+					tr[i].style.display = "none";
+					//$("#already_holder").hide();
+				}
+			}
+		}
+		//var value = this.value.toLowerCase().trim();
+		//$("#already_holder").removeAttr("hidden");
+
+		//$("#already_added tr").each(function (index) {
+		//    if (!index) return;
+		//    $(this).find("td").each(function () {
+		//        var id = $(this).text().toLowerCase().trim();
+		//        var not_found = (id.indexOf(value) == -1);
+		//        $(this).closest('tr').toggle(!not_found);
+
+		//        return not_found;
+		//    });
+		//alert("hhjghgjh");
+		//});
+	});
+
+	//function calc_total() {
+	//	var sum = 0;
+	//	$(".sub_totals").each(function () {
+	//		sum += parseFloat($(this).text());
+	//	});
+	//	$('#total').text(sum);
+	//}
+
+	function find_details(id,cost_price, name, price, quantity, date) {
+        $("#item_selected").text(name);
+        $("#id_for_restock").text(id);
+        $("#price_for_quantity_selector").val(price);
+        $("#id_finish").val(id);
+
+        $("#item_name_confirm").text(name);
+        $("#cost_price_confirm").text(cost_price);
+        $("#price_confirm").text(price);
+        $("#current_quantity").text(quantity);
+        //$('#sell_itemsf').modal('show');
+        $('#sell_itemsf').modal('hide');
+        $('#selected_item').modal('show');
+        //var t = $("#price_for_quantity_selector").val();
+        //alert(t);
+	}
+        //function submit_quantity_func(quantyty, price) {
+
+        $("#submit_quantity").click(function () {
+
+            var qntity_before = $('#quantity_selector').val();
+            var price_before = $("#price_for_quantity_selector").val();
+            var qntity = parseFloat(qntity_before);
+            var price = parseFloat(price_before);
+            var calculated = qntity * price;
+
+
+           
+
+           
+     
+
+
+            $("#item_price").text(price);
+            $("#items_sold_finance").text(qntity);
+            $("#total_cash_paid_out").text(calculated);
+
+            var id = $("id_for_restock").val();
+
+
+            $('#quantity_sold').val(qntity);
+            $('#Total_cash_made').val(calculated);
+
+            $("#submit_price").val(price);
+
+            $("#items_sold_finance").text(qntity);
+            $("#total_cash_paid_out").text(calculated);
+
+            //$("#item_selected_finance").text(calculated);
+            //$('#sell_itemsf').modal('show');
+            //$('#sell_itemsf').modal('hide');
+            //$('#calculate_modal').modal('show');
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/setTempData",
+                data: {
+                    "name": calculated
+                },
+                success: function (response) {
+                    $('#selected_item').modal('hide');
+                    $('#calculate_modal').modal('show');
+                    write_total(response.total);
+                    //alert(response.total);
+
+                    //alert(response.total);
+
+                },
+                failure: function (response) {
+                    $('#selected_item').modal('hide');
+                    $('#calculate_modal').modal('show');
+
+                },
+                error: function (response) {
+                    $('#selected_item').modal('hide');
+                    $('#calculate_modal').modal('show');
+                }
+            });
+
+        });
+        //$('#finish').click(function () {
+
+        //});
+        $('#next').click(function () {
+
+            var qntity_before = $('#quantity_selector').val();
+            var price_before = $("#price_for_quantity_selector").val();
+            var date = $("#DateTime").val();
+            var id = $("#id_finish").val();
+            var qntity = parseFloat(qntity_before);
+            var price = parseFloat(price_before);
+            var calculated = qntity * price;
+            //LETS FEED THE CONFIRM MODAL
+            $("#sub_total_confirm").text(calculated);
+            $("#item_sold_confirm").text(qntity);
+            $('#calculate_modal').modal('hide');
+            $('#confirm_sale').modal('show');
+            //alert(calculated);
+        });
+            
+            $('#finish_submit').click(function () {
+            var qntity_before = $('#quantity_selector').val();
+            var price_before = $("#price_for_quantity_selector").val();
+            var date = $("#DateTime").val();
+            var id = $("#id_finish").val();
+            var qntity = parseFloat(qntity_before);
+            var price = parseFloat(price_before);
+            var calculated = qntity * price;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/sell_Item",
+                    data: {
+                        "id_finish": id, "quantity_sold": qntity, "submit_price": price, "Total_cash_made": calculated, "date": date,
+                    },
+                    success: function (response) {
+                        $("#sub_totals").text(response.total);
+                        //$("#left").text(response.Balance);
+                        var tok = response.total;
+
+                        //$("#confirm_sale").modal.('hide');
+                        $('#confirm_sale').modal('hide');
+             $('#receipt_total').text(calculated);
+            $('#receipt_total1').text(calculated);
+                        $('#done').modal('show');
+                        //alert(response.total)
+
+            var node = document.getElementById('receipt');
+
+node.innerHTML = "I'm an image now."
+  domtoimage.toBlob(document.getElementById('receipt'))
+    .then(function(blob) {
+      window.saveAs(blob, 'receipt.png');
+    });
+
+                    },
+                    failure: function (response) {
+                        $("#total_2").text("Error happened while calculating total cash");
+
+
+                    },
+                    error: function (response) {
+                        $("#token").text(response.responseText);
+                        //$('#mymodalWarning').modal('show');
+
+                    }
+                });
+            //LETS FEED THE CONFIRM MODAL
+            $("#sub_total_confirm").text(calculated);
+            $("#item_sold_confirm").text(qntity);
+            $('#calculate_modal').modal('hide');
+            $('#confirm_sale').modal('show');
+            //alert(id);
+
+        });
+
+        function goBack() {
+            $('#confirm_sale').modal('hide');
+            $('#selected_item').modal('show');
+
+        }
+        function write_total(total) {
+
+
+            const instance = new Typewriter('#item_selected_finance', {
+                strings: ['TOTAL.', total],
+      autoStart: true,
+      loop: true,
+    });
+
+
+        }
+
+	function OnSuccess(header, Message) {
+		$("#Message_Header").text(header);
+		$("#Message_Text").text(Message);
+		$('#MessageDialog').modal('show');
+	}
+
+	function OnFailure(header, error) {
+		$("#Message_Header").text(header);
+		$("#Message_Text").text(error);
+		$('#MessageDialog').modal('show');
+	}
+
+	//$("#searchs").keyup(function () {
+	//    var value = this.value.toLowerCase().trim();
+
+	//    $("table tr").each(function (index) {
+	//        if (!index) return;
+	//        $(this).find("td").each(function () {
+	//            var id = $(this).text().toLowerCase().trim();
+	//            var not_found = (id.indexOf(value) == -1);
+	//            $(this).closest('tr').toggle(!not_found);
+	//            return not_found;
+	//        });
+	//    });
+	//});
+	//function btn_click(id, imageurl, itemname, itemprice, itemquantity) {
+	//    $("#table1").hide("slow");
+	//    //$("#confirm").attr("src", "/" + imageurl);
+	//    var str1 = "/";
+	//    var str2 = imageurl;
+	//    var imageUrl = str1.concat(str2);
+	//    //$(".box").css("background-image", "url(" + imageUrl + ")");
+	//    //$("#headings").css("background-image", "url(" + imageUrl + ")");
+	//    $("#headings").css('background-image', "url(" + imageUrl + ")");
+	//    $("#headings").animate({
+
+	//        height: "150px",
+	//    }, 1000);
+	//    $("#searchbox").fadeOut(1000);
+	//    $("#itemname").text(itemname);
+	//    $("#item").text(itemname);
+	//    $("#Price").text(itemprice);
+	//    $("#availlable").text(itemquantity);
+	//    //$("#table1").hide();
+	//    //alert(imageUrl);
+	//}
+	function incrementInput(id) {
+		document.getElementById(id).value++;
+	}
+
+	function dincrementInput(id) {
+		var temp = document.getElementById(id).value;
+        if (temp ==1) {
+            document.getElementById(id).value-0.5;
+
+        } else {
+			document.getElementById(id).value--;
+		}
+	}
+	$('#expand').click(function () {
+		$('#expand').hide();
+		$('#collapse').show();
+		//if ($('button span').hasClass('glyphicon-chevron-down')) {
+		//    $('#more').html('<span class="glyphicon glyphicon-chevron-up"></span> Less Info');
+		//}
+		//else {
+		//    $('#more').html('<span class="glyphicon glyphicon-chevron-down"></span> More Info');
+		//}
+	});
+	$('#collapse').click(function () {
+		$('#collapse').hide();
+		$('#expand').show();
+		//if ($('button span').hasClass('glyphicon-chevron-down')) {
+		//    $('#more').html('<span class="glyphicon glyphicon-chevron-up"></span> Less Info');
+		//}
+		//else {
+		//    $('#more').html('<span class="glyphicon glyphicon-chevron-down"></span> More Info');
+		//}
+	});
+
+        </script>
+
+
+    }

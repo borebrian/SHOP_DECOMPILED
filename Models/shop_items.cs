@@ -24,5 +24,7 @@ namespace SHOP.Models
 		[Required]
 		[DataType(DataType.Date)]
 		public string DateTime { get; set; }
+	
+		public float Cost_price { get; set; }
 	}
 }

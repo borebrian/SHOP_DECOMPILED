@@ -14,6 +14,8 @@ namespace SHOP.Models
 
 		public float Total_cash_made { get; set; }
 
+
+
 		[Required]
 		[DataType(DataType.Date)]
 		public string DateTime { get; set; }

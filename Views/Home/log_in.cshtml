@@ -1,0 +1,117 @@
+﻿
+    <div class="container-fluid bring_to_front " style="margin-top:180px">
+        <main role="main" class="pb-3">
+
+
+
+
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <div class="card w3-card bg-white  text-center justify-content-center" style="background-color:grey">
+                        <div class="card-header text-center text-white border-0" style="        background-color: #15BADF
+">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Please log in to proceed
+                        </div>
+                        <div class="card-body pb-0">
+                            <form action="/log_in/Log_in_user" method="post">
+
+
+                                <div class="form-group">
+                                    <input maxlength="10" value="07" class="form-control input-validation-error" required="required" type="tel" data-val="true" data-val-required="The Phone number field is required." id="Phone" name="Phone" placeholder="Phone number" />
+                                </div>
+                                <div class="form-group">
+                                    <input maxlength="10" class="form-control input-validation-error" type="password" placeholder="Enter password" required="required" id="pass" data-val="true" data-val-required="The Password field is required." name="Password" />
+
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="text-center" style="border:none;">
+
+                                                <button class="btn btn-light w3-card" type="submit">Log in&nbsp;<i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Dkj8_uKbsJNiMMGvrDrxQAjawEmEutMAXhvYLf0UPexCa-Aqv69hUfVLoAqXMuc3R2thgnYbRxSfVimSHsgIl__uYzrsj0AdG4aO8UV_bb7tVJOQsbbeOEdTULv_QxLJVg0pIYp9-B-M0Rgv2JIV8o" />
+                            </form>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+
+
+
+        </main>
+    </div>
+    <div class="modal fade custome_modal_radius" id="to_restock_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header  p-2  " style="z-index:1020">
+                    <img src="/images/sell.png" class="sell" />&nbsp;<b>ITEMS TO BE RESTOCKED</b>
+
+                </div>
+                <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+
+                                    <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                        <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                        <input id="search_restock" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                               aria-label="Search">
+                                        &nbsp;
+                                        <button class="btn btn-primary btn-sm" id="to_restock_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 p-2">
+                        <table class="table font_flex" id="to_restock">
+                            <tr>
+                                <th class="border_none" style="border:none">Icon</th>
+                                <th class="border_none" style="border:none">Item name</th>
+                                <th class="border_none" style="border:none">Price</th>
+                                <th class="border_none" style="border:none">Qunty</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert alert-danger">
+                                        <p>No item has been added yet</p>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+

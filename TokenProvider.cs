@@ -1,8 +1,12 @@
 ﻿using Lubes.DBContext;
+using Microsoft.IdentityModel.Tokens;
+using SHOP.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SHOP_DECOMPILED
@@ -25,7 +29,7 @@ namespace SHOP_DECOMPILED
                 string pass = password;
                 //string varified = isvarifiead;
                 //&& x.IsVarified== "true"
-                var user = _context.Log_in.SingleOrDefault(x => x.Phone_number == phone && x.Password == password);
+                var user = _context.Log_in.SingleOrDefault(x => x.Phone == phone && x.Password == password);
 
                 //Authenticate User, Check if its a registered user in DB  - JRozario
                 if (user == null)
@@ -40,19 +44,18 @@ namespace SHOP_DECOMPILED
               expires: new DateTimeOffset(DateTime.Now.AddDays(1)).DateTime,
               signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature));
                 var token = new JwtSecurityTokenHandler().WriteToken(JWToken);
-                var strusername = user.Email;
+                //var strusername = user.Email;
                 return token;
 
             }
-            private IEnumerable<Claim> GetUserClaims(Log_in user)
+            private IEnumerable<Claim> GetUserClaims(log_in user)
             {
                 List<Claim> claims = new List<Claim>();
                 Claim _claim;
-                _claim = new Claim(ClaimTypes.str, user.Roles.ToString());
+             
+                _claim = new Claim(ClaimTypes.Role, user.strRole.ToString());
                 claims.Add(_claim);
-                _claim = new Claim(ClaimTypes.Role, user.Roles.ToString());
-                claims.Add(_claim);
-                _claim = new Claim("User_id", user.User_ID.ToString());
+                //_claim = new Claim("User_id", user.User_ID.ToString());
                 claims.Add(_claim);
 
                 //claims.Add(_claim);

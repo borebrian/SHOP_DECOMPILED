@@ -1,0 +1,82 @@
+﻿@model SHOP.Models.log_in
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div class="card w3-card bg-white  text-center justify-content-center" style="background-color:grey">
+            @*<img src="/gif/404_handle.gif" style="height:50px;width:50px;" />*@
+            <div class="card-header text-center text-white border-0" style="        background-color: #15BADF
+">
+                @*<img src="/icons/log_in.png" class="image_for_login " />*@
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Please log in to proceed
+            </div>
+            <div class="card-body pb-0">
+                <form asp-action="Log_in_user" asp-controller="log_in">
+                  
+                    @if (@TempData["Error"] != null)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger" style="font-size:10px;">
+                                    <strong>Failed</strong>&nbsp;&nbsp;&nbsp;@TempData["Error"]
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        @*<label asp-for="Phone" class="control-label"></label>*@
+                        <input asp-for="Phone" maxlength="10" value="07" class="form-control" required="required" />
+                    </div>
+                    <div class="form-group">
+                        @*<label asp-for="Password" class="control-label"></label>*@
+                        <input asp-for="Password" maxlength="10" class="form-control" type="password" placeholder="Enter password" required="required" id="pass" />
+
+
+                    </div>
+                    @*<div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" maxlength="10" value="07" class="form-control" />*@
+
+                    @*</div>*@
+                    @*<div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" maxlength="14" class="form-control" />
+
+        </div>*@
+
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="text-center" style="border:none;">
+
+                                    <button class="btn btn-light w3-card" type="submit">Log in&nbsp;<i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

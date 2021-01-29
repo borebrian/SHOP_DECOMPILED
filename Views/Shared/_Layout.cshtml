@@ -3,46 +3,172 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SHOP_DECOMPILED</title>
+    <title>@ViewData["Title"] - SHOP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">*@
+    <link href="~/css/cards.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SHOP_DECOMPILED</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="navbar-brand title" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/sell.png" class="logoClassic" />
+
+                    SALES MANAGEMENT SYSTEM
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand title w3-card" asp-controller="home" style="border-radius:100px;padding:5px;" asp-action="log_out"><img src="~/icons/power.png" class="power " /></a>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+            </div>*@
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark">@TempData["Current_page"]</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="top_bar fixed-top">
+
+
+
+    </div>
+
+
+    <div class="top_bar_child_1 fixed-top w3-card-top text-center ">
+       
+    </div>
+    <div class="container-fluid bring_to_front " style="margin-top:180px">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    @*//TO BE RESTOCKED ITEMS*@
+    <div class="modal fade custome_modal_radius" id="to_restock_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - SHOP_DECOMPILED - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <!-- Modal Header -->
+                <div class="modal-header  p-2  " style="z-index:1020">
+                    <img src="~/images/sell.png" class="sell" />&nbsp;<b>ITEMS TO BE RESTOCKED</b>
+
+                </div>
+                <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+
+                                    <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                        <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                        <input id="search_restock" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                               aria-label="Search">
+                                        &nbsp;
+                                        @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@ <button class="btn btn-primary btn-sm" id="to_restock_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 p-2">
+                        <table class="table font_flex" id="to_restock">
+                            <tr>
+                                <th class="border_none" style="border:none">Icon</th>
+                                <th class="border_none" style="border:none">Item name</th>
+                                <th class="border_none" style="border:none">Price</th>
+                                <th class="border_none" style="border:none">Qunty</th>
+                            </tr>
+                            @if (@ViewBag.to_restock != null)
+                            {
+                                @foreach (var item in ViewBag.to_restock)
+                                {
+                                    <tr>
+                                        <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
+                                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                        <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                                        @if (@item.Quantity == 0)
+                                        {
+                                            <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
+                                        }
+
+                                        @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="alert alert-danger">
+                                            <p>No item has been added yet</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
         </div>
-    </footer>
+    </div>
+    @*<footer class="border-top footer text-center text-muted bg-transparent">
+            <div class="container">
+                &copy; 2021 - SHOP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/engine.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+    <script src="~/js/core.js"></script>
+    <script src="~/js/full-screen-helper.min.js"></script>
     @RenderSection("Scripts", required: false)
+    @RenderSection("increment", required: false)
+
 </body>
 </html>
