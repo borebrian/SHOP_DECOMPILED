@@ -86,7 +86,19 @@ namespace SHOP.Controllers
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
             ViewBag.count_all = _context.Shop_items.Count();
-            ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
+            var sold = _context.sold_items.ToList();
+            if (sold.Count() == 0)
+            {
+                ViewBag.sold = 0;
+
+            }
+            else
+            {
+
+             //var x= _context.sold_items.Where(x => x.Total_cash_made.ToString() == "0").Sum(x => x.quantity_sold);
+
+            }
+
             ViewBag.shop_name = HttpContext.Session.GetString("shop_name");
             ViewBag.name = HttpContext.Session.GetString("Name");
             ViewBag.phone = HttpContext.Session.GetString("phone");
@@ -284,82 +296,26 @@ namespace SHOP.Controllers
                 new_quanity = new_stock,
                 Prev_quantity = initialStock,
                 quantity = ammount
-
-
             };
             _context.Add(insert_new);
             _context.SaveChanges();
-
             TempData["popup"] = "1";
-            //TempData["popup"] = "2";
-            //TempData["popup"] = "Successfully working!";
             TempData["message"] = "You have successfully added stock to " + rest.Item_name + " from: " + initialStock + " to:" + new_stock;
-
             return Redirect("~/home/admin");
         }
         public IActionResult change_price(int change_price_id, int new_price)
         {
-
             var rest = _context.Shop_items.FirstOrDefault(x => x.id == change_price_id);
-
             var initial_price = rest.Item_price;
             rest.Item_price = new_price;
-            //db.Entry(payment).State = EntityState.Modified;
             _context.Entry(rest).State = EntityState.Modified;
             _context.SaveChanges();
             var date = DateTime.Now.ToString();
-            //Restock_history insert_new = new Restock_history { 
-
-            //    Item_id=id,
-            //    Date_restock= date,
-            //    new_quanity=new_stock,
-            //    Prev_quantity=initialStock,
-            //    quantity=new_stock
-
-
-            //}; 
-            //_context.Add(insert_new);
-            //_context.SaveChanges();
-
             TempData["popup"] = "1";
-            //TempData["popup"] = "2";
-            //TempData["popup"] = "Successfully working!";
             TempData["message"] = "You have successfully changed price of:" + rest.Item_name + " from: " + initial_price + " to:" + new_price;
-
             return Redirect("~/home/admin");
         }
 
-        //public async Task<IActionResult> Upload_system_imagesAsync(Dynami_images log)
-        //{
-        //public async Task<IActionResult> Upload_system_images( model)
-        //{
-
-        //    if (log.popup_icon_url != null)
-        //    {
-        //        string folder = "Dynamic_images/";
-        //       string item_icon= folder+Guid.NewGuid().ToString() + log.item_icon.FileName;
-        //        string item_icon_server_folder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-        //        await log.item_icon.CopyToAsync(new FileStream(item_icon_server_folder, FileMode.Create));
-        //        //model.SaveAs(Server.MapPath(filePath));
-        //        //var filename = Path.GetFileName(file.FileName);
-        //        //var path = Path.Combine(Server.MapPath("~/Uploads/Photo/"), filename);
-        //        //file.SaveAs(path);
-        //        //tyre.Url = filename;
-
-
-        //        Item_category itemC = new Item_category
-        //        {
-        //            Category_name = model.Category_name,
-        //            ImageURL = folder,
-
-        //        };
-        //        _context.Add(itemC);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
-
-
-        //}
 
 
         public class Total_cash_made
@@ -370,6 +326,10 @@ namespace SHOP.Controllers
 
 
         public IActionResult pdf_test()
+        {
+            return View();
+        } 
+        public IActionResult Print_command()
         {
             return View();
         }
@@ -587,16 +547,12 @@ namespace SHOP.Controllers
                 }
                 var JoinListToViewbag_third = joinList_third.ToList();
                 var count = joinList_third.Count();
-
-
                 var sum_of_cash = joinList_third.Sum(x => x.Total_cash_made);
                 TempData["popup"] = 4;
                 //TempData["popup"] = "2";
                 //TempData["popup"] = "Successfully working!";
                 TempData["message"] = count + " records found totaling to Ksh. " + sum_of_cash;
                 TempData["total"] = sum_of_cash;
-
-
                 ViewBag.JoinList_general_third = JoinListToViewbag_third;
             }
             ViewBag.allBrands = _context.Shop_items.Where(x => x.Quantity > 0).ToList();
@@ -604,8 +560,19 @@ namespace SHOP.Controllers
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
             ViewBag.count_all = _context.Shop_items.Count();
-            ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
-            ViewBag.sold_general = _context.sold_items;
+            var sold = _context.sold_items.ToList();
+            if (sold.Count()==0)
+            {
+                ViewBag.sold = 0;
+            }
+            else
+            {
+               
+
+            }
+          
+                ViewBag.sold_general = _context.sold_items;
+
             //HttpContext.Session.SetString("roles", user_id.strRole.ToString());
             //HttpContext.Session.SetString("Name", user_id.Full_name);
             //HttpContext.Session.SetString("shop_name", user_id.Shop_name);

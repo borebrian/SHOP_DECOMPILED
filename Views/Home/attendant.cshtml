@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-             
+
         </div>
     </div>
     <div class="col-lg-4">
@@ -232,36 +232,36 @@
                         </tr>
                         @if (@ViewBag.allBrands_0 != null)
                         {
-                        @foreach (var item in ViewBag.allBrands_0)
+                            @foreach (var item in ViewBag.allBrands_0)
                             {
-                        <tr>
-                            <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
-                            <td class="border_none" style="border-top: none">@item.Item_name</td>
-                            <td class="border_none" style="border-top:none">@item.Item_price/=</td>
-                            @if (@item.Quantity == 0)
+                                <tr>
+                                    <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
+                                    <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                    <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                                    @if (@item.Quantity == 0)
                                     {
-                            <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
+                                        <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
                                     }
                                     else
                                     {
-                            <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
+                                        <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
                                     }
 
-                            @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@
+                                    @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@
 
-                        </tr>
+                                </tr>
                             }
                         }
                         else
                         {
 
-                        <tr>
-                            <td colspan="4">
-                                <div class="alert alert-danger">
-                                    <p>No item has been added yet</p>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert alert-danger">
+                                        <p>No item has been added yet</p>
+                                    </div>
+                                </td>
+                            </tr>
                         }
 
 
@@ -326,17 +326,17 @@
                         </tr>
                         @if (@ViewBag.JoinList != null)
                         {
-                        @foreach (var item in @ViewBag.JoinList)
+                            @foreach (var item in @ViewBag.JoinList)
                             {
-                        <tr>
-                            <td class="border_none" style="border-top: none">@item.DateTime</td>
-                            <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                <tr>
+                                    <td class="border_none" style="border-top: none">@item.DateTime</td>
+                                    <td class="border_none" style="border-top: none">@item.Item_name</td>
 
-                            <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
-                            <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                            <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                                    <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                                    <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                                    <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
 
-                        </tr>
+                                </tr>
 
                             }
 
@@ -410,28 +410,28 @@
                     </tr>
                     @if (@ViewBag.allBrands != null)
                     {
-                    @foreach (var item in ViewBag.allBrands)
+                        @foreach (var item in ViewBag.allBrands)
                         {
-                    <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Cost_price','@item.Item_price','@item.Quantity','@item.DateTime')">
-                        @*  <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>*@
-                        <td class="border_none" style="border-top: none">@item.Item_name</td>
-                        <td class="border_none" style="border-top:none">@item.Item_price/=</td>
-                        <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
-                        <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><img src="~/icons/tap.png" class="sell" /></button></td>
+                            <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Cost_price','@item.Item_price','@item.Quantity','@item.DateTime')">
+                                @*  <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>*@
+                                <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                                <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
+                                <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><img src="~/icons/tap.png" class="sell" /></button></td>
 
-                    </tr>
+                            </tr>
                         }
                     }
                     else
                     {
 
-                    <tr>
-                        <td colspan="4">
-                            <div class="alert alert-danger">
-                                <p>No item has been added yet</p>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div class="alert alert-danger">
+                                    <p>No item has been added yet</p>
+                                </div>
+                            </td>
+                        </tr>
                     }
 
 
@@ -545,7 +545,7 @@
                                     </a>
                                 </div>
                                 <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><br />
-                                <input hidden  autocomplete="on" id="price_for_quantity_selector" type="number">
+                                <input hidden autocomplete="on" id="price_for_quantity_selector" type="number">
                                 <input class="form-control" min="0.5" name="ammount" id="quantity_selector" value="1" type="number">
                                 <div class="input-group-append text-light w3-card">
                                     <a style="
@@ -603,100 +603,42 @@
         </div>
     </div>
 </div>
-
-<div class="modal" id="receipt_mod">
+<button data-toggle="modal" data-target="#receipt_mod">Show receipt</button>
+<div class="modal" id="receipt_mod" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content w3-card">
 
             <!-- Modal Header -->
             <div class="modal-body ">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="container " id="receipt">
-
                             <div class="container bg-white w3-card p-2 pt-3">
-                                <div class="row">
-                                    <div class="col-md-12 col-md-offset-3 body-main">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png" /> </div>
-                                                <div class="col-md-8 text-right">
-                                                    <h6 style="color: #F81D2D;"><strong>@ViewBag.shop_name</strong></h6>
-                                                    <p>@ViewBag.phone</p>
-                                                    <p>@ViewBag.Random</p>
-                                                    <p>ifor@fuela.com</p>
-                                                </div>
-                                            </div> <br />
-                                            <div class="row">
-                                                <div class="col-md-12 text-center">
-                                                    <h2>INVOICE</h2>
-                                                    <h5>@ViewBag.Random</h5>
-                                                </div>
-                                            </div> <br />
-                                            <div>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                                <h6>Description</h6>
-                                                            </th>
-                                                            <th>
-                                                                <h6>Amount</h6>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="col-md-9">Samsung Galaxy 8 64 GB</td>
-                                                            <td class="col-md-3"><i class="fas fa-rupee-sign" area-hidden="true"></i> 50,000 </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td class="text-right">
-                                                                <p> <strong>Shipment and Taxes:</strong> </p>
-                                                                <p> <strong>Total Amount: </strong> </p>
-                                                                <p> <strong>Discount: </strong> </p>
-                                                                <p> <strong>Payable Amount: </strong> </p>
-                                                            </td>
-                                                            <td>
-                                                                <p> <strong> 0.00 </strong> </p>
-                                                                <p> <strong>0.00</strong> </p>
-                                                                <p> <strong> 0.00 </strong> </p>
-                                                                <p id="receipt_total"> 0.00 </p>
-
-                                                            </td>
-                                                        </tr>
-                                                        <tr style="color: #F81D2D;">
-                                                            <td class="text-right">
-                                                                <h4><strong>Total:</strong></h4>
-                                                            </td>
-                                                            <td class="text-left">
-                                                                Ksh. <h5 id="receipt_total1"></h5>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div>
-                                                <div class="col-md-12">
-                                                    <p><small>Date :</small> @DateTime.Now.ToString("dd-MMM-yyyy")</p> <br />
-                                                    <p><small>Served by:&nbsp;&nbsp;@ViewBag.name</small></p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div style="text-align:center">
+                                    <h1>Print ESP/POS commands from Javascript</h1>
+                                    <hr />
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="useDefaultPrinter" /> <strong>Print to Default printer</strong>
+                                    </label>
+                                    <p>or...</p>
+                                    <div id="installedPrinters">
+                                        <label for="installedPrinterName">Select an installed Printer:</label>
+                                        <select name="installedPrinterName" id="installedPrinterName"></select>
                                     </div>
+                                    <br /><br />
+                                    <button type="button" onclick="print();">Print Now...</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                
-                
-                <div class="modal" id="confirm_sale">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="confirm_sale">
     <div class="modal-dialog">
         <div class="modal-content w3-card">
 
@@ -764,9 +706,110 @@
     </div>
 </div>
 
-   
-    @section increment{
-        <script type="text/javascript">
+
+@section increment{
+    <script type="text/javascript">
+         //WebSocket settings
+    JSPM.JSPrintManager.auto_reconnect = true;
+    JSPM.JSPrintManager.start();
+    JSPM.JSPrintManager.WS.onStatusChanged = function () {
+        if (jspmWSStatus()) {
+            //get client installed printers
+            JSPM.JSPrintManager.getPrinters().then(function (myPrinters) {
+                var options = '';
+                for (var i = 0; i < myPrinters.length; i++) {
+                    options += '<option>' + myPrinters[i] + '</option>';
+                }
+                $('#installedPrinterName').html(options);
+            });
+        }
+    };
+
+    //Check JSPM WebSocket status
+    function jspmWSStatus() {
+        if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+            return true;
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+            alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+            return false;
+        }
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
+            alert('JSPM has blocked this website!');
+            return false;
+        }
+    }
+
+    //Do printing...(item_name, price, qntity, calculated)
+        function print(item_name, price, qntity, calculated) {
+            var shopName='@ViewBag.shop_name';
+            var phone = '@ViewBag.phone';
+            var attendant = '@ViewBag.name';
+
+
+        if (jspmWSStatus()) {
+            //Create a ClientPrintJob
+            var cpj = new JSPM.ClientPrintJob();
+            //Set Printer type (Refer to the help, there many of them!)
+            if ($('#useDefaultPrinter').prop('checked')) {
+                cpj.clientPrinter = new JSPM.DefaultPrinter();
+            } else {
+                cpj.clientPrinter = new JSPM.InstalledPrinter($('#installedPrinterName').val());
+            }
+            //Set content to print...
+            //Create ESP/POS commands for sample label
+            var esc = '\x1B'; //ESC byte in hex notation
+            var newLine = '\x0A'; //LF byte in hex notation
+
+            var cmds = esc + "@@"; //Initializes the printer (ESC )
+            cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
+            cmds += shopName; //text to print
+            cmds += newLine + newLine;
+            cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+            cmds += 'ITEM:                    ' + item_name;
+            cmds += newLine;
+            cmds += 'QUANTITY:                ' + qntity;
+            cmds += newLine;
+            cmds += 'PRICE:                   ' + price;
+            cmds += newLine + newLine;
+            cmds += 'TOTAL:                   ' + calculated;
+            cmds += newLine;
+            cmds += 'Served By: ' + attendant;
+            cmds += newLine;
+       
+            cmds += 'Phone: ' + phone;
+            cmds += newLine;
+            cmds += esc + '!' + '\x16'; //Character font A selected (ESC ! 0)
+            
+            cmds += 'Thank you for shoping with us.';
+            cmds += newLine + newLine;
+            cmds += esc + '!' + '\x18'; //Emphasized + Double-height mode selected (ESC ! (16 + 8)) 24 dec => 18 hex
+            cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+            cmds += "System developed by:"
+            cmds += newLine;
+            cmds += "Fuela Holdings Limited.";
+            cmds += newLine;
+            cmds += "I-TEN KAPSOWAR ROAD.";
+            cmds += newLine;
+            cmds += "CHEBIEMIT.";
+            cmds += newLine;
+            cmds += "0712035642.";
+            cmds += newLine;
+            cmds += "Delivering CountryWide.";
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cmds += newLine;
+            cpj.printerCommands = cmds;
+
+            //Send print job to printer!
+            cpj.sendToClient();
+        }
+    }
        //<script type="text/javascript">
 
 $("#to_pdf").click(function () {
@@ -974,7 +1017,17 @@ $("#attendants_pdf").click(function () {
             }
             $('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
         });
-        $(document).ready(function () {
+            $(document).ready(function () {
+
+
+
+
+
+
+
+
+
+
             //if (!document.fullscreenElement) {
             //    document.documentElement.requestFullscreen();
             //}
@@ -1190,10 +1243,10 @@ $("#attendants_pdf").click(function () {
             var calculated = qntity * price;
 
 
-           
 
-           
-     
+
+
+
 
 
             $("#item_price").text(price);
@@ -1263,16 +1316,16 @@ $("#attendants_pdf").click(function () {
             $('#confirm_sale').modal('show');
             //alert(calculated);
         });
-            
+
             $('#finish_submit').click(function () {
             var qntity_before = $('#quantity_selector').val();
             var price_before = $("#price_for_quantity_selector").val();
+            var item_name = $("#item_name_confirm").text();
             var date = $("#DateTime").val();
             var id = $("#id_finish").val();
             var qntity = parseFloat(qntity_before);
             var price = parseFloat(price_before);
                 var calculated = qntity * price;
-
                 //alert(calculated);
                 $.ajax({
                     type: "POST",
@@ -1284,11 +1337,11 @@ $("#attendants_pdf").click(function () {
                         $("#sub_totals").text(response.total);
                         //$("#left").text(response.Balance);
                         var tok = response.total;
-
                         //$("#confirm_sale").modal.('hide');
                         $('#confirm_sale').modal('hide');
              $('#receipt_total').text(calculated);
-            $('#receipt_total1').text(calculated);
+                        $('#receipt_total1').text(calculated);
+                        print(item_name, price, qntity, calculated)
                         $('#done').modal('show');
                         //alert(response.total)
 
@@ -1418,7 +1471,12 @@ node.innerHTML = "I'm an image now."
 		//}
 	});
 
-        </script>
+    </script>
 
 
-    }
+}
+<script type="module" src="~/Pos_printer/lib/zip.js"></script>
+<script src="~/Pos_printer/scripts/zip-ext.js"></script>
+<script src="~/Pos_printer/scripts/deflate.js"></script>
+<script src="~/Pos_printer/scripts/JSPrintManager.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
