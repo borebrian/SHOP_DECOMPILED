@@ -474,7 +474,7 @@
                         <td class="border-0"><p id="items_sold_finance"></p></td>
                     </tr>
                     <tr class="w3-card allbrands_1">
-                        <td class="border-0">Total Cash:</td>
+                        <td class="border-0">Total Cash Expected:</td>
                         <td class="border-0"><p id="total_cash_paid_out"></p></td>
                     </tr>
                     <tr>
@@ -536,7 +536,6 @@
                             <p class="grey_custome">Please enter quantity sold</p>
                             @*<form asp-action="restock">*@
                             <div class="input-group mb-3 w3-card">
-
                                 <div class="input-group-prepend text-light">
                                     <a class="btn btn-primary" style="
 " onclick="dincrementInput('quantity_selector')">
@@ -556,7 +555,7 @@
                             <table class="table">
                                 <tr>
                                     <td class="text-center border-0">
-                                        <button onclick="openModal('','')" class="btn reduced_radius reduced_radius w3-card"><img src="~/icons/back.png" class="sell_lg" />&nbsp;&nbsp;&nbsp;Back</button>
+                                        <button data-dismiss="modal" data-target="#sell_itemsf" data-toggle="modal" class="btn reduced_radius reduced_radius w3-card"><img src="~/icons/back.png" class="sell_lg" />&nbsp;&nbsp;&nbsp;Back</button>
                                     </td>
                                     <td class="text-center border-0">
                                         <button id="submit_quantity" class="btn reduced_radius reduced_radius w3-card">Next&nbsp;&nbsp;&nbsp;<img src="~/icons/next.png" class="sell_lg" /></button>

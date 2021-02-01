@@ -14,6 +14,7 @@ namespace Lubes.DBContext
 		public DbSet<sold_items> sold_items { get; set; }
 		public DbSet<Creditors_account> Creditors { get; set; }
 		public DbSet<Credits> Credits { get; set; }
+		public DbSet<Payment_history> Payment_history { get; set; }
 
 		public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
 			: base(options)

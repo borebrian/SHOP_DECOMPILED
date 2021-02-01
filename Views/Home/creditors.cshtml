@@ -29,8 +29,8 @@
 
 
                             <p class="card-text">&nbsp; <button class="btn w3-card bg-white card-title-custome  btn-sm" data-toggle="modal" data-target="#pay"><i class="fa fa-usd" aria-hidden="true"></i> &nbsp;Pay</button></p>
-                            <p class="card-text">&nbsp; <button class="btn w3-card bg-white card-title-custome  btn-sm" data-toggle="modal" data-target="#all_creditors"><i class="fa fa-usd" aria-hidden="true"></i> &nbsp;Payment History</button></p>
-                            <p class="card-text">&nbsp; <button class="btn w3-card bg-white card-title-custome  btn-sm" data-toggle="modal" data-target="#all_creditors"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete</button></p>
+                            <p class="card-text">&nbsp; <button class="btn w3-card bg-white card-title-custome  btn-sm" data-toggle="modal" data-target="#payment_mod"><i class="fa fa-usd" aria-hidden="true"></i> &nbsp;Payment History</button></p>
+                         @*   <p class="card-text">&nbsp; <button class="btn w3-card bg-white card-title-custome  btn-sm" data-toggle="modal" data-target="#all_creditors"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete</button></p>*@
 
                         </div>
                         @*<div class="card-body text-left">
@@ -77,7 +77,7 @@
                             <th style="border:none">Item</th>
                             <th style="border:none">Quantity</th>
                             <th style="border:none">Total</th>
-                            <th style="border:none">Action</th>
+                            <th style="border:none">Date</th>
                         </tr>
 
                         @if (@ViewBag.history != null)
@@ -89,10 +89,7 @@
                                     <td class="border_none" style="border-top:none">@item.Quantity</td>
                                     <td class="border_none" style="border:none"><span class="badge badge-dark">@item.Total</span></td>
                                     <td class="border_none" style="border:none"><span class="badge badge-danger">@item.Date_created</span></td>
-                                    <td style="border:none">
-                                        <button class="btn w3-card p-1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-
-                                    </td>
+                                   
                                 </tr>
                             }
                         }
@@ -120,9 +117,7 @@
             </div>
             <div class="modal-body">
 
-                <div class="col-md-12">
-
-                    <div class="w3-panel border-0 p-3 bg-white text-center">
+                
                         <form asp-action="_add_debt">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="group" hidden>
@@ -168,8 +163,7 @@
 
             </div>
         </div>
-    </div>
-</div>
+   
 <div class="modal fade custome_modal_radius" id="pay">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -265,6 +259,62 @@
                                                     <button class="btn w3-card p-1"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
 
                                                 </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade custome_modal_radius" id="payment_mod">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>PAYMENT HISTORY</b>
+            </div>
+            <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+
+                                <p>Payment history for:@ViewBag.debtors_name</p>
+                              
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table font_flex" id="paymenT_table">
+                                    <tr>
+                                        <th style="border:none">Date paid</th>
+                                        <th style="border:none">Ammount paid</th>
+                                        <th style="border:none">Balance</th>
+                                 
+                                    </tr>
+
+                                    @if (@ViewBag.p_history != null)
+                                    {
+                                        @foreach (var item in @ViewBag.p_history)
+                                        {
+                                            <tr>
+                                                <td class="border_none" style="border-top: none">@item.Date_created</td>
+                                                <td class="border_none" style="border-top:none">@item.Ammount_paid/=</td>
+                                                <td class="border_none" style="border:none"><span class="badge badge-danger">@item.Balance</span></td>
+                                               
                                             </tr>
                                         }
                                     }

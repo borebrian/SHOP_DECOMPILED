@@ -86,19 +86,22 @@ namespace SHOP.Controllers
             ViewBag.allBrands_0 = _context.Shop_items.ToList();
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
-            ViewBag.count_all = _context.Shop_items.Count();
-         
+            ViewBag.count_all = _context.Shop_items.Sum(x => x.Quantity);
+
+
 
             var sold = _context.sold_items.ToList();
             if (sold.Count() == 0)
             {
-                ViewBag.sold = 0;
+
+                ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
+
+
 
             }
             else
             {
-
-             //var x= _context.sold_items.Where(x => x.Total_cash_made.ToString() == "0").Sum(x => x.quantity_sold);
+ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
 
             }
 
@@ -136,6 +139,7 @@ namespace SHOP.Controllers
             ViewBag.id = id;
             ViewBag.credit = x.Credit;
             ViewBag.count_debtors = _context.Creditors.Count();
+            ViewBag.p_history = _context.Payment_history.ToList();
            
 
 
@@ -151,9 +155,19 @@ namespace SHOP.Controllers
             _context.SaveChanges();
             TempData["popup"] = "1";
             TempData["message"] = "Payment updated successfully";
+            var date = DateTime.Now;
+            Payment_history x = new Payment_history
+            {
+                Client_id = id,
+                Ammount_paid = ammount,
+                Balance = new_total,
+                Date_created = date.ToString()
+            };
+            _context.Add(x);
+            _context.SaveChanges();
+
             return RedirectToAction("creditors", "Home", new { id = id });
-
-
+       
 
         }
         public IActionResult delete_account(int id)
@@ -165,13 +179,24 @@ namespace SHOP.Controllers
                 _context.Creditors.Remove(itemToRemove);
                 _context.SaveChanges();
             }  
-            var itemToRemove2 = _context.Credits; //returns a single item.
+            var itemToRemove2 = _context.Credits.Where(x=>x.Client_id==id); //returns a single item.
             
             if (itemToRemove != null)
             {
                 _context.Credits.RemoveRange(itemToRemove2);
                 _context.SaveChanges();
+            }  
+            var itemToRemove3 = _context.Payment_history.Where(x=>x.Client_id==id); //returns a single item.
+            
+            if (itemToRemove3 != null)
+            {
+                _context.Payment_history.RemoveRange(itemToRemove3);
+                _context.SaveChanges();
             }
+
+
+
+
             TempData["popup"] = "1";
             //TempData["popup"] = "2";
             //TempData["popup"] = "Successfully working!";
@@ -527,7 +552,20 @@ namespace SHOP.Controllers
         [Authorize(Roles = "1")]
         public IActionResult admin(log_in log, [Optional] String date)
         {
-            DateTime _date;
+
+            //LETS CALCULATE SHOP NET WORTH
+            var get_all = _context.Shop_items.Where(x=>x.Quantity>0);
+            int i, j;
+            float sum=0, total;
+            j = get_all.Count();
+            foreach(var item in get_all)
+                                        {
+
+                sum = sum + (item.Quantity * item.Item_price);
+                ViewBag.Net_worth = sum;
+            }
+
+                DateTime _date;
             string day;
 
             //SOLD ITEMS FOR TODAY
@@ -661,19 +699,23 @@ namespace SHOP.Controllers
             ViewBag.allBrands_0 = _context.Shop_items.ToList();
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
-            ViewBag.count_all = _context.Shop_items.Count();
+            ViewBag.count_all = _context.Shop_items.Sum(x => x.Quantity);
             var sold = _context.sold_items.ToList();
-            if (sold.Count()==0)
+            if (sold.Count() == 0)
             {
-                ViewBag.sold = 0;
+
+                ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
+
+
+
             }
             else
             {
-               
+                ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
 
             }
-          
-                ViewBag.sold_general = _context.sold_items;
+
+            ViewBag.sold_general = _context.sold_items;
 
             //HttpContext.Session.SetString("roles", user_id.strRole.ToString());
             //HttpContext.Session.SetString("Name", user_id.Full_name);
@@ -727,15 +769,7 @@ namespace SHOP.Controllers
             //var getting_quanity = _context.Shop_items.FirstOrDefault();
             //ViewBag.stock=getting_quanity.
             var count_brand = _context.Shop_items.Count();
-            if (count_brand == null)
-            {
-                ViewBag.count_all = 0;
-            }
-            else
-            {
-                ViewBag.count_all = count_brand;
-
-            }
+           
             var count_below = _context.Shop_items.Where(x => x.Quantity < 5).Count();
             if (count_below == null)
             {

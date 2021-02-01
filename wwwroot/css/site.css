@@ -250,9 +250,9 @@ html {
     height: 30px;
     margin-left: 20px;
 }.table_image_dynamic2 {
-    content: url('/images/bottle1.png');
-    height: 100px;
-    margin-left: 20px;
+    content: url('/images/sell.png');
+    height: 50px;
+    /*margin-left: 20px;*/
 }.table_image_dynamic1 {
     content: url('/images/bottle1.png');
     height: 120px;
