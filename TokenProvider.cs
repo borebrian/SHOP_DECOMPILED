@@ -54,6 +54,8 @@ namespace SHOP_DECOMPILED
                 Claim _claim;
              
                 _claim = new Claim(ClaimTypes.Role, user.strRole.ToString());
+                claims.Add(_claim); 
+            _claim = new Claim(ClaimTypes.Name, user.strRole.ToString());
                 claims.Add(_claim);
                 //_claim = new Claim("User_id", user.User_ID.ToString());
                 claims.Add(_claim);

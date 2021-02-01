@@ -77,22 +77,22 @@ namespace SHOP.Controllers
 				base.TempData["Error"] = "Invalid login credentials";
 				return Redirect("~/log_in/Log_in");
 			}
-			base.HttpContext.Session.SetString("JWToken", userToken);
+			HttpContext.Session.SetString("JWToken", userToken);
 			log_in user_id = _context.Log_in.Where((log_in x) => x.Phone == users.Phone).SingleOrDefault();
 			if (user_id.strRole.ToString() == "1")
 			{
-				base.HttpContext.Session.SetString("roles", user_id.strRole.ToString());
-				base.HttpContext.Session.SetString("Name", user_id.Full_name);
-				base.HttpContext.Session.SetString("shop_name", user_id.Shop_name);
+				HttpContext.Session.SetString("roles", user_id.strRole.ToString());
+				HttpContext.Session.SetString("Name", user_id.Full_name);
+				HttpContext.Session.SetString("shop_name", user_id.Shop_name);
 				log_in constants2 = _context.Log_in.FirstOrDefault((log_in x) => x.strRole == 1);
-				base.HttpContext.Session.SetString("phone", constants2.Phone);
+				HttpContext.Session.SetString("phone", constants2.Phone);
 				return Redirect("~/home/admin");
 			}
-			base.HttpContext.Session.SetString("roles", user_id.strRole.ToString());
-			base.HttpContext.Session.SetString("Name", user_id.Full_name);
-			base.HttpContext.Session.SetString("shop_name", user_id.Shop_name);
+			HttpContext.Session.SetString("roles", user_id.strRole.ToString());
+			HttpContext.Session.SetString("Name", user_id.Full_name);
+			HttpContext.Session.SetString("shop_name", user_id.Shop_name);
 			log_in constants = _context.Log_in.FirstOrDefault((log_in x) => x.strRole == 1);
-			base.HttpContext.Session.SetString("phone", constants.Phone);
+			HttpContext.Session.SetString("phone", constants.Phone);
 			return Redirect("~/home/attendant");
 		}
 

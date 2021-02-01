@@ -15,28 +15,33 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white fixed-top">
             <div class="container">
-                <a class="navbar-brand title" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand title" asp-controller="Home" asp-action="attendant">
                     <img src="~/images/sell.png" class="logoClassic" />
 
-                    SALES MANAGEMENT SYSTEM
+                    SALES MANAGEMENT
                 </a>
-                @if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated && User.Identity.Name == "1")
                 {
-                    <a class="navbar-brand title w3-card" asp-controller="home" style="border-radius:100px;padding:5px;" asp-action="log_out"><img src="~/icons/power.png" class="power " /></a>
+                    <a class="btn m-2" asp-action="admin"><img class="sell-sm" src="~/icons/menu.png" /></a>
+
+                }
+                else if (User.Identity.IsAuthenticated && User.Identity.Name == "2")
+                {
+                    <a class="btn m-2" asp-action="attendant"><img class="sell-sm" src="~/icons/menu.png" /></a>
                 }
 
                 @if (User.Identity.IsAuthenticated)
                 {
                     @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
-                            </ul>
-                        </div>*@
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+            </div>*@
                 }
                 else
                 {
@@ -60,9 +65,21 @@
     </div>
 
 
-    <div class="top_bar_child_1 fixed-top w3-card-top text-center ">
-        <button class="btn btn-light"></button>
-    </div>
+    <div class="top_bar_child_1 fixed-top w3-card-top text-center  " >
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="row">
+                <div class="col-lg-6 col-6 text-left">
+                    <a class="navbar-brand title w3-card m-3 ml-5 text-dark" asp-action="Debtors" style="border-radius:100px;padding:5px;" asp-controller="home"><img src="~/icons/finance.png" class="power" />&nbsp;Creditors</a>
+
+                </div>
+                <div class="col-lg-6 col-6 text-right">
+                    <a class="navbar-brand title w3-card m-3 mr-5 text-dark" asp-controller="home" style="border-radius:100px;padding:5px;" asp-action="log_out"><img src="~/icons/power.png" class="power" />&nbsp;Log out</a>
+
+                </div>
+            </div>
+        }
+        </div>
     <div class="container-fluid bring_to_front " style="margin-top:180px">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -153,13 +170,34 @@
             </div>
         </div>
     </div>
+
+    <div class="modal data-backdrop=" static" fade custome_modal_radius" id="negative_results">
+        <div class="modal-dialog">
+
+            <div class="alert alert-danger alert-dismissible fade show " id="danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p style="font-family:50px;"> <strong>Error!</strong>  @TempData["message"]</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal data-backdrop=" static" fade custome_modal_radius" id="positive_results">
+        <div class="modal-dialog">
+            <div class="alert alert-success alert-dismissible fade show font_small" id="success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p style="font-family:50px;"> <strong>Success!</strong>  @TempData["message"]</p>
+
+            </div>
+        </div>
+    </div>
+
+
     @*<footer class="border-top footer text-center text-muted bg-transparent">
             <div class="container">
                 &copy; 2021 - SHOP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>*@
     <script type="module" src="~/Pos_printer/lib/zip.js"></script>
-    <script  src="~/Pos_printer/scripts/zip-ext.js"></script>
+    <script src="~/Pos_printer/scripts/zip-ext.js"></script>
     <script src="~/Pos_printer/scripts/deflate.js"></script>
     <script src="~/Pos_printer/scripts/JSPrintManager.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
@@ -174,6 +212,9 @@
     <script src="~/js/full-screen-helper.min.js"></script>
     @RenderSection("Scripts", required: false)
     @RenderSection("increment", required: false)
+    @RenderSection("debt", required: false)
+    @RenderSection("debt1", required: false)
+    @RenderSection("debt2", required: false)
 
 </body>
 </html>

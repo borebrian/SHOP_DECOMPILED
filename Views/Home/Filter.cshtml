@@ -1,0 +1,155 @@
+﻿
+<div class="card w3-card bg-white">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                        <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                        <form asp-action="Filter" method="get">
+                            <input id="search_sold_items12" name="date" required type="date" class="form-control form-control-sm ml-3 search_input mb-2" placeholder="Search"
+                                   aria-label="Search">
+                            &nbsp;
+                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</button>
+
+                            <a class="btn btn-primary btn-sm text-white" id="filtered_sold_to_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</a>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <div class="row mt-1 p-2">
+        <table class="table font_flex" id="sold_items_1233">
+            @if (@ViewBag.message != null)
+            {
+                <tr>
+                    <th colspan="6" style="border: none" class="text-center">
+                        <div class="alert alert-primary w3-card">
+                            <
+                            &nbsp;@ViewBag.message
+                            <p></p>
+                        </div>
+                    </th>
+                </tr>
+            }
+            <tr>
+                <td style="border:none">Date:</td>
+                <td style="border:none" colspan="3">@DateTime.Now</td>
+
+            </tr>
+            <tr>
+                <th class="border_none" style="border:none">Date</th>
+                <th class="border_none" style="border:none">Brand</th>
+                <th class="border_none" style="border:none">Sold</th>
+                <th class="border_none" style="border:none">Price</th>
+                <th class="border_none" style="border:none">Total</th>
+                <th class="border_none" style="border:none">Profit</th>
+
+            </tr>
+
+            @if (@ViewBag.JoinList_general_third == null)
+            {
+
+                @if (@ViewBag.JoinList12 != null)
+                {
+                    @foreach (var item in @ViewBag.JoinList12)
+                    {
+                        <tr>
+                            <td class="border_none" style="border-top: none">@item.DateTime</td>
+                            <td class="border_none" style="border-top: none">@item.Item_name</td>
+
+                            <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                            <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                            <td class="sub_totals_mod2" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                            @{
+                                float profit = item.Total_cash_made - item.Total_Cost_cash;
+                            }
+                            <td class="sub_totals_cost_price" id="total_per_brand_sold_0_f" style="border:none"><span class="badge badge-success">@profit</span></td>
+
+                        </tr>
+
+                    }
+
+                }
+            }
+            else
+            {
+
+                @*<div class="alert alert-danger">IKO</div>*@
+                @foreach (var item in @ViewBag.JoinList_general_third)
+                {
+                    <tr>
+                        <td class="border_none" style="border-top: none">@item.DateTime</td>
+                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                        <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
+                        <td class="brand_totals" style="border-top:none">@item.Item_price</td>
+                        <td class="sub_totals_mod2" id="total_per_brand_sold_00" style="border:none">@item.Total_Cost_cash</td>
+                        @{
+                            float profit2 = item.Total_cash_made - item.Total_Cost_cash;
+                        }
+                        <td id="total_per_brand_sold_0_f1" style="border:none"><span class="badge badge-success sub_totals_cost_price_f">@profit2</span></td>
+
+                    </tr>
+
+                }
+            }
+            @*<tr>
+                    <td colspan="4" class="text-left" style="border:none;"><b>TOTAL</b></td>
+                    <td style="border:none;" class="border_none text-left">Ksh.<b id="total123"></b></td>
+                </tr>*@
+            @if (@ViewBag.JoinList_general_third != null)
+            {
+
+                <tr>
+                    <td class="text-left" colspan="3" style="border:none;"><b>TOTAL CASH MADE</b></td>
+                    <td style="border:none;" colspan="3" class="border_none text-right">Ksh.<h3><b id="total12_"></b></h3></td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="3" style="border:none;"><b>TOTAL PROFIT</b></td>
+
+                    <td style="border:none;" colspan="3" class="border_none text-right">Ksh.<h3><b id="total12_F"></b></h3></td>
+                </tr>
+
+            }
+        </table>
+
+
+    </div>
+</div>
+@section debt2{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var sum = 0;
+
+            $(".sub_totals_cost_price_f").each(function () {
+
+                sum += parseFloat($(this).text());
+            });
+
+            $('#total12_F').text(sum);
+
+
+            calc_total_mod2();
+            calc_total_mod3();
+
+        });
+        function calc_total_mod2() {
+            var sum = 0;
+            $(".sub_totals_mod2").each(function () {
+                sum += parseFloat($(this).text());
+            });
+            $('#total123').text(sum);
+
+
+        }
+    </script>
+}

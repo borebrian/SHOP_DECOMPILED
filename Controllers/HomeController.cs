@@ -46,6 +46,7 @@ namespace SHOP.Controllers
 
         public IActionResult attendant()
         {
+
             List<sold_items> list_of_sold = _context.sold_items.Where(x => x.DateTime == today).ToList();
             List<shop_items> list_of_brands = _context.Shop_items.ToList();
             List<join_sold_item> joinList = new List<join_sold_item>();
@@ -86,6 +87,8 @@ namespace SHOP.Controllers
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
             ViewBag.count_all = _context.Shop_items.Count();
+         
+
             var sold = _context.sold_items.ToList();
             if (sold.Count() == 0)
             {
@@ -111,12 +114,103 @@ namespace SHOP.Controllers
             HttpContext.Session.Clear();
             return Redirect("~/log_in/log_in");
         }   
-        [AllowAnonymous]
-        public IActionResult Creditors_account()
+        //[AllowAnonymous]
+     
+
+        public IActionResult Debtors()
         {
+            ViewBag.allBrands_0 = _context.Shop_items.ToList();
+            ViewBag.all_debtors = _context.Creditors.ToList();
+            ViewBag.count_debtors = _context.Creditors.Count();
+            ViewBag.sum_of_debts = _context.Creditors.Sum(x => x.Credit);
+
+
+            return View();
+        }    
+        
+        public IActionResult Creditors(int id)
+        {
+            ViewBag.history = _context.Credits.Where(x=>x.Client_id==id).ToList();
+            var x = _context.Creditors.FirstOrDefault(x=>x.id==id);
+            ViewBag.debtors_name = x.Customer_name;
+            ViewBag.id = id;
+            ViewBag.credit = x.Credit;
+            ViewBag.count_debtors = _context.Creditors.Count();
+           
+
 
             return View();
         }
+        public IActionResult payment(float ammount,int id)
+        {
+            var initial_total = _context.Creditors.FirstOrDefault(x => x.id == id);
+            var init = initial_total.Credit;
+            var new_total = init - ammount;
+            initial_total.Credit = new_total;
+            _context.Entry(initial_total).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            TempData["popup"] = "1";
+            TempData["message"] = "Payment updated successfully";
+            return RedirectToAction("creditors", "Home", new { id = id });
+
+
+
+        }
+        public IActionResult delete_account(int id)
+        {
+            var itemToRemove = _context.Creditors.SingleOrDefault(x => x.id == id); //returns a single item.
+            var nameOfVictim = itemToRemove.Customer_name;
+            if (itemToRemove != null)
+            {
+                _context.Creditors.Remove(itemToRemove);
+                _context.SaveChanges();
+            }  
+            var itemToRemove2 = _context.Credits; //returns a single item.
+            
+            if (itemToRemove != null)
+            {
+                _context.Credits.RemoveRange(itemToRemove2);
+                _context.SaveChanges();
+            }
+            TempData["popup"] = "1";
+            //TempData["popup"] = "2";
+            //TempData["popup"] = "Successfully working!";
+            TempData["message"] = nameOfVictim + " has been successfully removed from the system!";
+           
+            return Redirect("~/home/debtors");
+
+        }
+
+        public IActionResult _add_debt(int id,String item,String quantity,string date,float total)
+        {
+            var xx= _context.Creditors.FirstOrDefault(x => x.id == id);
+
+            Credits x = new Credits
+            {
+                Item = item,
+                Quantity = quantity,
+                Date_created = date,
+                Client_id = id,
+                Total=total,
+
+                
+            };
+            //var yy = _context.Creditors.FirstOrDefault(x => x.id == id);
+            _context.Add(x);
+            _context.SaveChanges();
+            //UPDATE INITIAL CASH
+            var before_ = _context.Creditors.FirstOrDefault(x => x.id == id);
+            float initial_cash = before_.Credit;
+            float new_cash = initial_cash + total;
+            before_.Credit = new_cash;
+            _context.Entry(before_).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            TempData["popup"] = "1";
+            TempData["message"] = "You have successfully top upd credit for :" + xx.Customer_name +" from the system";      
+          
+            return RedirectToAction("creditors", "Home", new { id = id });
+        }
+
         [HttpPost]
         public IActionResult sell_Item(int id_finish, float quantity_sold, float submit_price, float Total_cash_made, string date)
         {
@@ -559,6 +653,8 @@ namespace SHOP.Controllers
                 //TempData["popup"] = "Successfully working!";
                 TempData["message"] = count + " records found totaling to Ksh. " + sum_of_cash;
                 TempData["total"] = sum_of_cash;
+
+
                 ViewBag.JoinList_general_third = JoinListToViewbag_third;
             }
             ViewBag.allBrands = _context.Shop_items.Where(x => x.Quantity > 0).ToList();
@@ -621,7 +717,6 @@ namespace SHOP.Controllers
 
             }
             var JoinListToViewbag = joinList.ToList();
-
             ViewBag.JoinList = JoinListToViewbag;
             //TempData["message"] = "success you have deleted the attendant successfully!";
             //GETTING ALL BRANDS
@@ -658,8 +753,66 @@ namespace SHOP.Controllers
         }
 
 
-        public IActionResult Privacy()
+        public IActionResult Filter(string date)
         {
+
+            DateTime _date;
+            string day;
+          
+            if (date== null)
+            {
+                day = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+            else {
+
+
+                _date = DateTime.Parse(date);
+                day = _date.ToString("dd/MM/yyyy");
+            }
+
+
+
+            //LETS COMPUTE IF COMMAND IS FILTER
+            List<sold_items> list_of_sold_third = _context.sold_items.Where(x => x.DateTime == day).ToList();
+
+            List<shop_items> list_of_brands_third = _context.Shop_items.ToList();
+            List<join_sold_ite_filtered> joinList_third = new List<join_sold_ite_filtered>();
+            var results_third = (from pd in list_of_sold_third
+                                 join od in list_of_brands_third on pd.Item_id equals od.id
+                                 select new
+                                 {
+                                     pd.DateTime,
+                                     pd.quantity_sold,
+                                     pd.Total_cash_made,
+                                     od.Item_price,
+                                     od.Item_name,
+                                     pd.Total_Cost_cash
+                                 }).ToList();
+
+            foreach (var item in results_third)
+            {
+                join_sold_ite_filtered JoinObject_third = new join_sold_ite_filtered();
+
+                JoinObject_third.Item_name = item.Item_name;
+                JoinObject_third.DateTime = item.DateTime;
+                JoinObject_third.quantity_sold = item.quantity_sold;
+                JoinObject_third.Total_cash_made = item.Total_cash_made;
+                JoinObject_third.Total_Cost_cash = item.Total_Cost_cash;
+                JoinObject_third.Item_price = item.Item_price;
+                JoinObject_third.Item_name = item.Item_name;
+                joinList_third.Add(JoinObject_third);
+            }
+            var JoinListToViewbag_third = joinList_third.ToList();
+            var count = joinList_third.Count();
+            var sum_of_cash = JoinListToViewbag_third.Sum(x => x.Total_cash_made);
+
+            //TempData["popup"] = "2";
+         
+        ViewBag.message ="Found:" +count + " records found totaling to Ksh. " + sum_of_cash;
+            //TempData["total"] = sum_of_cash;
+
+
+            ViewBag.JoinList_general_third = JoinListToViewbag_third;
             return View();
         }
 
@@ -733,6 +886,59 @@ namespace SHOP.Controllers
             }
 
             return Redirect("~/home/admin");
+
+        }
+        public IActionResult add_debtor(String Full_name, int Phone,float credit)
+        {
+            //LETS JOIN TABLES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            var check_if_item_exists1 = _context.Creditors.SingleOrDefault(x => x.Customer_name == Full_name || x.Phone_number==Phone);
+            if (check_if_item_exists1 != null)
+            {
+
+                TempData["popup"] = "2";
+                //TempData["popup"] = "2";
+                //TempData["popup"] = "Successfully working!";
+                TempData["message"] = Full_name + " already exists in the system!";
+                return Redirect("~/home/creditors_account");
+
+            }
+            else
+            {
+                var shop = _context.Log_in.FirstOrDefault(x => x.strRole == 1);
+
+                Creditors_account client = new Creditors_account
+                {
+                    Customer_name = Full_name,
+                    Phone_number = Phone,
+                    Credit = credit,
+                    Date_created = DateTime.Now.ToString(),
+
+                };
+                _context.Add(client);
+                _context.SaveChanges();
+
+                TempData["popup"] = "1";
+                //TempData["popup"] = "2";
+                //TempData["popup"] = "Successfully working!";
+                TempData["message"] = Full_name + " successfully added to the system!";
+            }
+
+            return Redirect("~/home/debtors");
 
         }
         public IActionResult add_item(String Item_name,float cost_price, float Item_price, int Quantity, String date)

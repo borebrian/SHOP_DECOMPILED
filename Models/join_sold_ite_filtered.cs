@@ -7,6 +7,7 @@ namespace SHOP.Models
 		public string Item_id { get; set; }
 
 		public string Item_name { get; set; }
+		public float Total_Cost_cash { get; set; }
 
 		public float Item_price { get; set; }
 

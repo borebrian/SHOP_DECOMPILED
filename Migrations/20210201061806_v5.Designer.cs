@@ -2,14 +2,16 @@
 using Lubes.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SHOP_DECOMPILED.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210201061806_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,32 +41,6 @@ namespace SHOP_DECOMPILED.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Creditors");
-                });
-
-            modelBuilder.Entity("SHOP.Models.Credits", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Client_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Date_created")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Item")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Quantity")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<float>("Total")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Credits");
                 });
 
             modelBuilder.Entity("SHOP.Models.Restock_history", b =>

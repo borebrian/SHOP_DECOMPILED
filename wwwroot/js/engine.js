@@ -81,16 +81,22 @@ $("#item_name").keyup(function () {
 	//    });
 	//alert("hhjghgjh");
 	//});
-});$("#creditors").keyup(function () {
+
+});
+function delete_func(id) {
+	$('#delete_id').val(id);
+	$('#delete_mod').modal('show');
+}
+$("#creditors").keyup(function () {
 	$(this).val($(this).val().toUpperCase());
 
-	$("#already_holder").removeAttr("hidden");
+	//$("#already_holder").removeAttr("hidden");
 
 	var input, filter, table, tr, td, i, txtValue;
-	input = document.getElementById("item_name");
+	input = document.getElementById("creditors");
 	//input = id;search_sold_items sold_items
 	filter = input.value.toUpperCase();
-	table = document.getElementById("already_added");
+	table = document.getElementById("creditors_table");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
 		td = tr[i].getElementsByTagName("td")[0];
@@ -435,6 +441,15 @@ function calc_total_mod2() {
 		sum += parseFloat($(this).text());
 	});
 	$('#total123').text(sum);
+	
+	
+}
+function calc_total_mod3() {
+	var sum = 0;
+	$(".sub_totals_mod2").each(function () {
+		sum += parseFloat($(this).text());
+	});
+	$('#total12_').text(sum);
 	
 	
 }

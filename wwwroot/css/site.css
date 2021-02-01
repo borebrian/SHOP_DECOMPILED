@@ -319,9 +319,15 @@ w3-card-top {
 .no_bottom_border {
     border-bottom: none;
 }
-.sell{
-    height:30px;
-    width:30px;
+.m_top_custome {
+    border-top: 1px #15BADF solid;
+}
+.sell {
+    height: 30px;
+    width: 30px;
+}.sell-sm{
+    height:20px;
+    width:20px;
 
 }
 .sell_lg{
