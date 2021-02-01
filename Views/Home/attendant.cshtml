@@ -26,7 +26,7 @@
                                                 @*<span class="badge badge-secondary">*@
                                                 <b>
 
-                                                    @ViewBag.name
+                                                   @ViewBag.name
                                                 </b>
                                                 @*</span>*@
                                             </td>
@@ -412,12 +412,12 @@
                     {
                         @foreach (var item in ViewBag.allBrands)
                         {
-                            <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Cost_price','@item.Item_price','@item.Quantity','@item.DateTime')">
+                            <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime',@item.Cost_price)">
                                 @*  <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>*@
                                 <td class="border_none" style="border-top: none">@item.Item_name</td>
                                 <td class="border_none" style="border-top:none">@item.Item_price/=</td>
                                 <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
-                                <td class="border_none" style="border:none"><button class="btn w3-card p-1" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><img src="~/icons/tap.png" class="sell" /></button></td>
+                                <td class="border_none" style="border:none"><button class="btn w3-card p-1"><img src="~/icons/tap.png" class="sell" /></button></td>
 
                             </tr>
                         }
@@ -603,7 +603,7 @@
         </div>
     </div>
 </div>
-<button data-toggle="modal" data-target="#receipt_mod">Show receipt</button>
+
 <div class="modal" id="receipt_mod" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content w3-card">
@@ -740,13 +740,14 @@
     }
 
     //Do printing...(item_name, price, qntity, calculated)
-        function print(item_name, price, qntity, calculated) {
+          function print(item_name, price, qntity, calculated) {
             var shopName='@ViewBag.shop_name';
             var phone = '@ViewBag.phone';
             var attendant = '@ViewBag.name';
+            var item_name1 = $("#item_selected").text();
+            var date ='@DateTime.Now';
 
-
-        if (jspmWSStatus()) {
+      if (jspmWSStatus()) {
             //Create a ClientPrintJob
             var cpj = new JSPM.ClientPrintJob();
             //Set Printer type (Refer to the help, there many of them!)
@@ -761,25 +762,27 @@
             var newLine = '\x0A'; //LF byte in hex notation
 
             var cmds = esc + "@@"; //Initializes the printer (ESC )
-            cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
-            cmds += shopName; //text to print
+          cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
+          cmds += shopName; //text to print
             cmds += newLine + newLine;
             cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
-            cmds += 'ITEM:                    ' + item_name;
+            cmds += 'ITEM:                    ' + item_name1;
             cmds += newLine;
             cmds += 'QUANTITY:                ' + qntity;
             cmds += newLine;
             cmds += 'PRICE:                   ' + price;
             cmds += newLine + newLine;
             cmds += 'TOTAL:                   ' + calculated;
+          cmds += newLine;
+          cmds += 'Served By: ' + attendant;
+          cmds += newLine;
+          cmds += 'Printed on: ' + date;
             cmds += newLine;
-            cmds += 'Served By: ' + attendant;
-            cmds += newLine;
-       
+
             cmds += 'Phone: ' + phone;
             cmds += newLine;
             cmds += esc + '!' + '\x16'; //Character font A selected (ESC ! 0)
-            
+
             cmds += 'Thank you for shoping with us.';
             cmds += newLine + newLine;
             cmds += esc + '!' + '\x18'; //Emphasized + Double-height mode selected (ESC ! (16 + 8)) 24 dec => 18 hex
@@ -788,7 +791,7 @@
             cmds += newLine;
             cmds += "Fuela Holdings Limited.";
             cmds += newLine;
-            cmds += "I-TEN KAPSOWAR ROAD.";
+            cmds += "ITEN-KAPSOWAR ROAD.";
             cmds += newLine;
             cmds += "CHEBIEMIT.";
             cmds += newLine;

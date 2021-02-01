@@ -81,6 +81,44 @@ $("#item_name").keyup(function () {
 	//    });
 	//alert("hhjghgjh");
 	//});
+});$("#creditors").keyup(function () {
+	$(this).val($(this).val().toUpperCase());
+
+	$("#already_holder").removeAttr("hidden");
+
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("item_name");
+	//input = id;search_sold_items sold_items
+	filter = input.value.toUpperCase();
+	table = document.getElementById("already_added");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[0];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+
+			} else {
+				tr[i].style.display = "none";
+				//$("#already_holder").hide();
+			}
+		}
+	}
+	//var value = this.value.toLowerCase().trim();
+	//$("#already_holder").removeAttr("hidden");
+
+	//$("#already_added tr").each(function (index) {
+	//    if (!index) return;
+	//    $(this).find("td").each(function () {
+	//        var id = $(this).text().toLowerCase().trim();
+	//        var not_found = (id.indexOf(value) == -1);
+	//        $(this).closest('tr').toggle(!not_found);
+
+	//        return not_found;
+	//    });
+	//alert("hhjghgjh");
+	//});
 });
 $("#search_sold_items").keyup(function () {
 	$(this).val($(this).val().toUpperCase());
@@ -88,10 +126,10 @@ $("#search_sold_items").keyup(function () {
 	//$("#already_holder").removeAttr("hidden");
 
 	var input, filter, table, tr, td, i, txtValue;
-	input = document.getElementById("search_sold_items");
+	input = document.getElementById("creditors");
 	//input = id;search_sold_items sold_items
 	filter = input.value.toUpperCase();
-	table = document.getElementById("sold_items");
+	table = document.getElementById("creditors_table");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
 		td = tr[i].getElementsByTagName("td")[1];
@@ -255,6 +293,48 @@ $("#to_restock_pdf").click(function () {
 		html: '#to_restock',
 	});
 	doc.save('ITEMS_TO_RESTOCK');
+
+
+
+
+
+
+});$("#creditors_pdf").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = '';
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#creditors_table',
+	});
+	doc.save('ALL_CREDITORS');
 
 
 

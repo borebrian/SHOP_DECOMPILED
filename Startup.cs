@@ -117,7 +117,7 @@ namespace SHOP
                 await next();
             });
             app.UseHttpsRedirection();
-            app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");
+            //app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");
 
             app.UseStaticFiles();
             app.UseAuthentication();

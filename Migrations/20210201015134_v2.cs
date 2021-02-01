@@ -3,10 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SHOP_DECOMPILED.Migrations
 {
-    public partial class v1 : Migration
+    public partial class v2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Creditors_account",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Customer_name = table.Column<string>(nullable: false),
+                    Phone_number = table.Column<float>(nullable: false),
+                    Credit = table.Column<float>(nullable: false),
+                    Date_created = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Creditors_account", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Log_in",
                 columns: table => new
@@ -80,6 +96,9 @@ namespace SHOP_DECOMPILED.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Creditors_account");
+
             migrationBuilder.DropTable(
                 name: "Log_in");
 

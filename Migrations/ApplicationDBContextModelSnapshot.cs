@@ -16,6 +16,31 @@ namespace SHOP_DECOMPILED.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("SHOP.Models.Creditors_account", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("Credit")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Customer_name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Date_created")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<float>("Phone_number")
+                        .HasColumnType("float");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Creditors_account");
+                });
+
             modelBuilder.Entity("SHOP.Models.Restock_history", b =>
                 {
                     b.Property<int>("id")

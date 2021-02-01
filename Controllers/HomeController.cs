@@ -110,6 +110,12 @@ namespace SHOP.Controllers
         {
             HttpContext.Session.Clear();
             return Redirect("~/log_in/log_in");
+        }   
+        [AllowAnonymous]
+        public IActionResult Creditors_account()
+        {
+
+            return View();
         }
         [HttpPost]
         public IActionResult sell_Item(int id_finish, float quantity_sold, float submit_price, float Total_cash_made, string date)
@@ -190,7 +196,7 @@ namespace SHOP.Controllers
                 _context.SaveChanges();
                 Total_cash_made person = new Total_cash_made
                 {
-                    total = "Sales have been done successfully and receipt downloaded and stored in your local machine"
+                    total = "Sales have been done successfully sent to your printer."
                 };
                 //LETS FIND TOTAL COST PRICE PER ITEM
                 var check_if_exists1 = _context.sold_items.FirstOrDefault(x => x.Item_id.ToString() == id_finish.ToString() && x.DateTime == date);
