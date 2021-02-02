@@ -8,19 +8,36 @@ namespace SHOP_DECOMPILED.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Creditors_account",
+                name: "Creditors",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Customer_name = table.Column<string>(nullable: false),
-                    Phone_number = table.Column<float>(nullable: false),
+                    Phone_number = table.Column<int>(nullable: false),
                     Credit = table.Column<float>(nullable: false),
                     Date_created = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Creditors_account", x => x.id);
+                    table.PrimaryKey("PK_Creditors", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Credits",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Client_id = table.Column<int>(nullable: false),
+                    Item = table.Column<string>(nullable: true),
+                    Quantity = table.Column<string>(nullable: true),
+                    Total = table.Column<float>(nullable: false),
+                    Date_created = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Credits", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,6 +55,22 @@ namespace SHOP_DECOMPILED.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Log_in", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payment_history",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Client_id = table.Column<int>(nullable: false),
+                    Ammount_paid = table.Column<float>(nullable: false),
+                    Balance = table.Column<float>(nullable: false),
+                    Date_created = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment_history", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,10 +130,16 @@ namespace SHOP_DECOMPILED.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Creditors_account");
+                name: "Creditors");
+
+            migrationBuilder.DropTable(
+                name: "Credits");
 
             migrationBuilder.DropTable(
                 name: "Log_in");
+
+            migrationBuilder.DropTable(
+                name: "Payment_history");
 
             migrationBuilder.DropTable(
                 name: "Restock_history");

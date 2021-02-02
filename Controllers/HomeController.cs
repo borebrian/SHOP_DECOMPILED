@@ -740,7 +740,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
                                pd.new_quanity,
                                od.Item_name,
                                od.Item_price,
-                               od.Quantity,
+                               pd.quantity,
                                od.id,
 
                            }).ToList();
@@ -753,7 +753,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
                 JoinObject.Item_price = item.Item_price;
                 JoinObject.new_quanity = item.new_quanity;
                 JoinObject.Prev_quantity = item.Prev_quantity;
-                JoinObject.quantity = item.Quantity;
+                JoinObject.quantity = item.quantity;
                 JoinObject.Date_restock = item.Date_restock;
                 joinList.Add(JoinObject);
 

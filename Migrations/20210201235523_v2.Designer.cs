@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SHOP_DECOMPILED.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210201061806_v5")]
-    partial class v5
+    [Migration("20210201235523_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,55 @@ namespace SHOP_DECOMPILED.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Creditors");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Credits", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Client_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date_created")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Credits");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Payment_history", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("Ammount_paid")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Client_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date_created")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Payment_history");
                 });
 
             modelBuilder.Entity("SHOP.Models.Restock_history", b =>
