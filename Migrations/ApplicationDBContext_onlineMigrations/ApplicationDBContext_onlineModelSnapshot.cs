@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace SHOP_DECOMPILED.Migrations
+namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
 {
-    [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDBContext_online))]
+    partial class ApplicationDBContext_onlineModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -79,8 +79,8 @@ namespace SHOP_DECOMPILED.Migrations
                     b.Property<string>("Expiry_date")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Item_name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Item_name")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 

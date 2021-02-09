@@ -2,14 +2,16 @@
 using Lubes.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace SHOP_DECOMPILED.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210208090714__backup")]
+    partial class _backup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,8 +81,8 @@ namespace SHOP_DECOMPILED.Migrations
                     b.Property<string>("Expiry_date")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Item_name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Item_name")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 

@@ -294,6 +294,9 @@ form .emoji {
 .side_custome {
     border-left: solid 10px #15BADF;
 }
+.side_custome_expired {
+    border-left: solid 10px #CB4335;
+}
 w3-card-top {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     border-radius: 7px;
@@ -510,12 +513,15 @@ tr.space_tr {
     width: 40px;
     margin:5px;
 }
+.loading{
+    height:200px;
+}
 .bg-already-added {
     background-color: #15BADF;
-    color:white;
-    font-weight:900;
-    font-size:25px;
-    font-stretch:expanded;
+    color: white;
+    font-weight: 900;
+    font-size: 25px;
+    font-stretch: expanded;
 }
 .logo {
     height: 50px;

@@ -3,7 +3,7 @@ using SHOP.Models;
 
 namespace Lubes.DBContext
 {
-	public class ApplicationDBContext : DbContext
+	public class ApplicationDBContext_online : DbContext
 	{
 		public DbSet<shop_items> Shop_items { get; set; }
 
@@ -17,7 +17,8 @@ namespace Lubes.DBContext
 		public DbSet<Payment_history> Payment_history { get; set; }
 		public DbSet<Expiries> Expiries { get; set; }
 
-		public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
+
+		public ApplicationDBContext_online(DbContextOptions<ApplicationDBContext_online> options)
 			: base(options)
 		{
 		}

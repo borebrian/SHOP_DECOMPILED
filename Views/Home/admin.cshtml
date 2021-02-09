@@ -372,7 +372,7 @@
                                    aria-label="Search">
                             &nbsp;
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-dismiss="modal" data-target="#add_new_attendant"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new attendant</button>&nbsp; <button class="btn btn-primary btn-sm" id="attendants_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-
+                            <button class="btn btn-white btn-sm w3-card" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Exit</button>
                         </div>
 
                     </div>
@@ -778,17 +778,43 @@
             </div>
             <div class="modal-body  p-2  ">
                 <form asp-action="modify_stock">
-                    <div class="input-group mb-3">
+                    <div class="group">
 
 
-                    </div> <div class="input-group mb-3">
-
-
-
-                        <input hidden class="form-control" min="0" name="mod_id" id="mod_id" type="number">
-                        <input class="form-control" step="any" placeholder="Enter new cost price" name="mod_stock_" id="mod_stock_" type="number">
+                        <input class="form-control" min="0" name="mod_name" id="mod_name" type="text">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Item name:</label>
 
                     </div>
+                    <div class="group">
+
+
+                        <input class="form-control" min="0" name="mod_stock_price" id="mod_stock_price" step="0.00" type="number">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Cost price:</label>
+                    </div>  <div class="group">
+
+
+    <input class="form-control" min="0" name="mod_item_price" id="mod_item_price" step="0.00" type="number">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Selling price:</label>
+
+</div>
+
+                            <div class="group">
+
+                                <input class="form-control" min="0" name="mod_stock" id="mod_stock" type="number">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+
+                                <label>Enter new stock count</label>
+                                <input hidden class="form-control" min="0" name="mod_id" id="mod_id" type="number">
+
+
+                            </div>
                     <table class="table">
                         <tr>
                             <td class="text-center">
@@ -1257,6 +1283,7 @@ $(document).ready(function () {
         calc_total_cost_price();
         calc_total_cost_price_f();
 
+
 	$("#calculate_total").click(function () {
 		var date = $("#serach_sales").val();
 
@@ -1328,7 +1355,17 @@ $(document).ready(function () {
 		$("#name_infor").text(name);
 		$("#name_infor2").text(name);
         $("#mod_id").val(id);
-        $("#mod_stock_").val(cost_price);
+        $("#mod_stock").val(quantity);
+        $("#mod_name").val(name);
+        $("#mod_stock_price").val(cost_price);
+        $("#mod_item_price").val(price);
+       
+
+
+
+
+
+
 		$("#price_infor").text(price);
 		$("#current_price").text(price);
 		$("#quantity_infor").text(quantity);

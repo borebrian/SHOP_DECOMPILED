@@ -1,0 +1,438 @@
+﻿<div class="row">
+    <div class="col-lg-6">
+
+
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+
+
+                                <div class="col-lg-12 col-12">
+                                    <h1 class="card-title">@ViewBag.count_all</h1>
+                                    @*<a href="" class="btn btn-light btn-sm">More details &nbsp;<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a>*@
+
+                                </div>
+                            </div>
+
+
+
+                            
+                            <p class="card-text">Registered items </p>
+                            <a class="btn btn-white w3-card">View details</a>
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>  <div class="col-lg-6">
+
+
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+
+                                <div class="col-lg-12 col-12">
+                                    <h1 class="card-title">@ViewBag.count_expired  </h1>
+                                   
+
+                                </div>
+                            </div>
+
+
+
+
+                            <p class="card-text">Expired items</p>
+                            <a class="btn btn-white w3-card" data-toggle="modal" data-target="#Expired_list">View details</a>
+                        </div>
+                     
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br />
+<div class="card w3-card">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                        <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                        <input id="exp_search" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                               aria-label="Search">
+                        &nbsp;
+                        @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@
+                        <button class="btn btn-white btn-sm m-1  w3-card" id="expired_items"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Download PDF</button><br />
+                        <button class="btn btn-white btn-sm m-1 w3-card"  data-dismiss="modal" data-toggle="modal" data-target="#add_client"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Register item</button>
+
+                    </div>
+                </div>
+               
+                </div>
+            </div>
+    </div>
+ <br />
+ <br />
+
+ <div class="row">
+     <div class="col-lg-12">
+         <table class="table font_flex" >
+             <tr class="bg-dark text-white">
+                 <th colspan="4">
+                     Current  Date:<b>@DateTime.Now.ToString("dd-MM-yyyy")</b>
+
+
+
+                 </th>
+             </tr>
+             </table>
+             <table class="table font_flex" id="expiries">
+
+                 <tr>
+                     <th style="border:none">Item</th>
+
+                     <th style="border:none">Expiry date</th>
+
+
+                     <th style="border:none">Action</th>
+                 </tr>
+
+
+                 @if (@ViewBag.expiry_details != null)
+                 {
+                     @foreach (var item in @ViewBag.expiry_details)
+                     {
+
+                         int day;
+                         int month;
+                         int year;
+                         int current_day;
+                         int current_month;
+                         int current_year;
+
+                         current_day = int.Parse(DateTime.Now.ToString("dd"));
+                         current_month = int.Parse(DateTime.Now.ToString("MM"));
+                         current_year = int.Parse(DateTime.Now.ToString("yyyy"));
+
+                         DateTime _date;
+                         _date = DateTime.Parse(@item.Expiry_date);
+                         day = int.Parse(_date.ToString("dd"));
+                         month = int.Parse(_date.ToString("MM"));
+                         year = int.Parse(_date.ToString("yyyy"));
+                         DateTime start = new DateTime(current_year, current_month, current_day);
+                         DateTime end = new DateTime(year, month, day);
+                         int difference = (start - end).Days;
+
+
+
+                         if (difference > 0)
+                         {
+                             <tr class="bg-danger text-white">
+
+                                 <td class="border_none" style="border-top: none">@item.Item_name</td>
+
+                                 <td class="border_none" style="border-top:none">@item.Expiry_date</td>
+
+
+
+                                 <td class="border_none" style="border:none">
+
+                                     <p hidden>Expired</p>
+                                     <button class="btn bg-white w3-card btn-sm m-0" onclick="dispose('@item.id');">Dispose</button>
+                                 </td>
+                             </tr>
+                         }
+                         else
+                         {
+                             <tr class="bg-light text-dark">
+
+                                 <td class="border_none" style="border-top: none">@item.Item_name</td>
+
+                                 <td class="border_none" style="border-top:none">@item.Expiry_date</td>
+
+
+
+                                 <td class="border_none" style="border:none">
+                                     <button class="btn bg-white w3-card btn-sm m-0" title="@item.Item_name" data-toggle="popover" data-placement="top" data-content="Date stocked:@item.Date_created                      Overdue:@difference">Infor</button>
+                                     <button class="btn btn-danger w3-card btn-sm m-0" onclick="delete_exp('@item.id')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
+                                     <p hidden>Active</p>
+
+
+                                 </td>
+                             </tr>
+
+                         }
+
+
+
+                     }
+                 }
+             </table>
+
+
+     </div>
+ </div>
+
+
+</div>
+
+@*//DELETE CLIENTS*@
+<div class="modal fade custome_modal_radius" id="delete_mod">
+    <div class="modal-dialog">
+       <div class="modal-content border-0 bg-transparent" >
+
+            <!-- Modal Header -->
+            <div class="alert alert-danger  p-2 bg-danger text-white border-0">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i><br /><p id="title"></p>  <br />
+
+                <p id="body">
+
+                </p>
+               
+                    <form asp-action="dispose_single_stock">
+                        <table class="table">
+                            <input name="id" id="delete_id" type="text" hidden />       
+                            <tr>
+                                <td style="border:0"class="text-left">
+                                    <button type="submit" class="btn btn-sm bg-white w3-card ">Proceed</button>
+
+                                </td>
+                                <td style="border:0"class="text-right">
+                                    <a class="btn btn-sm bg-white w3-card mr-5" data-dismiss="modal">Cancel</a>
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </form>
+                </div>
+
+
+            </div>
+            </div>
+            </div>
+
+
+
+         <div class="modal fade custome_modal_radius" id="add_client">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+
+            <!-- Modal Header -->
+            @*<div class="modal-header  p-2  ">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;  ADD NEW ITEM
+
+                </div>*@
+
+            <!-- Modal body -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/icons/users.png" class="sell" />&nbsp;<b>REGISTER AN ITEM</b>
+            </div>
+            <div class="modal-body">
+
+              
+                        <form asp-action="Add_expiry_details">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="group">
+                                <input name="item_name" class="custome_input" type="text" required="required" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Item name</label>
+                            </div>
+                            <div class="group">
+                                <input name="Expiry_date" class="custome_input"  type="date" required="required" />
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Epiry date</label>
+                            </div>
+                          <div class="form-group">
+                                <input type="submit" value="Register" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+   
+<div class="modal fade custome_modal_radius" id="Expired_list">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>ALL EXPIRED ITEMS</b>
+            </div>
+            <div class="modal-body  p-2 w3-card" style="z-index:1020">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+
+                                <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                    <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                    <input id="search_expired_table" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                           aria-label="Search">
+                                    &nbsp;
+                                    @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@
+                                    <button class="btn btn-primary btn-sm" id="expired_only"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table font_flex" id="expired_itesm_list_table">
+                                    <tr>
+                                        <th style="border:none">Item</th>
+
+                                        <th style="border:none">Expiry date</th>
+
+
+                                        <th style="border:none">Action</th>
+                                    </tr>
+
+                                    @if (@ViewBag.expired_list != null)
+                                    {
+                                        @foreach (var item in @ViewBag.expired_list)
+                                        {
+                                            <tr class="bg-light text-dark">
+
+                                                <td class="border_none" style="border-top: none">@item.Item_name</td>
+
+                                                <td class="border_none" style="border-top:none">@item.Expiry_date</td>
+
+
+
+                                                <td class="border_none" style="border:none">
+
+                                                    <p hidden>Expired</p>
+                                                    <button class="btn bg-white w3-card btn-sm m-0" onclick="dispose('@item.id');">Dispose</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section exp{
+
+    <script type="text/javascript">
+        $("#expired_items").click(function () {
+            //$("#to_pf_table").tableHTMLExport({
+            //    type: 'pdf',
+            //    orientation: 'p'
+            //});
+            var date = $("#search_restock").val();
+            $("#sales_made_on").text(date);
+            //var img = new Image()
+            var doc = new jsPDF();
+            //img.src = 'wwwroot/images/logo2.png'
+            //doc.addImage(img, 'png', 10, 78, 12, 15)
+            var htmlstring = '';
+            var tempVarToCheckPageHeight = 0;
+            var pageHeight = 0;
+            //pageHeight = doc.internal.pageSize.height;
+            //specialElementHandlers = {
+            //        // element with id of "bypass" - jQuery style selector
+            //        '#bypassme': function(element, renderer) {
+            //        // true = "handled elsewhere, bypass text extraction"
+            //        return true
+            //    }
+            //};
+            //margins = {
+            //        top: 10,
+            //    bottom: 10,
+            //    left: 10,
+            //    right: 10,
+            //    width: 100
+            //};
+            var y = 20;
+            doc.setLineWidth(2);
+            //doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+            doc.autoTable({
+                html: '#expiries',
+            });
+            doc.save('ITEMS_EXPIRIES_DETAILS');
+
+
+
+
+
+
+        });
+      
+     
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();  
+         
+            var msg = '@TempData["popup"]'
+
+            if (msg == "1") {
+                $("danger").show();
+                $("success").hide();
+
+                $('#positive_results').modal('show');
+                setTimeout(function () {
+                    $('#positive_results').modal('hide');
+                }, 3000);
+
+            }
+            else if (msg == "2") {
+                $("danger").show();
+                $("success").hide();
+                $('#negative_results').modal('show');
+                setTimeout(function () {
+                    $('#negative_results').modal('hide');
+                }, 3000);
+            }
+            else if (msg == "5") {
+
+                $("#add_new_item_to_system").modal('show');
+            }
+            else if (msg == "4") {
+
+                $("#filtered_sold").modal('show');
+            }
+            else {
+
+            }
+        });
+    </script>
+    }

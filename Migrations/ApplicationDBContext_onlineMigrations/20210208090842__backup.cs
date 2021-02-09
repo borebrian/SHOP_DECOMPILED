@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SHOP_DECOMPILED.Migrations
+namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
 {
-    public partial class v2 : Migration
+    public partial class _backup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,21 @@ namespace SHOP_DECOMPILED.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Credits", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Expiries",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Item_name = table.Column<int>(nullable: false),
+                    Date_created = table.Column<string>(nullable: true),
+                    Expiry_date = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Expiries", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,6 +149,9 @@ namespace SHOP_DECOMPILED.Migrations
 
             migrationBuilder.DropTable(
                 name: "Credits");
+
+            migrationBuilder.DropTable(
+                name: "Expiries");
 
             migrationBuilder.DropTable(
                 name: "Log_in");

@@ -83,7 +83,7 @@
                                aria-label="Search">
                         &nbsp;
                         @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@
-                        <button class="btn btn-white btn-sm m-1  w3-card" id="creditors_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Download PDF</button>
+                        <button class="btn btn-white btn-sm m-1  w3-card" id="creditors_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Download PDF</button><br />
                         <button class="btn btn-white btn-sm m-1 w3-card" id="creditors_pdf" data-dismiss="modal" data-toggle="modal" data-target="#add_client"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create new account</button>
 
                     </div>
@@ -95,37 +95,39 @@
  <br />
  <br />
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table font_flex" id="creditors_table">
-                        <tr>
-                            <th style="border:none">Name</th>
-                            <th style="border:none">Phone</th>
-                            <th style="border:none">Credit</th>
-                            <th style="border:none">Action</th>
-                        </tr>
+ <div class="row">
+     <div class="col-lg-12">
+         <table class="table font_flex" id="creditors_table">
+             <tr>
+                 <th style="border:none">Name</th>
+                 <th style="border:none">Phone</th>
+                 <th style="border:none">Credit</th>
+                 <th style="border:none">Action</th>
+             </tr>
 
-                        @if (@ViewBag.all_debtors != null)
-                        {
-                            @foreach (var item in @ViewBag.all_debtors)
-                            {
-                                <tr>
+             @if (@ViewBag.all_debtors != null)
+             {
+                 @foreach (var item in @ViewBag.all_debtors)
+                 {
+                     <tr>
 
-                                    <td class="border_none" style="border-top: none">@item.Customer_name</td>
-                                    <td class="border_none" style="border-top:none">@item.Phone_number</td>
-                                    <td class="border_none" style="border:none"><h5><span class="badge badge-dark">@item.Credit</span></h5></td>
-                                    <td class="border_none" style="border:none"> <a asp-route-id="@item.id" class="btn btn-sm w3-card bg-white" asp-action="Creditors" asp-controller="home">Open</a> 
-                                    <a  class="btn btn-sm w3-card bg-danger text-white" onclick="delete_func(@item.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                                  
-
-                                </tr>
-                            }
-                        }
-                    </table>
+                         <td class="border_none" style="border-top: none">@item.Customer_name</td>
+                         <td class="border_none" style="border-top:none">@item.Phone_number</td>
+                         <td class="border_none" style="border:none"><h5><span class="badge badge-dark">@item.Credit</span></h5></td>
+                         <td class="border_none" style="border:none">
+                             <a asp-route-id="@item.id" class="btn btn-sm w3-card bg-white" asp-action="Creditors" asp-controller="home">Open</a>
+                             <a class="btn btn-sm w3-card bg-danger text-white" onclick="delete_func(@item.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                         </td>
 
 
-                </div>
-            </div>
+                     </tr>
+                 }
+             }
+         </table>
+
+
+     </div>
+ </div>
     
 </div>
 

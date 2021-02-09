@@ -4,8 +4,6 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="row">
 
     <div class="col-md-4">
@@ -18,9 +16,6 @@
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Please sign up to proceed
             </div>
             <div class="card-body pb-0">
-
-
-
                 <form asp-action="Create" asp-controller="log_in">
                     @if (@TempData["Error"] != null)
                     {

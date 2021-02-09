@@ -24,8 +24,7 @@ namespace SHOP.Controllers
         private readonly ApplicationDBContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly string today = DateTime.Now.ToString("dd/MM/yyyy");
-
-
+        
         public HomeController(ApplicationDBContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
@@ -46,7 +45,7 @@ namespace SHOP.Controllers
 
         public IActionResult attendant()
         {
-
+            expiries_set();
             List<sold_items> list_of_sold = _context.sold_items.Where(x => x.DateTime == today).ToList();
             List<shop_items> list_of_brands = _context.Shop_items.ToList();
             List<join_sold_item> joinList = new List<join_sold_item>();
@@ -116,10 +115,139 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
         {
             HttpContext.Session.Clear();
             return Redirect("~/log_in/log_in");
-        }   
+        }
         //[AllowAnonymous]
-     
 
+        public IActionResult Expiries()
+        {
+           
+            ViewBag.expiry_details = _context.Expiries.ToList();
+            ViewBag.expired_count = _context.Expiries.ToList();
+
+
+         
+           
+           
+
+            DateTime _date;
+           
+           
+
+            string _date_today;
+            _date_today = DateTime.Now.ToString("dd-MM-yyyy");
+
+
+            var all_items = _context.Expiries.ToList();
+
+            List<Expiries> expire = new List<Expiries>();
+                foreach(var x in all_items)
+            {
+                int day;
+                int month;
+                int year;
+                int current_day;
+                int current_month;
+                int current_year;
+                _date = DateTime.Parse(x.Expiry_date);
+                day = int.Parse(_date.ToString("dd"));
+                month = int.Parse(_date.ToString("MM"));
+                year = int.Parse(_date.ToString("yyyy"));
+
+                current_day = int.Parse(DateTime.Now.ToString("dd"));
+                current_month = int.Parse(DateTime.Now.ToString("MM"));
+                current_year = int.Parse(DateTime.Now.ToString("yyyy"));
+                DateTime start = new DateTime(current_year, current_month, current_day);
+                DateTime end = new DateTime(year, month, day);
+                int diff = (start - end).Days;
+                if(diff > 0)
+                {
+                    expire.Add(x);
+                }
+
+
+            }
+
+            ViewBag.count_expired = expire.Count();
+            ViewBag.count_all = _context.Expiries.Count();
+            ViewBag.expired_list = expire;
+
+
+
+
+          
+
+            return View();
+        }
+        public void expiries_set()
+        {
+            DateTime _date;
+
+
+
+            string _date_today;
+            _date_today = DateTime.Now.ToString("dd-MM-yyyy");
+
+
+            var all_items = _context.Expiries.ToList();
+
+            List<Expiries> expire = new List<Expiries>();
+            foreach (var x in all_items)
+            {
+                int day;
+                int month;
+                int year;
+                int current_day;
+                int current_month;
+                int current_year;
+                _date = DateTime.Parse(x.Expiry_date);
+                day = int.Parse(_date.ToString("dd"));
+                month = int.Parse(_date.ToString("MM"));
+                year = int.Parse(_date.ToString("yyyy"));
+
+                current_day = int.Parse(DateTime.Now.ToString("dd"));
+                current_month = int.Parse(DateTime.Now.ToString("MM"));
+                current_year = int.Parse(DateTime.Now.ToString("yyyy"));
+                DateTime start = new DateTime(current_year, current_month, current_day);
+                DateTime end = new DateTime(year, month, day);
+                int diff = (start - end).Days;
+                if (diff > 0)
+                {
+                    expire.Add(x);
+                }
+
+
+            }
+
+         
+            ViewBag.expired_list = expire.Count();
+        }
+     
+  public IActionResult dispose_single_stock(int id)
+        {
+
+            var itemToRemove = _context.Expiries.SingleOrDefault(x => x.id == id); //returns a single item.
+            var nameOfVictim = itemToRemove.Item_name;
+            if (itemToRemove != null)
+            {
+                _context.Expiries.Remove(itemToRemove);
+                _context.SaveChanges();
+                TempData["popup"] = "1";
+                TempData["message"] = "You have successfully disposed: "+nameOfVictim;
+            }
+            return Redirect("~/home/expiries");
+        }
+        public IActionResult Add_expiry_details(string item_name,string Expiry_date)
+        {
+            Expiries x = new Expiries()
+            {
+Item_name=item_name,
+Date_created=DateTime.Now.ToString("dd/mm/yyyy"),
+Expiry_date=Expiry_date
+            };
+            _context.Add(x);
+            _context.SaveChanges();
+            return Redirect("~/home/expiries");
+        }
         public IActionResult Debtors()
         {
             ViewBag.allBrands_0 = _context.Shop_items.ToList();
@@ -382,22 +510,23 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
 
         }
 
-        public IActionResult modify_stock(int mod_id, float mod_stock_)
+        public IActionResult modify_stock(int mod_id, float mod_stock,string mod_name,float mod_stock_price,float mod_item_price)
         {
             var rest = _context.Shop_items.FirstOrDefault(x => x.id == mod_id);
 
             
-            rest.Quantity = mod_stock_;
-            
+            rest.Quantity = mod_stock;
+            rest.Cost_price = mod_stock_price;
+            rest.DateTime = today;
+            rest.Item_name = mod_name;
+            rest.Item_price = mod_item_price;
             //db.Entry(payment).State = EntityState.Modified;
             _context.Entry(rest).State = EntityState.Modified;
             _context.SaveChanges();
-
             TempData["popup"] = "1";
             //TempData["popup"] = "2";
             //TempData["popup"] = "Successfully working!";
-            TempData["message"] = "You have modified stock to " + mod_stock_;
-
+            TempData["message"] = "You have successfully modified details of:" + mod_name;
             return Redirect("~/home/admin");
 
         }
@@ -871,6 +1000,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
         public IActionResult add_new_attendant(String Full_name, String Phone)
         {
             //LETS JOIN TABLES
+
 
 
 

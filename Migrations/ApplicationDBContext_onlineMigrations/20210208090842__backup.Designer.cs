@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace SHOP_DECOMPILED.Migrations
+namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
 {
-    [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210201235523_v2")]
-    partial class v2
+    [DbContext(typeof(ApplicationDBContext_online))]
+    [Migration("20210208090842__backup")]
+    partial class _backup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,26 @@ namespace SHOP_DECOMPILED.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Credits");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Expiries", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date_created")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Expiry_date")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Item_name")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Expiries");
                 });
 
             modelBuilder.Entity("SHOP.Models.Payment_history", b =>

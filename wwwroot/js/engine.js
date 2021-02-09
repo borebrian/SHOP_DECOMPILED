@@ -10,7 +10,7 @@
 	table = document.getElementById("allbrands");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
+		td = tr[i].getElementsByTagName("td")[0];
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -192,6 +192,49 @@ $("#search_sold_items1").keyup(function () {
 	}
 
 });
+$("#expired_only").click(function () {
+	//$("#to_pf_table").tableHTMLExport({
+	//    type: 'pdf',
+	//    orientation: 'p'
+	//});
+	var date = $("#search_restock").val();
+	$("#sales_made_on").text(date);
+	//var img = new Image()
+	var doc = new jsPDF();
+	//img.src = 'wwwroot/images/logo2.png'
+	//doc.addImage(img, 'png', 10, 78, 12, 15)
+	var htmlstring = '';
+	var tempVarToCheckPageHeight = 0;
+	var pageHeight = 0;
+	//pageHeight = doc.internal.pageSize.height;
+	//specialElementHandlers = {
+	//        // element with id of "bypass" - jQuery style selector
+	//        '#bypassme': function(element, renderer) {
+	//        // true = "handled elsewhere, bypass text extraction"
+	//        return true
+	//    }
+	//};
+	//margins = {
+	//        top: 10,
+	//    bottom: 10,
+	//    left: 10,
+	//    right: 10,
+	//    width: 100
+	//};
+	var y = 20;
+	doc.setLineWidth(2);
+	//doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+	doc.autoTable({
+		html: '#expired_itesm_list_table',
+	});
+	doc.save('ALL_EXPIRED_DETAILS');
+
+
+
+
+
+
+});
 $("#search_sold_items12").keyup(function () {
 	$(this).val($(this).val().toUpperCase());
 
@@ -223,7 +266,85 @@ $("#search_sold_items12").keyup(function () {
 
 
 
-$("#search_restock").keyup(function () {
+$("#search_expired_table").keyup(function () {
+	$(this).val($(this).val().toUpperCase());
+
+	//$("#already_holder").removeAttr("hidden");
+
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("search_expired_table");
+	//input = id;search_sold_items sold_items
+	filter = input.value.toUpperCase();
+	table = document.getElementById("expired_itesm_list_table");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[0];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+
+			} else {
+				tr[i].style.display = "none";
+				//$("#already_holder").hide();
+			}
+		}
+	}
+	//var value = this.value.toLowerCase().trim();
+	//$("#already_holder").removeAttr("hidden");
+
+	//$("#already_added tr").each(function (index) {
+	//    if (!index) return;
+	//    $(this).find("td").each(function () {
+	//        var id = $(this).text().toLowerCase().trim();
+	//        var not_found = (id.indexOf(value) == -1);
+	//        $(this).closest('tr').toggle(!not_found);
+
+	//        return not_found;
+	//    });
+	//alert("hhjghgjh");
+	//});
+	$("#exp_search").keyup(function () {
+		$(this).val($(this).val().toUpperCase());
+
+		//$("#already_holder").removeAttr("hidden");
+
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("exp_search");
+		//input = id;search_sold_items sold_items
+		filter = input.value.toUpperCase();
+		table = document.getElementById("expiries");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+
+				} else {
+					tr[i].style.display = "none";
+					//$("#already_holder").hide();
+				}
+			}
+		}
+		//var value = this.value.toLowerCase().trim();
+		//$("#already_holder").removeAttr("hidden");
+
+		//$("#already_added tr").each(function (index) {
+		//    if (!index) return;
+		//    $(this).find("td").each(function () {
+		//        var id = $(this).text().toLowerCase().trim();
+		//        var not_found = (id.indexOf(value) == -1);
+		//        $(this).closest('tr').toggle(!not_found);
+
+		//        return not_found;
+		//    });
+		//alert("hhjghgjh");
+		//});
+	});
+
+});$("#search_restock").keyup(function () {
 	$(this).val($(this).val().toUpperCase());
 
 	//$("#already_holder").removeAttr("hidden");
@@ -262,6 +383,23 @@ $("#search_restock").keyup(function () {
 	//alert("hhjghgjh");
 	//});
 });
+function dispose(id) {
+	$("#delete_id").val(id);
+	$("#Expired_list").modal('hide');
+	$("#delete_mod").modal('show');
+	$("#title").text('Are you sure you want to Dispose these items from the system?.');
+	$("#body").text(' NB:Make sure you dispose the items from the counter and update the stock count in your system.');
+
+
+};
+function delete_exp(id) {
+	$("#delete_id").val(id);
+	$("#Expired_list").modal('hide');
+
+	$("#delete_mod").modal('show');
+	$("#title").text('Are you sure you want to delete these items from the system?.');
+	$("#body").text('');
+};
 
 $("#to_restock_pdf").click(function () {
 	//$("#to_pf_table").tableHTMLExport({
@@ -305,7 +443,8 @@ $("#to_restock_pdf").click(function () {
 
 
 
-});$("#creditors_pdf").click(function () {
+});
+$("#creditors_pdf").click(function () {
 	//$("#to_pf_table").tableHTMLExport({
 	//    type: 'pdf',
 	//    orientation: 'p'
