@@ -10,6 +10,9 @@ namespace SHOP.Models
 		[Required]
 		public string Date_restock { get; set; }
 
+		public string Supplier { get; set; }
+
+
 		[Required]
 		public float new_quanity { get; set; }
 

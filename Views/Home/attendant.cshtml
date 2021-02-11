@@ -19,6 +19,7 @@
                                         <tr>
                                             <td>
                                                 @ViewBag.shop_name
+                                               
                                             </td>
                                         </tr>
                                         <tr>
@@ -280,7 +281,7 @@
                                     @foreach (var item in ViewBag.allBrands_0)
                                     {
                                         <tr>
-                                            <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
+                                            <td class="border_none" style="border-top: none"><img class="table_image_dynamic" asp-append-version="true" /></td>
                                             <td class="border_none" style="border-top: none">@item.Item_name</td>
                                             <td class="border_none" style="border-top:none">@item.Item_price/=</td>
                                             @if (@item.Quantity == 0)
@@ -760,7 +761,7 @@
 
 
          //WebSocket settings
-    @*JSPM.JSPrintManager.auto_reconnect = true;
+    JSPM.JSPrintManager.auto_reconnect = true;
     JSPM.JSPrintManager.start();
     JSPM.JSPrintManager.WS.onStatusChanged = function () {
         if (jspmWSStatus()) {
@@ -780,11 +781,11 @@
         if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
             return true;
         else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
-            alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+            //alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
             return false;
         }
         else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
-            alert('JSPM has blocked this website!');
+            //alert('JSPM has blocked this website!');
             return false;
         }
     }
@@ -804,7 +805,8 @@
             if ($('#useDefaultPrinter').prop('checked')) {
                 cpj.clientPrinter = new JSPM.DefaultPrinter();
             } else {
-                cpj.clientPrinter = new JSPM.InstalledPrinter($('#installedPrinterName').val());
+                //cpj.clientPrinter = new JSPM.InstalledPrinter($('#installedPrinterName').val());
+                cpj.clientPrinter = new JSPM.InstalledPrinter('@ViewBag.printer');
             }
             //Set content to print...
             //Create ESP/POS commands for sample label
@@ -862,7 +864,7 @@
             //Send print job to printer!
             cpj.sendToClient();
         }
-    }*@
+    }
        //<script type="text/javascript">
 
 
@@ -1251,7 +1253,7 @@ $("#attendants_pdf").click(function () {
 		table = document.getElementById("allbrands_1");
 		tr = table.getElementsByTagName("tr");
 		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[0];
+			td = tr[i].getElementsByTagName("td")[1];
 			if (td) {
 				txtValue = td.textContent || td.innerText;
 				if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -1292,7 +1294,6 @@ $("#attendants_pdf").click(function () {
         $("#id_for_restock").text(id);
         $("#price_for_quantity_selector").val(price);
         $("#id_finish").val(id);
-
         $("#item_name_confirm").text(name);
         $("#cost_price_confirm").text(cost_price);
         $("#price_confirm").text(price);
@@ -1300,8 +1301,7 @@ $("#attendants_pdf").click(function () {
         //$('#sell_itemsf').modal('show');
         $('#sell_itemsf').modal('hide');
         $('#selected_item').modal('show');
-        //var t = $("#price_for_quantity_selector").val();
-        //alert(t);
+      
 	}
         //function submit_quantity_func(quantyty, price) {
 
@@ -1600,13 +1600,29 @@ node.innerHTML = "I'm an image now."
 		//    $('#more').html('<span class="glyphicon glyphicon-chevron-down"></span> More Info');
 		//}
 	});
+$('#save_pass').click(function () {
+		var typed_old = $('#old_pass').val();
+		var original = '@ViewBag.pass';
+    if (typed_old == '@ViewBag.pass') {
+        $("#modify_form").submit();
+    
+		}
+    else {
+        $("form").submit(function (e) {
 
+            e.preventDefault();
+            $('#error_old_pass').text(typed_old);
+
+        });
+        }
+	});
             </script>
 
 
         }
-        @*<script type="module" src="~/Pos_printer/lib/zip.js"></script>
+
+        <script type="module" src="~/Pos_printer/lib/zip.js" med></script>
             <script src="~/Pos_printer/scripts/zip-ext.js"></script>
             <script src="~/Pos_printer/scripts/deflate.js"></script>
             <script src="~/Pos_printer/scripts/JSPrintManager.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>*@
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>

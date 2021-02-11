@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
+namespace SHOP_DECOMPILED.Migrations
 {
-    [DbContext(typeof(ApplicationDBContext_online))]
-    [Migration("20210208090842__backup")]
-    partial class _backup
+    [DbContext(typeof(ApplicationDBContext))]
+    [Migration("20210210125636_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,8 +81,8 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                     b.Property<string>("Expiry_date")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Item_name")
-                        .HasColumnType("int");
+                    b.Property<string>("Item_name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("id");
 
@@ -128,6 +128,9 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                     b.Property<float>("Prev_quantity")
                         .HasColumnType("float");
 
+                    b.Property<string>("Supplier")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<float>("new_quanity")
                         .HasColumnType("float");
 
@@ -137,6 +140,26 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                     b.HasKey("id");
 
                     b.ToTable("Restock_history");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Suppliers", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Company_name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Supliers");
                 });
 
             modelBuilder.Entity("SHOP.Models.log_in", b =>

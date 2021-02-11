@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
+namespace SHOP_DECOMPILED.Migrations
 {
-    public partial class _backup : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,7 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Item_name = table.Column<int>(nullable: false),
+                    Item_name = table.Column<string>(nullable: true),
                     Date_created = table.Column<string>(nullable: true),
                     Expiry_date = table.Column<string>(nullable: true)
                 },
@@ -96,6 +96,7 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Item_id = table.Column<int>(nullable: false),
                     Date_restock = table.Column<string>(nullable: false),
+                    Supplier = table.Column<string>(nullable: true),
                     new_quanity = table.Column<float>(nullable: false),
                     Prev_quantity = table.Column<float>(nullable: false),
                     quantity = table.Column<float>(nullable: false)
@@ -140,6 +141,21 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
                 {
                     table.PrimaryKey("PK_sold_items", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Supliers",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Company_name = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Supliers", x => x.id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -167,6 +183,9 @@ namespace SHOP_DECOMPILED.Migrations.ApplicationDBContext_onlineMigrations
 
             migrationBuilder.DropTable(
                 name: "sold_items");
+
+            migrationBuilder.DropTable(
+                name: "Supliers");
         }
     }
 }

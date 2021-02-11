@@ -126,6 +126,9 @@ namespace SHOP_DECOMPILED.Migrations
                     b.Property<float>("Prev_quantity")
                         .HasColumnType("float");
 
+                    b.Property<string>("Supplier")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<float>("new_quanity")
                         .HasColumnType("float");
 
@@ -135,6 +138,26 @@ namespace SHOP_DECOMPILED.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Restock_history");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Suppliers", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Company_name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Supliers");
                 });
 
             modelBuilder.Entity("SHOP.Models.log_in", b =>

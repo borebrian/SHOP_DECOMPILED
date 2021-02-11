@@ -1,0 +1,315 @@
+﻿
+<div class="row">
+    <div class="col-lg-12">
+        <div class="image-flip">
+            <div class="mainflip flip-0">
+                <div class="frontside">
+                    <div class="card w3-card side_custome">
+                        <div class="card-body text-left">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <h1 class="card-title">@ViewBag.supliers_count </h1>
+                                </div>
+                            </div>
+                            <p class="card-text">Suppliers </p>
+
+
+                        </div>
+                        @*<div class="card-body text-left">
+                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                            <h4 class="card-title">Messages</h4>
+                            <p class="card-text">67</p>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="card w3-card">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+
+                            <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
+                                <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
+                                <input id="search_suppliers" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
+                                       aria-label="Search">
+                                &nbsp;
+                               
+                                <button class="btn btn-white btn-sm m-1  w3-card" id="download_suppliers"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;Download PDF</button><br />
+                                <button class="btn btn-white btn-sm m-1 w3-card" data-dismiss="modal" data-toggle="modal" data-target="#add_supplier">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Register new Supplier
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 p-2">
+                <table class="table font_flex" id="allbrands">
+                    <tr>
+
+                        <th class="border_none" style="border:none">Supplier name</th>
+                        <th class="border_none" style="border:none">Contacts.</th>
+                        <th class="border_none" style="border:none">Location</th>
+                    </tr>
+                    @if (@ViewBag.suppliers != null)
+                    {
+                        @foreach (var item in ViewBag.suppliers)
+                        {
+                            <tr>
+                                <td class="border_none" style="border-top: none">@item.Company_name</td>
+                                <td class="border_none" style="border-top: none">@item.Phone</td>
+                                <td class="border_none" style="border-top:none">@item.Location</td>
+                                <td class="border_none" style="border:none">
+
+                                    <a class="btn btn-danger btn-sm w3-card" asp-route-id="@item.id" asp-action="delete_sup">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                    </a>
+
+                                    <a href="tel:@item.Phone" class="btn btn-success w3-card btn-sm">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+
+                        <tr>
+                            <td colspan="4">
+                                <div class="alert alert-danger">
+                                    <p>No suppliers has been added yet</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+
+                </table>
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+@*//DELETE CLIENTS*@
+<div class="modal fade custome_modal_radius" id="delete_mod">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 bg-transparent">
+
+            <!-- Modal Header -->
+            <div class="alert alert-danger  p-2 bg-danger text-white border-0">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i><br /><p id="title"></p>  <br />
+
+                <p id="body">
+
+                </p>
+
+                <form asp-action="dispose_single_stock">
+                    <table class="table">
+                        <input name="id" id="delete_id" type="text" hidden />
+                        <tr>
+                            <td style="border:0" class="text-left">
+                                <button type="submit" class="btn btn-sm bg-white w3-card ">Proceed</button>
+
+                            </td>
+                            <td style="border:0" class="text-right">
+                                <a class="btn btn-sm bg-white w3-card mr-5" data-dismiss="modal">Cancel</a>
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade custome_modal_radius" id="add_supplier">
+    <div class="modal-dialog">
+        <div class="modal-content border-0">
+
+            <!-- Modal Header -->
+            @*<div class="modal-header  p-2  ">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;  ADD NEW ITEM
+
+                </div>*@
+
+            <!-- Modal body -->
+            <div class="modal-header  p-2  " style="z-index:1020">
+                <img src="~/icons/users.png" class="sell" />&nbsp;<b>REGISTER NEW SUPPLIER</b>
+            </div>
+            <div class="modal-body">
+                <form asp-action="add_supliers">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="group">
+                        <input name="Company_name" class="custome_input" type="text" required="required" />
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Company name</label>
+                    </div>
+                    <div class="group">
+                        <input name="Phone" class="custome_input" type="text" required="required" />
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Contacts</label>
+                    </div>
+                    <div class="group">
+                        <input name="location" class="custome_input" type="text" required="required" />
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Location</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section exp{
+
+    <script type="text/javascript">
+        $("#download_suppliers").click(function () {
+            //$("#to_pf_table").tableHTMLExport({
+            //    type: 'pdf',
+            //    orientation: 'p'
+            //});
+            var date = $("#search_restock").val();
+            $("#sales_made_on").text(date);
+            //var img = new Image()
+            var doc = new jsPDF();
+            //img.src = 'wwwroot/images/logo2.png'
+            //doc.addImage(img, 'png', 10, 78, 12, 15)
+            var htmlstring = '';
+            var tempVarToCheckPageHeight = 0;
+            var pageHeight = 0;
+            //pageHeight = doc.internal.pageSize.height;
+            //specialElementHandlers = {
+            //        // element with id of "bypass" - jQuery style selector
+            //        '#bypassme': function(element, renderer) {
+            //        // true = "handled elsewhere, bypass text extraction"
+            //        return true
+            //    }
+            //};
+            //margins = {
+            //        top: 10,
+            //    bottom: 10,
+            //    left: 10,
+            //    right: 10,
+            //    width: 100
+            //};
+            var y = 20;
+            doc.setLineWidth(2);
+            //doc.text(200, y = y + 30, "TOTAL MARKS OF STUDENTS");
+            doc.autoTable({
+                html: '#allbrands',
+            });
+            doc.save('SUPLIERS');
+
+
+
+
+
+
+        });
+
+
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+
+            var msg = '@TempData["popup"]'
+
+            if (msg == "1") {
+                $("danger").show();
+                $("success").hide();
+
+                $('#positive_results').modal('show');
+                setTimeout(function () {
+                    $('#positive_results').modal('hide');
+                }, 3000);
+
+            }
+            else if (msg == "2") {
+                $("danger").show();
+                $("success").hide();
+                $('#negative_results').modal('show');
+                setTimeout(function () {
+                    $('#negative_results').modal('hide');
+                }, 3000);
+            }
+            else if (msg == "5") {
+
+                $("#add_new_item_to_system").modal('show');
+            }
+            else if (msg == "4") {
+
+                $("#filtered_sold").modal('show');
+            }
+            else {
+
+            }
+        });
+        $("#search_suppliers").keyup(function () {
+            $(this).val($(this).val().toUpperCase());
+
+            //$("#already_holder").removeAttr("hidden");
+
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search_suppliers");
+            //input = id;search_sold_items sold_items
+            filter = input.value.toUpperCase();
+            table = document.getElementById("allbrands");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+
+                    } else {
+                        tr[i].style.display = "none";
+                        //$("#already_holder").hide();
+                    }
+                }
+            }
+        });
+    </script>
+}

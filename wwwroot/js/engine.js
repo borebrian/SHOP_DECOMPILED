@@ -10,7 +10,7 @@
 	table = document.getElementById("allbrands");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[0];
+		td = tr[i].getElementsByTagName("td")[1];
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -290,20 +290,7 @@ $("#search_expired_table").keyup(function () {
 			}
 		}
 	}
-	//var value = this.value.toLowerCase().trim();
-	//$("#already_holder").removeAttr("hidden");
-
-	//$("#already_added tr").each(function (index) {
-	//    if (!index) return;
-	//    $(this).find("td").each(function () {
-	//        var id = $(this).text().toLowerCase().trim();
-	//        var not_found = (id.indexOf(value) == -1);
-	//        $(this).closest('tr').toggle(!not_found);
-
-	//        return not_found;
-	//    });
-	//alert("hhjghgjh");
-	//});
+	
 	$("#exp_search").keyup(function () {
 		$(this).val($(this).val().toUpperCase());
 

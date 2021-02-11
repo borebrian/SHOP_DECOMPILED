@@ -246,7 +246,7 @@ html {
     height: 5px;
 }
 .table_image_dynamic {
-    content: url('/images/bottle1.png');
+    content: url('/icons/item.png');
     height: 30px;
     margin-left: 20px;
 }.table_image_dynamic2 {

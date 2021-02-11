@@ -6,8 +6,8 @@
     <title>@ViewData["Title"] - SHOP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @*<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">*@
-    <link href="~/css/cards.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/cards.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
@@ -15,19 +15,36 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white fixed-top">
             <div class="container">
-                <a class="navbar-brand title" asp-controller="Home" asp-action="attendant">
-                    <img src="~/images/sell.png" class="logoClassic" />
 
-                    SALES MANAGEMENT
-                </a>
                 @if (User.Identity.IsAuthenticated && User.Identity.Name == "1")
                 {
-                    <a class="btn m-2" asp-action="admin"><img class="sell-sm" src="~/icons/menu.png" /></a>
+                    <a class="navbar-brand title" asp-controller="Home" asp-action="Admin">
+                        <img src="~/images/sell.png" class="logoClassic" />
 
+                        HOME
+                    </a>
                 }
                 else if (User.Identity.IsAuthenticated && User.Identity.Name == "2")
                 {
+                    <a class="navbar-brand title" asp-controller="Home" asp-action="attendant">
+                        <img src="~/images/sell.png" class="logoClassic" />
+
+                        HOME
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar-brand title" asp-controller="log_in" asp-action="log_in">
+                        <img src="~/images/sell.png" class="logoClassic" />
+
+                        SALES MANAGEMENT SYSTEM
+                    </a>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
                     <a class="btn m-2" data-target="#receipt_mod" data-toggle="modal"><img class="sell-sm" src="~/images/settings.png" /></a>
+
                 }
 
                 @if (User.Identity.IsAuthenticated)
@@ -65,7 +82,7 @@
     </div>
 
 
-    <div class="top_bar_child_1 fixed-top w3-card-top text-center  " >
+    <div class="top_bar_child_1 fixed-top w3-card-top text-center  ">
         @if (User.Identity.IsAuthenticated)
         {
             <div class="row">
@@ -79,7 +96,7 @@
                 </div>
             </div>
         }
-        </div>
+    </div>
     <div class="container-fluid bring_to_front " style="margin-top:180px">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -89,18 +106,90 @@
         <div class="modal" id="receipt_mod" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content w3-card">
+                    <form asp-action="set_printer" asp-controller="home">
 
+                        <div class="modal-header  p-2  ">
+                            <img src="~/images/settings.png" class="sell" />&nbsp;<b>Setings</b>
+                        </div>
+
+                        <div class="modal-header  p-2  ">
+                            <img src="~/icons/printer.png" class="sell" />&nbsp;<b>Printer settings</b>
+                        </div>
+                       
+                        <div class="modal-body  p-2  text-center">
+                            
+                            <table class="table">
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="1" />
+                                                Default checkbox
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none">Current printer:</td>
+                                    <td style="border:none" class="text-danger"><b>@ViewBag.printer</b></td>
+                                </tr>
+                            </table>
+                            <p>Please select prefered printer</p>
+
+                            <div id="installedPrinters">
+
+                                <select class="form-control" style="width:100%" name="installedPrinterName" id="installedPrinterName"></select><br /><br />
+                                <button type="submit" class="btn btn-white w3-card ">Set as default printer</button>
+
+
+                            </div>
+                        </div>
+                    </form>
                     <div class="modal-header  p-2  ">
-                        <img src="~/images/settings.png" class="sell" />&nbsp;<b>PRINTER SETTINGS</b>
+
+                    </div>
+                    <div class="modal-header  p-2  ">
+                        <img src="~/icons/accounts_s.png" class="sell" />&nbsp;<b>Account settings &nbsp;<i class="fa fa-chevron-down" aria-hidden="true"></i></b>
                     </div>
                     <div class="modal-body  p-2  text-center">
-                        <p>Please select default receipt printer</p>
-                    </div>
-                    <div class="modal-body">
-                        <div id="installedPrinters">
+                        <form asp-action="mod_account" asp-controller="home" id="modify_form">
+                            <table class="table">
+                                <tr>
+                                    <td style="border:none">Shop name:</td>
+                                    <td style="border:none" class="text-danger">
+                                        @if (User.Identity.IsAuthenticated && User.Identity.Name == "1")
+                                        {
+                                            <input value="@ViewBag.shop_name" placeholder="Enter shop name" name="shop_name" class="form-control" />
+                                        }
+                                        else
+                                        {
+                                            <input value="@ViewBag.shop_name" placeholder="Enter shop name" name="shop_name" disabled class="form-control" />
 
-                            <select class="form-control" style="width:100%" name="installedPrinterName" id="installedPrinterName"></select>
-                        </div>
+                                        }
+                                        <input value="@ViewBag.id" hidden name="id" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none">Names:</td>
+                                    <td style="border:none" class="text-danger"><input value="@ViewBag.name" placeholder="Enter full names" name="f_names" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none">Phone:</td>
+                                    <td style="border:none" class="text-danger"><input value="@ViewBag.phone" placeholder="Enter phone" name="phone" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none">Enter new password:</td>
+                                    <td style="border:none" class="text-danger"><input placeholder="New password" maxlength="14" autocomplete="off" name="new_pass" type="password" class="form-control" /></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:none" colspan="2" class="text-center">
+                                        <button type="submit" class="btn btn-white w3-card ">Save dtails</button>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </form>
                     </div>
                     <div class="modal-header  p-2  " hidden>
 
@@ -117,9 +206,13 @@
                         </div>            <!-- Modal Header -->
 
                     </div>
+
                 </div>
             </div>
         </div>
+
+
+
     </div>
     @*//TO BE RESTOCKED ITEMS*@
     <div class="modal fade custome_modal_radius" id="to_restock_modal">
@@ -143,9 +236,9 @@
                                         <input id="search_restock" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
                                                aria-label="Search">
                                         &nbsp;
-                                        @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@ 
+                                        @*<button class="btn btn-primary btn-sm w3-card" data-toggle="modal" data-target="#add_new_item_to_system"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add new item</button> &nbsp;*@
                                         <button class="btn btn-primary btn-sm" id="to_restock_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
-                                        <button class="btn btn-white btn-sm w3-card" data-dismiss="modal" ><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Exit</button>
+                                        <button class="btn btn-white btn-sm w3-card" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Exit</button>
 
                                     </div>
 
@@ -235,19 +328,22 @@
             </div>
         </footer>*@
     @*<script type="module" src="~/Pos_printer/lib/zip.js"></script>
-    <script src="~/Pos_printer/scripts/zip-ext.js"></script>
-    <script src="~/Pos_printer/scripts/deflate.js"></script>
-    <script src="~/Pos_printer/scripts/JSPrintManager.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>*@
+        <script src="~/Pos_printer/scripts/zip-ext.js"></script>
+        <script src="~/Pos_printer/scripts/deflate.js"></script>
+        <script src="~/Pos_printer/scripts/JSPrintManager.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/engine.js"></script>
+    <script src="~/js/engine.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="~/js/core.js"></script>
     <script src="~/js/full-screen-helper.min.js"></script>
+    
     @RenderSection("Scripts", required: false)
     @RenderSection("increment", required: false)
     @RenderSection("debt", required: false)

@@ -65,6 +65,11 @@ namespace SHOP.Controllers
 			base.HttpContext.Session.Clear();
 			return View();
 		}
+		public IActionResult Reset_pass()
+		{
+		
+			return View();
+		}
 
 		[HttpPost]
 		public IActionResult Log_in_user(Users users)
@@ -86,12 +91,14 @@ namespace SHOP.Controllers
 				HttpContext.Session.SetString("shop_name", user_id.Shop_name);
 				log_in constants2 = _context.Log_in.FirstOrDefault((log_in x) => x.strRole == 1);
 				HttpContext.Session.SetString("phone", constants2.Phone);
+				HttpContext.Session.SetString("id", constants2.id.ToString());
 				return Redirect("~/home/admin");
 			}
 			HttpContext.Session.SetString("roles", user_id.strRole.ToString());
 			HttpContext.Session.SetString("Name", user_id.Full_name);
 			HttpContext.Session.SetString("shop_name", user_id.Shop_name);
 			log_in constants = _context.Log_in.FirstOrDefault((log_in x) => x.strRole == 1);
+				HttpContext.Session.SetString("id", constants.id.ToString());
 			HttpContext.Session.SetString("phone", constants.Phone);
 			return Redirect("~/home/attendant");
 		}

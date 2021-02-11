@@ -48,7 +48,7 @@ namespace SHOP
             //services.AddDbContext<ApplicationDBContext>(options => options.UseMySql(absConnectionString));
             services.AddHttpContextAccessor();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(14000);
 
             });
             //services.AddSingleton<IWorker,Worker>();
@@ -57,8 +57,8 @@ namespace SHOP
 
             services.AddDbContext<ApplicationDBContext>(
     options => options.UseMySql(Configuration.GetConnectionString("Default")));
-            services.AddDbContext<ApplicationDBContext_online>(
-    options => options.UseMySql(Configuration.GetConnectionString("online")));
+    //        services.AddDbContext<ApplicationDBContext_online>(
+    //options => options.UseMySql(Configuration.GetConnectionString("online")));
             services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["Default"]));
             var key = Encoding.ASCII.GetBytes("YourKey-2374-OFFKDI940NG7:56753253-tyuw-5769-0921-kfirox29zoxv");
             services.AddAuthentication(x =>

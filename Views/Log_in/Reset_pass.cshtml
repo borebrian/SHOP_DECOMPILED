@@ -1,7 +1,7 @@
 ﻿@model SHOP.Models.log_in
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Reset pass";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,11 +16,11 @@
             <div class="card-header text-center text-white border-0" style="        background-color: #15BADF
 ">
                 @*<img src="/icons/log_in.png" class="image_for_login " />*@
-                <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Please log in to proceed
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Please enter verification code sent to your number
             </div>
             <div class="card-body pb-0">
                 <form asp-action="Log_in_user" asp-controller="log_in">
-                  
+
                     @if (@TempData["Error"] != null)
                     {
                         <div class="row">
@@ -34,24 +34,24 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         @*<label asp-for="Phone" class="control-label"></label>*@
-                        <input asp-for="Phone" maxlength="10" value="07" class="form-control" autocomplete="off" required="required" />
+                        <input asp-for="Phone" maxlength="10" value="07" class="form-control" required="required" />
                     </div>
                     <div class="form-group">
                         @*<label asp-for="Password" class="control-label"></label>*@
-                        <input asp-for="Password" maxlength="20" class="form-control" type="password" autocomplete="off" placeholder="Enter password" required="required" id="pass" />
+                        <input asp-for="Password" maxlength="10" class="form-control" type="password" placeholder="Enter password" required="required" id="pass" />
 
 
                     </div>
                     @*<div class="form-group">
-        <label asp-for="Phone" class="control-label"></label>
-        <input asp-for="Phone" maxlength="10" value="07" class="form-control" />*@
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" maxlength="10" value="07" class="form-control" />*@
 
                     @*</div>*@
                     @*<div class="form-group">
-            <label asp-for="Password" class="control-label"></label>
-            <input asp-for="Password" maxlength="14" class="form-control" />
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" maxlength="14" class="form-control" />
 
-        </div>*@
+                        </div>*@
 
                     <div class="form-group">
                         <table class="table">
@@ -79,5 +79,23 @@
 
 
 @section Scripts {
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDoXOkz5_uyGT_Mr312dhKOxawjw9XZqRM",
+    authDomain: "sms-verification-22c28.firebaseapp.com",
+    projectId: "sms-verification-22c28",
+    storageBucket: "sms-verification-22c28.appspot.com",
+    messagingSenderId: "880079498097",
+    appId: "1:880079498097:web:b90811ad665c4c382264d0"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

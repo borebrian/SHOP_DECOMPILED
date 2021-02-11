@@ -24,7 +24,7 @@ namespace SHOP.Controllers
         private readonly ApplicationDBContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly string today = DateTime.Now.ToString("dd/MM/yyyy");
-        
+
         public HomeController(ApplicationDBContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
@@ -45,6 +45,9 @@ namespace SHOP.Controllers
 
         public IActionResult attendant()
         {
+
+            string printer = HttpContext.Request.Cookies["printer_name"];
+            ViewBag.printer = printer;
             expiries_set();
             List<sold_items> list_of_sold = _context.sold_items.Where(x => x.DateTime == today).ToList();
             List<shop_items> list_of_brands = _context.Shop_items.ToList();
@@ -100,13 +103,18 @@ namespace SHOP.Controllers
             }
             else
             {
-ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
+                ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.quantity_sold);
 
             }
 
             ViewBag.shop_name = HttpContext.Session.GetString("shop_name");
             ViewBag.name = HttpContext.Session.GetString("Name");
             ViewBag.phone = HttpContext.Session.GetString("phone");
+            ViewBag.id = HttpContext.Session.GetString("id");
+
+            var phone = HttpContext.Session.GetString("phone");
+            var pass = _context.Log_in.SingleOrDefault(z => z.Phone == phone);
+           
             Random r = new Random();
             ViewBag.Random = r.Next(1000000, 9999999);
             return View();
@@ -120,18 +128,18 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
 
         public IActionResult Expiries()
         {
-           
+
             ViewBag.expiry_details = _context.Expiries.ToList();
             ViewBag.expired_count = _context.Expiries.ToList();
 
 
-         
-           
-           
+
+
+
 
             DateTime _date;
-           
-           
+
+
 
             string _date_today;
             _date_today = DateTime.Now.ToString("dd-MM-yyyy");
@@ -140,7 +148,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
             var all_items = _context.Expiries.ToList();
 
             List<Expiries> expire = new List<Expiries>();
-                foreach(var x in all_items)
+            foreach (var x in all_items)
             {
                 int day;
                 int month;
@@ -159,7 +167,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
                 DateTime start = new DateTime(current_year, current_month, current_day);
                 DateTime end = new DateTime(year, month, day);
                 int diff = (start - end).Days;
-                if(diff > 0)
+                if (diff > 0)
                 {
                     expire.Add(x);
                 }
@@ -174,7 +182,7 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
 
 
 
-          
+
 
             return View();
         }
@@ -218,11 +226,11 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
 
             }
 
-         
+
             ViewBag.expired_list = expire.Count();
         }
-     
-  public IActionResult dispose_single_stock(int id)
+
+        public IActionResult dispose_single_stock(int id)
         {
 
             var itemToRemove = _context.Expiries.SingleOrDefault(x => x.id == id); //returns a single item.
@@ -232,17 +240,17 @@ ViewBag.sold = _context.sold_items.Where(x => x.DateTime == today).Sum(x => x.qu
                 _context.Expiries.Remove(itemToRemove);
                 _context.SaveChanges();
                 TempData["popup"] = "1";
-                TempData["message"] = "You have successfully disposed: "+nameOfVictim;
+                TempData["message"] = "You have successfully disposed: " + nameOfVictim;
             }
             return Redirect("~/home/expiries");
         }
-        public IActionResult Add_expiry_details(string item_name,string Expiry_date)
+        public IActionResult Add_expiry_details(string item_name, string Expiry_date)
         {
             Expiries x = new Expiries()
             {
-Item_name=item_name,
-Date_created=DateTime.Now.ToString("dd/mm/yyyy"),
-Expiry_date=Expiry_date
+                Item_name = item_name,
+                Date_created = DateTime.Now.ToString("dd/mm/yyyy"),
+                Expiry_date = Expiry_date
             };
             _context.Add(x);
             _context.SaveChanges();
@@ -254,26 +262,85 @@ Expiry_date=Expiry_date
             ViewBag.all_debtors = _context.Creditors.ToList();
             ViewBag.count_debtors = _context.Creditors.Count();
             ViewBag.sum_of_debts = _context.Creditors.Sum(x => x.Credit);
-
-
             return View();
-        }    
-        
+        }
+
         public IActionResult Creditors(int id)
         {
-            ViewBag.history = _context.Credits.Where(x=>x.Client_id==id).ToList();
-            var x = _context.Creditors.FirstOrDefault(x=>x.id==id);
+            ViewBag.history = _context.Credits.Where(x => x.Client_id == id).ToList();
+            var x = _context.Creditors.FirstOrDefault(x => x.id == id);
             ViewBag.debtors_name = x.Customer_name;
             ViewBag.id = id;
             ViewBag.credit = x.Credit;
             ViewBag.count_debtors = _context.Creditors.Count();
             ViewBag.p_history = _context.Payment_history.ToList();
-           
+
 
 
             return View();
         }
-        public IActionResult payment(float ammount,int id)
+        [HttpPost]
+
+        public IActionResult add_supliers(string Company_name,string Phone,string location)
+        {
+            Suppliers x = new Suppliers() { 
+            
+            Company_name=Company_name,
+            Phone=Phone,
+            Location=location
+            
+            };
+
+            _context.Add(x);
+            _context.SaveChanges();
+            TempData["popup"] = "1";
+            TempData["message"] = "Supplier successfully added!";
+            return Redirect("~/home/supliers");
+
+        } 
+        public IActionResult supliers()
+        {
+            ViewBag.suppliers = _context.Supliers.ToList();
+            ViewBag.supliers_count = _context.Supliers.Count();
+            return View();
+        }
+        public IActionResult delete_sup(int id)
+        {
+            var item_to_remove = _context.Supliers.SingleOrDefault(x => x.id == id); //returns a single item.
+            var nameOfVictim = item_to_remove.Company_name;
+            if (item_to_remove != null)
+            {
+                _context.Supliers.Remove(item_to_remove);
+                _context.SaveChanges();
+                TempData["popup"] = "1";
+                TempData["message"] = nameOfVictim + "  successfully removed from the system!";
+                return Redirect("~/home/supliers");
+            }
+            else
+            {
+                TempData["popup"] = "2";
+                TempData["message"] = "Not found";
+                return Redirect("~/home/supliers");
+            }
+          
+        }
+        [HttpPost]
+        public IActionResult mod_account(string f_names, string phone,string new_pass, string shop_name, int id)
+        {
+            var records = _context.Log_in.FirstOrDefault(x => x.id == id);
+            records.Full_name = f_names;
+            records.Password = new_pass;
+            records.Phone = phone;
+            records.Shop_name = shop_name;
+            _context.Entry(records).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            TempData["popup"] = "1";
+            TempData["message"] = "Account details successfully updated!";
+            return Redirect("~/log_in/log_in");
+
+
+        }
+        public IActionResult payment(float ammount, int id)
         {
             var initial_total = _context.Creditors.FirstOrDefault(x => x.id == id);
             var init = initial_total.Credit;
@@ -295,7 +362,7 @@ Expiry_date=Expiry_date
             _context.SaveChanges();
 
             return RedirectToAction("creditors", "Home", new { id = id });
-       
+
 
         }
         public IActionResult delete_account(int id)
@@ -306,16 +373,16 @@ Expiry_date=Expiry_date
             {
                 _context.Creditors.Remove(itemToRemove);
                 _context.SaveChanges();
-            }  
-            var itemToRemove2 = _context.Credits.Where(x=>x.Client_id==id); //returns a single item.
-            
+            }
+            var itemToRemove2 = _context.Credits.Where(x => x.Client_id == id); //returns a single item.
+
             if (itemToRemove != null)
             {
                 _context.Credits.RemoveRange(itemToRemove2);
                 _context.SaveChanges();
-            }  
-            var itemToRemove3 = _context.Payment_history.Where(x=>x.Client_id==id); //returns a single item.
-            
+            }
+            var itemToRemove3 = _context.Payment_history.Where(x => x.Client_id == id); //returns a single item.
+
             if (itemToRemove3 != null)
             {
                 _context.Payment_history.RemoveRange(itemToRemove3);
@@ -329,14 +396,14 @@ Expiry_date=Expiry_date
             //TempData["popup"] = "2";
             //TempData["popup"] = "Successfully working!";
             TempData["message"] = nameOfVictim + " has been successfully removed from the system!";
-           
+
             return Redirect("~/home/debtors");
 
         }
 
-        public IActionResult _add_debt(int id,String item,String quantity,string date,float total)
+        public IActionResult _add_debt(int id, String item, String quantity, string date, float total)
         {
-            var xx= _context.Creditors.FirstOrDefault(x => x.id == id);
+            var xx = _context.Creditors.FirstOrDefault(x => x.id == id);
 
             Credits x = new Credits
             {
@@ -344,9 +411,9 @@ Expiry_date=Expiry_date
                 Quantity = quantity,
                 Date_created = date,
                 Client_id = id,
-                Total=total,
+                Total = total,
 
-                
+
             };
             //var yy = _context.Creditors.FirstOrDefault(x => x.id == id);
             _context.Add(x);
@@ -359,8 +426,8 @@ Expiry_date=Expiry_date
             _context.Entry(before_).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
             TempData["popup"] = "1";
-            TempData["message"] = "You have successfully top upd credit for :" + xx.Customer_name +" from the system";      
-          
+            TempData["message"] = "You have successfully top upd credit for :" + xx.Customer_name + " from the system";
+
             return RedirectToAction("creditors", "Home", new { id = id });
         }
 
@@ -392,7 +459,7 @@ Expiry_date=Expiry_date
                     float initial_cost_price_total = check_if_exists.Total_Cost_cash;
                     float total_cost_price = shop_itemss.Cost_price * quantity_sold;
                     float final_cost_price = initial_cost_price_total + total_cost_price;
-                    
+
 
                     //
 
@@ -450,9 +517,9 @@ Expiry_date=Expiry_date
                 float final_cost_price;
                 if (check_if_exists1 == null)
                 {
-                    float initial_cost_price_total =0;
+                    float initial_cost_price_total = 0;
                     float total_cost_price = shop_itemss.Cost_price * quantity_sold;
-                     final_cost_price = initial_cost_price_total + total_cost_price;
+                    final_cost_price = initial_cost_price_total + total_cost_price;
                 }
                 else
                 {
@@ -461,7 +528,7 @@ Expiry_date=Expiry_date
                     final_cost_price = initial_cost_price_total + total_cost_price;
 
                 }
-             
+
 
 
                 //LETS CREATE NEW DOCUMENT FOR NEW DATES
@@ -485,7 +552,18 @@ Expiry_date=Expiry_date
 
 
         }
-        public IActionResult delete_item(int id)
+        public IActionResult set_printer(string installedPrinterName) { 
+
+ CookieOptions option = new CookieOptions();  
+
+ 
+   option.Expires = DateTime.Now.AddMonths(300);  
+   
+   Response.Cookies.Append("printer_name", installedPrinterName, option);
+            return Redirect("/home/attendant");
+        }
+        
+         public IActionResult delete_item(int id)
         {
             var itemToRemove = _context.Shop_items.SingleOrDefault(x => x.id == id); //returns a single item.
             var item_name = itemToRemove.Item_name;
@@ -523,14 +601,15 @@ Expiry_date=Expiry_date
             //db.Entry(payment).State = EntityState.Modified;
             _context.Entry(rest).State = EntityState.Modified;
             _context.SaveChanges();
-            TempData["popup"] = "1";
+            TempData["popup"] = "8";
             //TempData["popup"] = "2";
             //TempData["popup"] = "Successfully working!";
-            TempData["message"] = "You have successfully modified details of:" + mod_name;
+          
             return Redirect("~/home/admin");
+            
 
         }
-        public IActionResult restock(int id, int ammount,float cost_price_restock)
+        public IActionResult restock(int id, int ammount,float cost_price_restock,string supplier)
         {
 
             var rest = _context.Shop_items.FirstOrDefault(x => x.id == id);
@@ -549,7 +628,8 @@ Expiry_date=Expiry_date
                 Date_restock = date,
                 new_quanity = new_stock,
                 Prev_quantity = initialStock,
-                quantity = ammount
+                quantity = ammount,
+                Supplier=supplier,
             };
             _context.Add(insert_new);
             _context.SaveChanges();
@@ -682,6 +762,15 @@ Expiry_date=Expiry_date
         public IActionResult admin(log_in log, [Optional] String date)
         {
 
+            ViewBag.supliers_count = _context.Supliers.Count();
+
+            List<Suppliers> x = new List<Suppliers>();
+            //bind dropdown
+            x = _context.Supliers.ToList();
+            x.Insert(0, new Suppliers { id = 0, Company_name = "--Select supplier--" });
+            ViewBag.Drop_sulier = x;
+
+            expiries_set();
             //LETS CALCULATE SHOP NET WORTH
             var get_all = _context.Shop_items.Where(x=>x.Quantity>0);
             int i, j;
@@ -731,8 +820,6 @@ Expiry_date=Expiry_date
             }
             var JoinListToViewbag1 = joinList1.ToList();
             ViewBag.JoinList1 = JoinListToViewbag1;
-
-
             if (date == null)
             {
                 //SOLD ITEMS FOR THE FIRST MODAL
@@ -750,8 +837,6 @@ Expiry_date=Expiry_date
                                           od.Item_price,
                                           od.Item_name,
                                           pd.Total_Cost_cash
-
-
                                       }).ToList();
 
                 foreach (var item in results_second)
@@ -826,6 +911,8 @@ Expiry_date=Expiry_date
             }
             ViewBag.allBrands = _context.Shop_items.Where(x => x.Quantity > 0).ToList();
             ViewBag.allBrands_0 = _context.Shop_items.ToList();
+            ViewBag.id = HttpContext.Session.GetString("id");
+
             ViewBag.count_below = _context.Shop_items.Count(x => x.Quantity <= 0);
             ViewBag.to_restock = _context.Shop_items.Where(x => x.Quantity <= 0);
             ViewBag.count_all = _context.Shop_items.Sum(x => x.Quantity);
@@ -845,15 +932,10 @@ Expiry_date=Expiry_date
             }
 
             ViewBag.sold_general = _context.sold_items;
-
-            //HttpContext.Session.SetString("roles", user_id.strRole.ToString());
-            //HttpContext.Session.SetString("Name", user_id.Full_name);
-            //HttpContext.Session.SetString("shop_name", user_id.Shop_name);
             ViewBag.shop_name = HttpContext.Session.GetString("shop_name");
             ViewBag.name = HttpContext.Session.GetString("Name");
-            //ViewBag.name=HttpContext.Session.GetString("user_id");
-
-
+            ViewBag.id = HttpContext.Session.GetString("id");
+            var phone = HttpContext.Session.GetString("phone");
             //RESTOCKING ITEMS HISTORY
             List<Restock_history> list_of_restocked = _context.Restock_history.ToList();
             List<shop_items> list_of_brands = _context.Shop_items.ToList();
@@ -871,7 +953,7 @@ Expiry_date=Expiry_date
                                od.Item_price,
                                pd.quantity,
                                od.id,
-
+                               pd.Supplier,
                            }).ToList();
 
             foreach (var item in results)
@@ -883,6 +965,7 @@ Expiry_date=Expiry_date
                 JoinObject.new_quanity = item.new_quanity;
                 JoinObject.Prev_quantity = item.Prev_quantity;
                 JoinObject.quantity = item.quantity;
+                JoinObject.Supplier = item.Supplier;
                 JoinObject.Date_restock = item.Date_restock;
                 joinList.Add(JoinObject);
 
@@ -899,7 +982,7 @@ Expiry_date=Expiry_date
             //ViewBag.stock=getting_quanity.
             var count_brand = _context.Shop_items.Count();
            
-            var count_below = _context.Shop_items.Where(x => x.Quantity < 5).Count();
+            var count_below = _context.Shop_items.Where(x => x.Quantity < 0).Count();
             if (count_below == null)
             {
                 ViewBag.count_below = 0;
