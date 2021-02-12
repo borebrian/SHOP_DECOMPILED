@@ -99,10 +99,9 @@ namespace SHOP.Controllers
 			HttpContext.Session.SetString("shop_name", user_id.Shop_name);
 			log_in constants = _context.Log_in.FirstOrDefault((log_in x) => x.strRole == 1);
 				HttpContext.Session.SetString("id", constants.id.ToString());
-			HttpContext.Session.SetString("phone", constants.Phone);
+			HttpContext.Session.SetString("phone", user_id.Phone);
 			return Redirect("~/home/attendant");
 		}
-
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (!id.HasValue)

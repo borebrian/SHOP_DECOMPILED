@@ -103,7 +103,7 @@
         </main>
         @*//PRINTER*@
 
-        <div class="modal" id="receipt_mod" data-backdrop="static">
+        <div class="modal fade" id="receipt_mod" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content w3-card">
                     <form asp-action="set_printer" asp-controller="home">
@@ -119,16 +119,7 @@
                         <div class="modal-body  p-2  text-center">
                             
                             <table class="table">
-                                <tr>
-                                    <td colspan="2">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="1" />
-                                                Default checkbox
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
+                               
                                 <tr>
                                     <td style="border:none">Current printer:</td>
                                     <td style="border:none" class="text-danger"><b>@ViewBag.printer</b></td>
@@ -260,16 +251,16 @@
                                 @foreach (var item in ViewBag.to_restock)
                                 {
                                     <tr>
-                                        <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>
-                                        <td class="border_none" style="border-top: none">@item.Item_name</td>
-                                        <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                                        <td ><img class="table_image_dynamic" /></td>
+                                        <td >@item.Item_name</td>
+                                        <td>@item.Item_price/=</td>
                                         @if (@item.Quantity == 0)
                                         {
-                                            <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
+                                            <td ><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
                                         }
                                         else
                                         {
-                                            <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
+                                            <td ><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
                                         }
 
                                         @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@

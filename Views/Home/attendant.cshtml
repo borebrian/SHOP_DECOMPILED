@@ -271,7 +271,7 @@
                         <div class="row mt-4 p-2">
                             <table class="table font_flex" id="allbrands">
                                 <tr>
-                                    <th class="border_none" style="border:none">Icon</th>
+                               
                                     <th class="border_none" style="border:none">Item name</th>
                                     <th class="border_none" style="border:none">Price</th>
                                     <th class="border_none" style="border:none">Qunty</th>
@@ -281,16 +281,16 @@
                                     @foreach (var item in ViewBag.allBrands_0)
                                     {
                                         <tr>
-                                            <td class="border_none" style="border-top: none"><img class="table_image_dynamic" asp-append-version="true" /></td>
-                                            <td class="border_none" style="border-top: none">@item.Item_name</td>
-                                            <td class="border_none" style="border-top:none">@item.Item_price/=</td>
+                                           
+                                            <td class="border_none" ><b>@item.Item_name</b></td>
+                                            <td class="border_none">@item.Item_price/=</td>
                                             @if (@item.Quantity == 0)
                                             {
-                                                <td class="border_none" style="border:none"><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
+                                                <td class="border_none" ><h5><span class="badge badge-danger">@item.Quantity</span></h5></td>
                                             }
                                             else
                                             {
-                                                <td class="border_none" style="border:none"><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
+                                                <td class="border_none" ><h5><span class="badge badge-secondary">@item.Quantity</span></h5></td>
                                             }
 
                                             @*<td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>*@
@@ -373,12 +373,12 @@
                                     @foreach (var item in @ViewBag.JoinList)
                                     {
                                         <tr>
-                                            <td class="border_none" style="border-top: none">@item.DateTime</td>
-                                            <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                            <td >@item.DateTime</td>
+                                            <td>@item.Item_name</td>
 
-                                            <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
-                                            <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                                            <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                                            <td >@item.quantity_sold</td>
+                                            <td>@item.Item_price</td>
+                                            <td id="total_per_brand_sold_0">@item.Total_cash_made</td>
 
                                         </tr>
 
@@ -405,7 +405,7 @@
 
         @*//SELECT ITEM*@
         <div class="modal fade custome_modal_radius" id="sell_itemsf">
-            <div class="modal-dialog" style="z-index:1020">
+            <div class="modal-dialog modal-lg" style="z-index:1020">
                 <div class="modal-content" style="z-index:1020">
 
                     <!-- Modal Header -->
@@ -436,10 +436,6 @@
 
                                     <input id="sell_item_customer" class="form-control form-control-sm search_input mb-2 w-100" type="text" placeholder="Search"
                                            aria-label="Search">
-
-
-
-
                                 </td>
 
                             </tr>
@@ -458,7 +454,7 @@
                                 {
                                     <tr class="w3-card space_tr" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime',@item.Cost_price)">
                                         @*  <td class="border_none" style="border-top: none"><img class="table_image_dynamic" /></td>*@
-                                        <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                        <td class="border_none" style="border-top: none"><b>@item.Item_name</b></td>
                                         <td class="border_none" style="border-top:none">@item.Item_price/=</td>
                                         <td class="border_none" style="border:none"><span class="badge badge-secondary">@item.Quantity</span></td>
                                         <td class="border_none" style="border:none"><button class="btn w3-card p-1"><img src="~/icons/tap.png" class="sell" /></button></td>
@@ -544,84 +540,87 @@
         @*//SELECTED ITEM*@
 
         <div class="modal fade custome_modal_radius" id="selected_item">
-            <div class="modal-dialog" style="z-index:1020">
-                <div class="modal-content" style="z-index:1020">
+          
+                <div class="modal-dialog modal-lg">
 
-                    <!-- Modal Header -->
-                    <div class="modal-header  p-2 grey_custome">
-                        <img src="~/images/sell.png" class="sell" />&nbsp; <p id="item_selected"></p>
+                    <div class="modal-content" style="z-index:1020">
 
-                    </div>
+                        <!-- Modal Header -->
+                        <div class="modal-header  p-2 grey_custome">
+                            <img src="~/images/sell.png" class="sell" />&nbsp; <p id="item_selected"></p>
+
+                        </div>
 
 
 
 
-                    <!-- Modal body -->
-                    <div class="modal-body">
+                        <!-- Modal body -->
+                        <div class="modal-body">
 
-                        <table class="table" style="z-index:1020">
-                            @*<tr>
-                                    <td>
-                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>&nbsp; Item selected:
+                            <table class="table" style="z-index:1020">
+                                @*<tr>
+                            <td>
+                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>&nbsp; Item selected:
+                            </td>
+                            <td>
+                                <p id="item_selected"></p>
+                            </td>
+                        </tr>*@
+                                <tr>
+                                    <td class="grey_custome border-0">
+                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Current Quantity:
                                     </td>
-                                    <td>
-                                        <p id="item_selected"></p>
+                                    <td class="border-0">
+                                        <p id="current_quantity"></p>
                                     </td>
-                                </tr>*@
-                            <tr>
-                                <td class="grey_custome border-0">
-                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp; Current Quantity:
-                                </td>
-                                <td class="border-0">
-                                    <p id="current_quantity"></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="border-0 text-center">
-                                    <p class="grey_custome">Please enter quantity sold</p>
-                                    @*<form asp-action="restock">*@
-                                    <div class="input-group mb-3 w3-card">
-                                        <div class="input-group-prepend text-light">
-                                            <a class="btn btn-primary" style="
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="border-0 text-center">
+                                        <p class="grey_custome">Please enter quantity sold</p>
+                                        @*<form asp-action="restock">*@
+                                        <div class="input-group mb-3 w3-card">
+                                            <div class="input-group-prepend text-light">
+                                                <a class="btn btn-primary" style="
 " onclick="dincrementInput('quantity_selector')">
-                                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-                                        <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><br />
-                                        <input hidden autocomplete="on" id="price_for_quantity_selector" type="number">
-                                        <input class="form-control" min="0.5" name="ammount" id="quantity_selector" value="1" type="number">
-                                        <div class="input-group-append text-light w3-card">
-                                            <a style="
+                                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                            <input hidden min="0" autocomplete="on" name="id_select_quantity" id="id_for_restock" type="number"><br />
+                                            <input hidden autocomplete="on" id="price_for_quantity_selector" type="number">
+                                            <input class="form-control" min="0.5" name="ammount" id="quantity_selector" value="1" type="number">
+                                            <div class="input-group-append text-light w3-card">
+                                                <a style="
 " class="btn btn-primary" onclick="incrementInput('quantity_selector')">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                            </a>
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <table class="table">
-                                        <tr>
-                                            <td class="text-center border-0">
-                                                <button data-dismiss="modal" data-target="#sell_itemsf" data-toggle="modal" class="btn reduced_radius reduced_radius w3-card"><img src="~/icons/back.png" class="sell_lg" />&nbsp;&nbsp;&nbsp;Back</button>
-                                            </td>
-                                            <td class="text-center border-0">
-                                                <button id="submit_quantity" class="btn reduced_radius reduced_radius w3-card">Next&nbsp;&nbsp;&nbsp;<img src="~/icons/next.png" class="sell_lg" /></button>
+                                        <table class="table">
+                                            <tr>
+                                                <td class="text-center border-0">
+                                                    <button data-dismiss="modal" data-target="#sell_itemsf" data-toggle="modal" class="btn reduced_radius reduced_radius w3-card"><img src="~/icons/back.png" class="sell_lg" />&nbsp;&nbsp;&nbsp;Back</button>
+                                                </td>
+                                                <td class="text-center border-0">
+                                                    <button id="submit_quantity" class="btn reduced_radius reduced_radius w3-card">Next&nbsp;&nbsp;&nbsp;<img src="~/icons/next.png" class="sell_lg" /></button>
 
-                                        </tr>
-                                    </table>
-                                    @*</form>*@
+                                            </tr>
+                                        </table>
+                                        @*</form>*@
 
-                                </td>
+                                    </td>
 
-                            </tr>
-                        </table>
-
+                                </tr>
+                            </table>
 
 
+
+
+                        </div>
 
                     </div>
-
                 </div>
+             
             </div>
-        </div>
 
         <!-- Button to Open the Modal -->
         <!-- The Modal -->
@@ -718,9 +717,19 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Receipt printing:</td><td>
+                                <div class="custom-control custom-switch mt-3">
+  <input type="checkbox" class="custom-control-input" id="customSwitches" checked>
+  <label class="custom-control-label" for="customSwitches" id="p_status">On</label>
+</div>
+                                
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="border-0 text-left">
                                     <button class="btn w3-card" id="finish_submit">Finish</button>
                                 </td>
+                               
                                 <td class="border-0 text-right">
                                     <button class="btn w3-card" onclick="goBack()">Back</button>
                                 </td>
@@ -1253,7 +1262,7 @@ $("#attendants_pdf").click(function () {
 		table = document.getElementById("allbrands_1");
 		tr = table.getElementsByTagName("tr");
 		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[1];
+			td = tr[i].getElementsByTagName("td")[0];
 			if (td) {
 				txtValue = td.textContent || td.innerText;
 				if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -1471,7 +1480,14 @@ $("#attendants_pdf").click(function () {
                         $('#confirm_sale').modal('hide');
              $('#receipt_total').text(calculated);
                         $('#receipt_total1').text(calculated);
-                        print(item_name, price, qntity, calculated)
+                        if ($('#customSwitches').is(':checked')) {
+
+                            print(item_name, price, qntity, calculated);
+
+                        }
+                        else {
+
+                        }
                         $('#done').modal('show');
                         //alert(response.total)
 

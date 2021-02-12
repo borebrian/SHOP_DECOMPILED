@@ -10,6 +10,45 @@
 	table = document.getElementById("allbrands");
 	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[0];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+
+			} else {
+				tr[i].style.display = "none";
+				//$("#already_holder").hide();
+			}
+		}
+	}
+	//var value = this.value.toLowerCase().trim();
+	//$("#already_holder").removeAttr("hidden");
+
+	//$("#already_added tr").each(function (index) {
+	//    if (!index) return;
+	//    $(this).find("td").each(function () {
+	//        var id = $(this).text().toLowerCase().trim();
+	//        var not_found = (id.indexOf(value) == -1);
+	//        $(this).closest('tr').toggle(!not_found);
+
+	//        return not_found;
+	//    });
+	//alert("hhjghgjh");
+	//});
+});
+$("#search_allbrands").keyup(function () {
+	$(this).val($(this).val().toUpperCase());
+
+	$("#already_holder").removeAttr("hidden");
+
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("search_allbrands");
+	//input = id;search_sold_items sold_items
+	filter = input.value.toUpperCase();
+	table = document.getElementById("allbrands_2");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
 		td = tr[i].getElementsByTagName("td")[1];
 		if (td) {
 			txtValue = td.textContent || td.innerText;
@@ -36,6 +75,10 @@
 	//    });
 	//alert("hhjghgjh");
 	//});
+});
+$("#allbrands > tbody > tr").hide().slice(0, 20).show();
+$(".show-all").on("click", function () {
+	$("tbody > tr", $(this).prev()).show();
 });
 function openModal(id,id2) {
 

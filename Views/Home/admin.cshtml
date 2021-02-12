@@ -317,7 +317,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header  p-2  " style="z-index:1020">
-                <img src="~/images/sell.png" class="sell" />&nbsp;<b>ALL BRANDS</b>
+                <img src="~/images/sell.png" class="sell" />&nbsp;<b>ALL ITEMS</b>
 
             </div>
 
@@ -361,11 +361,11 @@
                                         {
                                             <tr>
 
-                                                <td class="border_none" style="border-top: none">@item.Item_name</td>
-                                                <td class="border_none" style="border-top: none">@item.Cost_price</td>
-                                                <td class="border_none" style="border-top:none">@item.Item_price/=</td>
-                                                <td class="border_none" style="border:none"><span class="badge badge-dark">@item.Quantity</span></td>
-                                                <td class="border_none" style="border:none"><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>
+                                                <td >@item.Item_name</td>
+                                                <td>@item.Cost_price</td>
+                                                <td>@item.Item_price/=</td>
+                                                <td ><span class="badge badge-dark">@item.Quantity</span></td>
+                                                <td><button class="btn btn-light" onclick="find_details('@item.id','@item.Item_name','@item.Item_price','@item.Quantity','@item.DateTime','@item.Cost_price')"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button></td>
 
                                             </tr>
                                         }
@@ -431,10 +431,10 @@
                 </div>
                 <table class="table font_flex" id="attendants_table">
                     <tr>
-                        <td style="border:none"><b>Name </b></td>
-                        <td style="border:none"><b>Phone</b></td>
-                        <td style="border:none"><b>Role</b></td>
-                        <td style="border:none"><b>Action</b></td>
+                        <td ><b>Name </b></td>
+                        <td ><b>Phone</b></td>
+                        <td><b>Role</b></td>
+                        <td ><b>Action</b></td>
                     </tr>
                     @if (@ViewBag.all_attendants != null)
                     {
@@ -593,12 +593,12 @@
                             @foreach (var item in @ViewBag.JoinList1)
                             {
                                 <tr>
-                                    <td class="border_none" style="border-top: none">@item.DateTime</td>
-                                    <td class="border_none" style="border-top: none">@item.Item_name</td>
+                                    <td>@item.DateTime</td>
+                                    <td >@item.Item_name</td>
 
-                                    <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
-                                    <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                                    <td class="sub_totals" id="total_per_brand_sold_0" style="border:none">@item.Total_cash_made</td>
+                                    <td >@item.quantity_sold</td>
+                                    <td >@item.Item_price</td>
+                                    <td  id="total_per_brand_sold_0" >@item.Total_cash_made</td>
                                     @{
                                         float profit = item.Total_cash_made - item.Total_Cost_cash;
                                     }
@@ -610,12 +610,12 @@
 
                         }
                         <tr>
-                            <td class="text-left" style="border:none;"><b>TOTAL CASH:</b></td>
-                            <td style="border:none;" class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total"></b></span></td>
+                            <td class="text-left" ><b>TOTAL CASH:</b></td>
+                            <td  class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total"></b></span></td>
                         </tr>
                         <tr>
-                            <td class="text-left" style="border:none;"><b>PROFIT:</b></td>
-                            <td style="border:none;" class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_profit"></b></span></td>
+                            <td class="text-left" ><b>PROFIT:</b></td>
+                            <td  class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_profit"></b></span></td>
 
 
                         </tr>
