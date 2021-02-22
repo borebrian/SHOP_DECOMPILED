@@ -18,8 +18,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                @ViewBag.shop_name
-                                               
+                                                @ViewBag.shop_name<br />
                                             </td>
                                         </tr>
                                         <tr>
@@ -378,7 +377,7 @@
 
                                             <td >@item.quantity_sold</td>
                                             <td>@item.Item_price</td>
-                                            <td id="total_per_brand_sold_0">@item.Total_cash_made</td>
+                                            <td class="total_per_brand_sold_0">@item.Total_cash_made</td>
 
                                         </tr>
 
@@ -386,8 +385,8 @@
 
                                 }
                                 <tr>
-                                    <td colspan="4" class="text-left" style="border:none;"><b>TOTAL</b></td>
-                                    <td style="border:none;" class="border_none text-left">Ksh.<b id="total"></b></td>
+                                    <td colspan="2" class="text-left" style="border:none;font-size:30px;"><b>TOTAL:</b></td>
+                                    <td colspan="2" style="border:none;font-size:30px;" class="border_none text-left">Ksh.<b  id="total_attendant"></b></td>
                                 </tr>
                             </table>
 
@@ -504,6 +503,7 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
+                        
 
                         <table class="table" style="z-index:1020">
                             <tr class="w3-card allbrands_1">
@@ -514,9 +514,12 @@
                                 <td class="border-0">Items sold:</td>
                                 <td class="border-0"><p id="items_sold_finance"></p></td>
                             </tr>
+                            <tr>
+                                <td colspan="2">NB:Enter discounted value here</td>
+                            </tr>
                             <tr class="w3-card allbrands_1">
                                 <td class="border-0">Total Cash Expected:</td>
-                                <td class="border-0"><p id="total_cash_paid_out"></p></td>
+                                <td class="border-0"><input id="total_cash_paid_out" class="form-control" /></td>
                             </tr>
                             <tr>
                                 <td class="border-0 text-center" colspan="2">
@@ -628,14 +631,14 @@
             <div class="modal-dialog">
                 <div class="modal-content w3-card">
 
-                    <table class="table">
+                    <table class="table" >
                         <tr>
                             <td rowspan="2">
                                 <img src="/gif/done.gif" class="done" />
                             </td>
                             <td>
                                 <p>Item sold successfully.Customer receipt has been downloaded to your local machine!.</p>
-                                <a asp-action="attendant" asp-controller="home" class="btn w3-card">Ok</a>
+                                <a asp-action="refresh" asp-controller="home" class="btn w3-card">Ok</a>
                             </td>
                         </tr>
                     </table>
@@ -667,7 +670,7 @@
 
 
         <div class="modal" id="confirm_sale">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content w3-card">
 
                     <!-- Modal Header -->
@@ -701,11 +704,11 @@
                                             <td class="border-0"><p id="item_sold_confirm"></p></td>
                                         </tr>
                                         <tr>
-                                            <td class="border-0">Cost Price:</td>
+                                            <td class="border-0">Buying Price:</td>
                                             <td class="border-0"><p id="cost_price_confirm"></p></td>
                                         </tr>
                                         <tr>
-                                            <td class="border-0">Price:</td>
+                                            <td class="border-0">Selling price:</td>
                                             <td class="border-0"><p id="price_confirm"></p></td>
                                         </tr>
 
@@ -1103,16 +1106,13 @@ $("#attendants_pdf").click(function () {
 
 
 
+                calc_total_admin();
+
+                calc_total_attendant();
 
 
 
 
-
-
-
-            //if (!document.fullscreenElement) {
-            //    document.documentElement.requestFullscreen();
-            //}
 	$('#collapse').hide();
             var msg = '@TempData["popup"]'
             calc_total();
@@ -1137,7 +1137,8 @@ $("#attendants_pdf").click(function () {
 			$('#negative_results').modal('hide');
 		}, 3000);
 	}
-	else {
+    else if (msg == "11") {
+        $('#sell_itemsf').modal('show');
 
 	}
 	//alert("hdhhdh");
@@ -1290,13 +1291,13 @@ $("#attendants_pdf").click(function () {
 		//});
 	});
 
-	//function calc_total() {
-	//	var sum = 0;
-	//	$(".sub_totals").each(function () {
-	//		sum += parseFloat($(this).text());
-	//	});
-	//	$('#total').text(sum);
-	//}
+	function calc_total_attendant() {
+		var sum = 0;
+        $(".total_per_brand_sold_0").each(function () {
+			sum += parseFloat($(this).text());
+		});
+		$('#total_attendant').text(sum);
+	}
 
             function find_details(id, name, price, quantity, date, cost_price,) {
         $("#item_selected").text(name);
@@ -1323,15 +1324,9 @@ $("#attendants_pdf").click(function () {
             var calculated = qntity * price;
 
 
-
-
-
-
-
-
             $("#item_price").text(price);
             $("#items_sold_finance").text(qntity);
-            $("#total_cash_paid_out").text(calculated);
+            $("#total_cash_paid_out").val(calculated);
 
             var id = $("id_for_restock").val();
 
@@ -1342,7 +1337,7 @@ $("#attendants_pdf").click(function () {
             $("#submit_price").val(price);
 
             $("#items_sold_finance").text(qntity);
-            $("#total_cash_paid_out").text(calculated);
+           
 
             //$("#item_selected_finance").text(calculated);
             //$('#sell_itemsf').modal('show');
@@ -1389,8 +1384,10 @@ $("#attendants_pdf").click(function () {
             var qntity = parseFloat(qntity_before);
             var price = parseFloat(price_before);
             var calculated = qntity * price;
+            var discounted = $("#total_cash_paid_out").val();
+
             //LETS FEED THE CONFIRM MODAL
-            $("#sub_total_confirm").text(calculated);
+            $("#sub_total_confirm").text(discounted);
             $("#item_sold_confirm").text(qntity);
             $('#calculate_modal').modal('hide');
             $('#confirm_sale').modal('show');
@@ -1462,7 +1459,8 @@ $("#attendants_pdf").click(function () {
             var item_name = $("#item_name_confirm").text();
             var date = $("#DateTime").val();
             var id = $("#id_finish").val();
-            var qntity = parseFloat(qntity_before);
+                var qntity = parseFloat(qntity_before);
+                var discounted = $("#total_cash_paid_out").val();
             var price = parseFloat(price_before);
                 var calculated = qntity * price;
                 //alert(calculated);
@@ -1470,7 +1468,7 @@ $("#attendants_pdf").click(function () {
                     type: "POST",
                     url: "/Home/sell_Item",
                     data: {
-                        "id_finish": id, "quantity_sold": qntity, "submit_price": price, "Total_cash_made": calculated, "date": date,
+                        "id_finish": id, "quantity_sold": qntity, "submit_price": price, "Total_cash_made": discounted, "date": date,
                     },
                     success: function (response) {
                         $("#sub_totals").text(response.total);
@@ -1512,7 +1510,9 @@ node.innerHTML = "I'm an image now."
                     }
                 });
             //LETS FEED THE CONFIRM MODAL
-            $("#sub_total_confirm").text(calculated);
+                var discounted = $("#total_cash_paid_out").val();
+
+                $("#sub_total_confirm").text(discounted);
             $("#item_sold_confirm").text(qntity);
             $('#calculate_modal').modal('hide');
             $('#confirm_sale').modal('show');

@@ -15,6 +15,7 @@ namespace SHOP.Models
 		public float quantity_sold { get; set; }
 
 		public float Total_cash_made { get; set; }
+		public float id { get; set; }
 
 		[Required]
 		[DataType(DataType.Date)]

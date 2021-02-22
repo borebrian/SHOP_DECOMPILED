@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SHOP_DECOMPILED.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210210125636_v1")]
+    [Migration("20210219195159_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,6 +140,23 @@ namespace SHOP_DECOMPILED.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Restock_history");
+                });
+
+            modelBuilder.Entity("SHOP.Models.Settings", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Action")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("SHOP.Models.Suppliers", b =>

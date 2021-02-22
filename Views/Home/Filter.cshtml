@@ -12,9 +12,9 @@
                             <input id="search_sold_items12" name="date" required type="date" class="form-control form-control-sm ml-3 search_input mb-2" placeholder="Search"
                                    aria-label="Search">
                             &nbsp;
-                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</button>
+                            <button class="btn bg-white w3-card  btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</button>
 
-                            <a class="btn btn-primary btn-sm text-white" id="filtered_sold_to_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</a>
+                            <a class="btn bg-white w3-card btn-sm " id="filtered_sold_to_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</a>
                         </form>
                     </div>
 
@@ -34,7 +34,7 @@
                     <th colspan="6" style="border: none" class="text-center">
                         <div class="alert alert-primary w3-card">
                            
-                            &nbsp;@ViewBag.message
+                            <h6>  &nbsp;@ViewBag.message</h6>
                             <p></p>
                         </div>
                     </th>
@@ -46,7 +46,7 @@
 
             </tr>
             <tr>
-                <th class="border_none" style="border:none">Date</th>
+               
                 <th class="border_none" style="border:none">Brand</th>
                 <th class="border_none" style="border:none">Sold</th>
                 <th class="border_none" style="border:none">Price</th>
@@ -63,7 +63,7 @@
                     @foreach (var item in @ViewBag.JoinList12)
                     {
                         <tr>
-                            <td class="border_none" style="border-top: none">@item.DateTime</td>
+                           
                             <td class="border_none" style="border-top: none">@item.Item_name</td>
 
                             <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
@@ -87,11 +87,11 @@
                 @foreach (var item in @ViewBag.JoinList_general_third)
                 {
                     <tr>
-                        <td class="border_none" style="border-top: none">@item.DateTime</td>
+                       
                         <td class="border_none" style="border-top: none">@item.Item_name</td>
                         <td class="brand_totals" style="border-top:none">@item.quantity_sold</td>
                         <td class="brand_totals" style="border-top:none">@item.Item_price</td>
-                        <td class="sub_totals_mod2" id="total_per_brand_sold_00" style="border:none">@item.Total_Cost_cash</td>
+                        <td class="sub_totals_mod2" id="total_per_brand_sold_00" style="border:none">@item.Total_cash_made</td>
                         @{
                             float profit2 = item.Total_cash_made - item.Total_Cost_cash;
                         }

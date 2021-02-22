@@ -585,8 +585,16 @@ function calc_total_cost_price() {
 	$(".sub_totals_cost_price").each(function () {
 		sum += parseFloat($(this).text());
 	});
-	
+
 	$('#total_profit').text(sum);
+}
+	function calc_total_admin() {
+	var sum = 0;
+		$(".total_per_brand_sold_0").each(function () {
+		sum += parseFloat($(this).text());
+	});
+	
+		$('#total_admin_').text(sum);
 	
 }
 

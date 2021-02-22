@@ -107,6 +107,20 @@ namespace SHOP_DECOMPILED.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Action = table.Column<bool>(nullable: false),
+                    Status = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shop_items",
                 columns: table => new
                 {
@@ -177,6 +191,9 @@ namespace SHOP_DECOMPILED.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restock_history");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "Shop_items");

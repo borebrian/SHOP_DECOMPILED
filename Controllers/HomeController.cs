@@ -23,7 +23,10 @@ namespace SHOP.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly string today = DateTime.Now.ToString("dd/MM/yyyy");
+        //private readonly string today = DateTime.Now.ToString("dd/MM/yyyy");
+        private static TimeZoneInfo E_Africa_standard_time = TimeZoneInfo.FindSystemTimeZoneById("E. Africa Standard Time");
+        private static  DateTime today1 = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, E_Africa_standard_time);
+        string today = today1.ToString("dd/MM/yyyy");
 
         public HomeController(ApplicationDBContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -45,7 +48,7 @@ namespace SHOP.Controllers
 
         public IActionResult attendant()
         {
-
+            ViewBag.time = today;
             string printer = HttpContext.Request.Cookies["printer_name"];
             ViewBag.printer = printer;
             expiries_set();
@@ -365,6 +368,20 @@ namespace SHOP.Controllers
 
 
         }
+        public IActionResult dele_sold(int id)
+        {
+            var itemToRemove = _context.sold_items.SingleOrDefault(x => x.id == id); //returns a single item.
+          
+            if (itemToRemove != null)
+            {
+                _context.sold_items.Remove(itemToRemove);
+                _context.SaveChanges();
+            }
+            TempData["popup"] = "1";
+            TempData["message"] = "Sales deleted successfully! NB:Remember to update your stock!";
+            return Redirect("~/home/admin");
+
+        }
         public IActionResult delete_account(int id)
         {
             var itemToRemove = _context.Creditors.SingleOrDefault(x => x.id == id); //returns a single item.
@@ -434,7 +451,11 @@ namespace SHOP.Controllers
         [HttpPost]
         public IActionResult sell_Item(int id_finish, float quantity_sold, float submit_price, float Total_cash_made, string date)
         {
-            var check_if_exists = _context.sold_items.FirstOrDefault(x => x.Item_id.ToString() == id_finish.ToString() && x.DateTime == date);
+            DateTime date_ = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, E_Africa_standard_time);
+
+         
+
+            var check_if_exists = _context.sold_items.FirstOrDefault(x => x.Item_id.ToString() == id_finish.ToString() && x.DateTime == today);
             var shop_itemss = _context.Shop_items.FirstOrDefault(x => x.id == id_finish);
 
             //LETS CHECK IF WE SOLD SIMILAR ITEM TODAY
@@ -473,7 +494,7 @@ namespace SHOP.Controllers
                     var new_total_cash = initial_total_cash + Total_cash_made;
 
                     //LETS UPDATE FIELDS
-                    check_if_exists.DateTime = date;
+                    check_if_exists.DateTime =today;
                     check_if_exists.Total_cash_made = new_total_cash;
                     check_if_exists.quantity_sold = new_sold_quantity;
                     check_if_exists.Total_Cost_cash = final_cost_price;
@@ -538,7 +559,7 @@ namespace SHOP.Controllers
                     quantity_sold = quantity_sold,
                     Total_cash_made = Total_cash_made,
                     Total_Cost_cash = final_cost_price,
-                    DateTime = date
+                    DateTime = today
 
 
                 };
@@ -609,7 +630,15 @@ namespace SHOP.Controllers
             
 
         }
-        public IActionResult restock(int id, int ammount,float cost_price_restock,string supplier)
+        public IActionResult refresh()
+        {
+            TempData["popup"] = "11";
+            //TempData["popup"] = "2";
+            //TempData["popup"] = "Successfully working!";
+
+            return Redirect("~/home/attendant");
+        }
+     public IActionResult restock(int id, int ammount,float cost_price_restock,string supplier)
         {
 
             var rest = _context.Shop_items.FirstOrDefault(x => x.id == id);
@@ -800,6 +829,8 @@ namespace SHOP.Controllers
                                 od.Item_price,
                                 od.Item_name,
                                 pd.Total_Cost_cash,
+                                pd.id,
+                                pd.Item_id
                             }).ToList();
 
             foreach (var item in results1)
@@ -816,6 +847,8 @@ namespace SHOP.Controllers
                 JoinObject.Item_price = item.Item_price;
                 JoinObject.Item_name = item.Item_name;
                 JoinObject.Total_Cost_cash = item.Total_Cost_cash;
+                JoinObject.Item_id = item.Item_id.ToString();
+                JoinObject.id = item.id;
                 joinList1.Add(JoinObject);
             }
             var JoinListToViewbag1 = joinList1.ToList();
@@ -999,7 +1032,7 @@ namespace SHOP.Controllers
         }
 
 
-        public IActionResult Filter(string date)
+        public IActionResult Filter([Optional] string date)
         {
 
             DateTime _date;
@@ -1007,7 +1040,7 @@ namespace SHOP.Controllers
           
             if (date== null)
             {
-                day = DateTime.Now.ToString("dd/MM/yyyy");
+                day = today1.ToString();
             }
             else {
 
@@ -1054,7 +1087,7 @@ namespace SHOP.Controllers
 
             //TempData["popup"] = "2";
          
-        ViewBag.message ="Found:" +count + " records found totaling to Ksh. " + sum_of_cash;
+        ViewBag.message ="Date: "+day+" Found:" +count + " records, total cash made: " + sum_of_cash+"/=.";
             //TempData["total"] = sum_of_cash;
 
 

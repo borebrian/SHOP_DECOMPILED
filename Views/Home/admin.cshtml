@@ -542,30 +542,32 @@
 <div class="modal fade custome_modal_radius" id="sold_items_modal1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <!-- Modal Header -->
-            <div class="modal-header  p-2  " style="z-index:1020">
+            <div class="modal-header  p-2" style="z-index:1020">
                 <img src="~/images/sell.png" class="sell" />&nbsp;<b>SOLD ITEMS TODAY</b>
-
             </div>
             <div class="modal-body  p-2 w3-card" style="z-index:1020">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-12">
-
-
                                 <div class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2 ml-3 w-100">
                                     <i class="fa fa-search " aria-hidden="true" style="color:#68213A "></i>
                                     <input id="search_sold_items12" class="form-control form-control-sm ml-3 search_input mb-2" type="text" placeholder="Search"
                                            aria-label="Search">
                                     &nbsp;
-                                    <button class="btn btn-primary btn-sm" id="sold_items_pdf1"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button> &nbsp; &nbsp;
+                                    <button class="btn bg-white w3-card btn-sm" id="sold_items_pdf1"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button> &nbsp; &nbsp;
                                     @{
-                                        var today = DateTime.Now.ToString("dd/MM/yyyy");
+
+
+                                        TimeZoneInfo E_Africa_standard_time = TimeZoneInfo.FindSystemTimeZoneById("E. Africa Standard Time");
+                                        DateTime today1 = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, E_Africa_standard_time);
+                                        string today = today1.ToString("dd/MM/yyyy");
+
+                                      
 
                                     }
-                                    <a asp-action="filter" asp-route-date="@today" class="btn btn-primary btn-sm">Filter&nbsp;&nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                                    <a asp-action="filter"  class="btn bg-white w3-card btn-sm">Filter&nbsp;&nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 
                                 </div>
 
@@ -580,43 +582,40 @@
                 <div class="row mt-1 p-2">
                     <table class="table font_flex" id="sold_items_12">
                         <tr>
-                            <th class="border_none" style="border:none">Date</th>
+                          
                             <th class="border_none" style="border:none">Brand</th>
                             <th class="border_none" style="border:none">Sold</th>
                             <th class="border_none" style="border:none">Price</th>
                             <th class="border_none" style="border:none">Total</th>
                             <th class="border_none" style="border:none">Profit</th>
-
+                            <th class="border_none" style="border:none">Action</th>
                         </tr>
                         @if (@ViewBag.JoinList1 != null)
-                        {
-                            @foreach (var item in @ViewBag.JoinList1)
-                            {
-                                <tr>
-                                    <td>@item.DateTime</td>
-                                    <td >@item.Item_name</td>
-
-                                    <td >@item.quantity_sold</td>
-                                    <td >@item.Item_price</td>
-                                    <td  id="total_per_brand_sold_0" >@item.Total_cash_made</td>
-                                    @{
-                                        float profit = item.Total_cash_made - item.Total_Cost_cash;
-                                    }
-                                    <td class="sub_totals_cost_price" id="total_per_brand_sold_0" style="border:none"><span class="badge badge-success">@profit</span></td>
-
-                                </tr>
+                                            {
+                                                @foreach (var item in @ViewBag.JoinList1)
+                            { 
+                    <tr>
+                        <td>@item.Item_name</td>
+                        <td>@item.quantity_sold</td>
+                        <td>@item.Item_price</td>
+                        <td class="total_per_brand_sold_0">@item.Total_cash_made</td>
+                        @{
+                            float profit = item.Total_cash_made - item.Total_Cost_cash;
+                                        }
+                        <td class="sub_totals_cost_price"  ><span class="badge badge-success">@profit</span></td>
+                        <td ><a asp-action="dele_sold" asp-controller="home" asp-route-id="@item.id" class="btn btn-danger w3-card btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a> </td>
+                    </tr>
 
                             }
 
                         }
-                        <tr>
-                            <td class="text-left" ><b>TOTAL CASH:</b></td>
-                            <td  class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total"></b></span></td>
+                        <tr style="font-size:15px">
+                            <td colspan="3" class="text-left" ><b>TOTAL CASH MADE:</b></td>
+                            <td colspan="3" class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_admin_"></b></span></td>
                         </tr>
-                        <tr>
-                            <td class="text-left" ><b>PROFIT:</b></td>
-                            <td  class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_profit"></b></span></td>
-
+                        <tr style="font-size:15px">
+                            <td class="text-left" colspan="3" ><b>PROFIT:</b></td>
+                            <td colspan="3"  class="border_none text-left"><span class="badge badge-success">Ksh.<b id="total_profit"></b></span></td>
 
                         </tr>
                     </table>
@@ -1305,7 +1304,8 @@ $("#attendants_pdf").click(function () {
 	doc.save('LIST_OF_ATTENDANTS');
 
 });
-$(document).ready(function () {
+        $(document).ready(function () {
+            calc_total_admin();
 	$('#collapse').hide();
 	var msg = '@TempData["popup"]'
 	
